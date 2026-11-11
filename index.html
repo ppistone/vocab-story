@@ -333,7 +333,7 @@
     <div id="groupList"></div>
     <div class="pending-note">
       已生成 <b>30 组</b>（前 600 词）。<br>
-      第 1–3 组配有趣味短文；第 4–30 组暂只提供词表。<br>
+      第 1–20 组配有趣味短文 + 中文翻译；第 21–30 组暂只提供词表。<br>
       其余 197 组（约 3947 词）待后续扩展。
     </div>
   </aside>
@@ -510,11 +510,21 @@ const groups = [
   },
   {
     id: 4,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Ninth Street Clinic",
+    storyDesc: `诊所 · 一位针灸医生、一个止痛药成瘾的面包师，和一堆没人愿意填的表`,
     words: ["actual", "actually", "acupuncture", "acute", "ad", "AD/A.D.", "adapt", "adaptation", "add", "addict", "addicted", "addition", "address", "adequate", "adherence", "adjust", "adjustment", "administration", "admirable", "admire"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>Lena Parks ran a small <span class="word" data-w="acupuncture">acupuncture</span> clinic on Ninth Street, in a building that had been a hardware store since about 1890 <span class="word" data-w="AD/A.D.">AD/A.D.</span>. The <span class="word" data-w="actual">actual</span> waiting room was four chairs and a plant, but <span class="word" data-w="actually">actually</span> that was all her patients needed. Her <span class="word" data-w="ad">ad</span> in the neighborhood paper was blunt: "<span class="word" data-w="acute">Acute</span> back pain? Try needles, not pills."</p>
+      <p>The first patient through the door was Victor, a night-shift baker with an <span class="word" data-w="acute">acute</span> injury and a bigger problem — he was <span class="word" data-w="addicted">addicted</span> to painkillers. Every <span class="word" data-w="addict">addict</span> she had ever treated told the same story, and she had learned to <span class="word" data-w="adapt">adapt</span> her treatment to each one. For Victor that meant a slow <span class="word" data-w="adaptation">adaptation</span>: needles on Monday, a walk on Tuesday, one fewer pill each week. In <span class="word" data-w="addition">addition</span>, she <span class="word" data-w="add">added</span> one rule he had to sign — no refills without her.</p>
+      <p>What she could not fix was the paperwork. The hospital <span class="word" data-w="administration">administration</span> wanted her <span class="word" data-w="address">address</span> — the clinic's, not the patients' — and proof of <span class="word" data-w="adherence">adherence</span> to a dozen new rules. Was her staffing <span class="word" data-w="adequate">adequate</span>? Could she <span class="word" data-w="adjust">adjust</span> her hours? Each <span class="word" data-w="adjustment">adjustment</span> cost her a week of patients. Lena found the whole process <span class="word" data-w="admirable">admirable</span> in theory and infuriating in practice.</p>
+      <p>But she <span class="word" data-w="admire">admired</span> one thing: the old woman who came every Thursday without fail. "I do not believe in much," the woman said, "but I believe in showing up."</p>
+    `,
+    storyZhHTML: `
+      <p>莉娜·帕克斯在第九街开了一家小小的针灸诊所，那栋楼从大约公元 1890 年起就是五金店。真正的候诊室只有四把椅子和一盆植物，但实际上，她的病人要的就是这些。她在社区报上登的广告很直白："急性背痛？试试针，别只吃药。"</p>
+      <p>第一个进门的是维克托，一个上夜班的面包师，有急性损伤，还有个更大的问题——他对止痛药上了瘾。她治过的每个成瘾者讲的都是同一套故事，于是她学会了针对每个人调整疗法。对维克托来说，这意味着一个缓慢的适应过程：周一扎针，周二散步，每周少一片药。此外，她还加了一条他必须签字的规矩——没有她，不许续药。</p>
+      <p>她解决不了的是文山会海。医院行政部门要她的地址——诊所的地址，不是病人的——还要她证明遵守了十几条新规定。她的人手够吗？她能调整营业时间吗？每一次调整都要她付出一周的病人。莉娜觉得这套流程理论上令人钦佩，实践上气人。</p>
+      <p>但有一件事她由衷敬佩：那位每周四必到、从不缺席的老太太。"我不太信什么，"老太太说，"但我信人得露面。"</p>
+    `,
     defs: {
       "actual": { pos:"adj.", zh:"真实的，实际的，现实的", ipa:"/ˈæktʃuəl/", freq:300 },
       "actually": { pos:"adv.", zh:"实际上，事实上；（用于开始新话题）其实", ipa:"/ˈæktʃuəli/", freq:300 },
@@ -540,11 +550,21 @@ const groups = [
   },
   {
     id: 5,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Dog Nobody Wanted",
+    storyDesc: `收容所 · 一条三条腿的小猎兔犬，和一个坚称青春期是医学状况的十五岁女孩`,
     words: ["admission", "admit", "adolescence", "adolescent", "adopt", "adorable", "adore", "adult", "advance", "advantage", "adventure", "advertise", "advertisement", "advice", "advise", "advocate", "aerobic", "aesthetic", "affair", "affect"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>Maya was fifteen — deep in <span class="word" data-w="adolescence">adolescence</span>, which she insisted was a medical condition. Every <span class="word" data-w="adolescent">adolescent</span> says that. She spent her Saturdays at the county shelter, where she had to <span class="word" data-w="admit">admit</span> the truth: she wanted to <span class="word" data-w="adopt">adopt</span> every dog in the building. There was one she could not stop thinking about — an <span class="word" data-w="adorable">adorable</span> three-legged beagle that nobody had wanted.</p>
+      <p>The <span class="word" data-w="adult">adult</span> volunteers <span class="word" data-w="adore">adored</span> him; the kids did too. But the shelter had to <span class="word" data-w="advertise">advertise</span> each dog, and the <span class="word" data-w="advertisement">advertisement</span> for this one was terrible: "Needs work." Maya rewrote it. Her <span class="word" data-w="advice">advice</span> to the manager was simple — tell people what he can do, not what he can't. She would never <span class="word" data-w="advise">advise</span> anyone to lie about a dog, but she would happily <span class="word" data-w="advocate">advocate</span> for one.</p>
+      <p><span class="word" data-w="advance">Advance</span> notice: the beagle could run. Maya filmed him doing <span class="word" data-w="aerobic">aerobic</span> laps around the yard, tongue out, ears back, and the video turned a hopeless case into a waiting list. <span class="word" data-w="admission">Admission</span> to the shelter's adoption day was free. <span class="word" data-w="adventure">Adventure</span>, it turned out, was the whole point.</p>
+      <p>The <span class="word" data-w="advantage">advantage</span> of a three-legged dog, Maya told her mother, is that he never pretends. Nothing about him is an <span class="word" data-w="aesthetic">aesthetic</span> choice. As for the <span class="word" data-w="affair">affair</span> of who got to keep him — that <span class="word" data-w="affect">affected</span> the whole family, and it was settled in about four seconds.</p>
+    `,
+    storyZhHTML: `
+      <p>玛雅十五岁，正处在青春期的深处——她坚称那是一种医学状况。每个青少年都这么说。她把每个周六都泡在县动物收容所，在那儿她不得不承认一个事实：她想收养楼里每一只狗。只有一只让她放不下——一只没人要的、可爱到犯规的三条腿小猎兔犬。</p>
+      <p>成年志愿者都爱死他了，孩子们也是。但收容所必须为每只狗打广告，而这只的广告糟透了："需要加工。"玛雅把它重写了。她给经理的建议很简单——告诉人们他能做什么，别强调他不能做什么。她绝不会劝任何人拿一条狗撒谎，但为一条狗说好话，她乐意之至。</p>
+      <p>提前预告：这条小猎兔犬能跑。玛雅拍下他绕着院子做有氧狂奔的样子——舌头甩着、耳朵往后——这段视频把一个"没希望"的案例变成了一张等候名单。收容所领养日免费入场。到头来，冒险本身才是重点。</p>
+      <p>玛雅告诉妈妈，三条腿的狗的好处是，他从不假装。他身上没有任何一处是审美选择。至于最后谁能留下他这件事——那影响了全家，而它在四秒钟内就定了。</p>
+    `,
     defs: {
       "admission": { pos:"n.", zh:"承认，供认；允许进入（加入），进入权", ipa:"/ədˈmɪʃ(ə)n/", freq:165 },
       "admit": { pos:"v.", zh:"（勉强）承认；招认，招供", ipa:"/ədˈmɪt/", freq:111 },
@@ -570,11 +590,21 @@ const groups = [
   },
   {
     id: 6,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Seed Bank",
+    storyDesc: `种子库 · 她从非洲带着一罐蜂蜜离开，二十年后带着一本账册回来`,
     words: ["affection", "afford", "afraid", "Africa", "African", "after", "afternoon", "afterward(s)", "again", "against", "age", "agency", "agenda", "agent", "aggressive", "ago", "agree", "agreement", "agricultural", "agriculture"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>Twenty years <span class="word" data-w="ago">ago</span>, Grace left her village in <span class="word" data-w="Africa">Africa</span> with a scholarship, a suitcase, and her mother's <span class="word" data-w="affection">affection</span> sealed in a jar of honey. She came back <span class="word" data-w="after">after</span> graduate school, an <span class="word" data-w="African">African</span> scientist at the <span class="word" data-w="age">age</span> of thirty-one, with a plan that half the ministry had already voted <span class="word" data-w="against">against</span>.</p>
+      <p>The <span class="word" data-w="agency">agency</span> in the capital loved it on paper; the <span class="word" data-w="agenda">agenda</span> itself was one page. The field <span class="word" data-w="agent">agent</span> loved it in practice. The ministry, less so. "You cannot <span class="word" data-w="afford">afford</span> to be sentimental," one official told her, and Grace, who was not <span class="word" data-w="afraid">afraid</span> of him, said, "This is not sentiment. This is <span class="word" data-w="agriculture">agriculture</span>."</p>
+      <p>She spent the <span class="word" data-w="afternoon">afternoon</span> walking rows of sorghum with the elders, and <span class="word" data-w="afterward(s)">afterward</span> she sat with them <span class="word" data-w="again">again</span> under the same tree. They talked about <span class="word" data-w="agricultural">agricultural</span> credit, about rain, about the <span class="word" data-w="aggressive">aggressive</span> weeds that had taken the eastern field. By dusk they had an <span class="word" data-w="agreement">agreement</span> — three villages, one seed bank, one book of rules.</p>
+      <p>Twenty years ago she had left with a jar of honey; she came back with a ledger. The first harvest filled eight sacks, and the official who had once refused to <span class="word" data-w="agree">agree</span> with her shook her hand and called her, in front of everyone, a good daughter of the valley.</p>
+    `,
+    storyZhHTML: `
+      <p>二十年前，格蕾丝带着一份奖学金、一只行李箱，还有封在蜂蜜罐里的母亲的疼爱，离开了非洲的村子。读完研究生回来时，她三十一岁，是一位非洲科学家，手里那份计划书，部里已经有一半人投过反对票。</p>
+      <p>首都的机构喜欢纸面上的方案；议程本身只有一页。驻点专员喜欢它在实践中的样子。部里则不然。"你没资本多愁善感，"一位官员对她说。格蕾丝不怕他，回了一句："这不是感情用事，这是农业。"</p>
+      <p>她花了一下午和长辈们走在高粱地里，之后又在同一棵树下和他们坐下。他们聊农业信贷，聊雨，聊那片占了东边地的疯长杂草。到傍晚，他们达成了一致——三个村子，一座种子库，一本规则。</p>
+      <p>二十年前她带着一罐蜂蜜离开，回来时带着一本账册。第一次收成装满了八袋，那位曾怀疑她的官员握着她的手，当着所有人的面说，她是这个山谷的好女儿。</p>
+    `,
     defs: {
       "affection": { pos:"n.", zh:"喜爱，关爱；爱恋，爱慕之情", ipa:"/əˈfekʃn/", freq:287 },
       "afford": { pos:"v.", zh:"买得起；有（时间）做某事", ipa:"/əˈfɔːd/", freq:143 },
@@ -600,11 +630,23 @@ const groups = [
   },
   {
     id: 7,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Man Who Fixed the Airport",
+    storyDesc: `塔台 · 机场每年夏天亏掉同样的三小时，直到有人写了一行算法`,
     words: ["ahead", "aid", "AIDS", "ailment", "aim", "air", "air conditioning", "aircraft", "airline", "airmail", "airplane", "airport", "airspace", "alarm", "album", "alcohol", "alcoholic", "alert", "algebra", "algorithm"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="aim">aim</span> was simple: keep the <span class="word" data-w="aircraft">aircraft</span> moving. Every summer the <span class="word" data-w="airline">airline</span> lost money in the same three hours of the afternoon, when the <span class="word" data-w="airport">airport</span> got hot, the <span class="word" data-w="air conditioning">air conditioning</span> in the tower failed, and the <span class="word" data-w="alarm">alarm</span> went off for no reason at all.</p>
+      <p>Sam was the man they called. He had spent twenty years on the ramp, then on the radios, and he could read <span class="word" data-w="airspace">airspace</span> the way other people read a map. He was also, quietly, the only person in the building who could do <span class="word" data-w="algebra">algebra</span> in his head while three phones rang.</p>
+      <p>His fix was an <span class="word" data-w="algorithm">algorithm</span>, though he hated the word. It looked <span class="word" data-w="ahead">ahead</span> four hours, weighed wind against fuel, and moved each <span class="word" data-w="airplane">airplane</span> a little earlier than anyone thought necessary. "It is not magic," he told the board. "It is <span class="word" data-w="aid">aid</span> for tired people."</p>
+      <p>They gave him a plaque and a budget. He bought better <span class="word" data-w="air">air</span> filters, a new microphone, and — because he was sentimental — an <span class="word" data-w="album">album</span> of big-band records for the tower. Someone brought in a bottle of <span class="word" data-w="alcohol">alcohol</span>; someone else pointed out that an <span class="word" data-w="alcoholic">alcoholic</span> drink in a control tower was a bad idea, and the bottle went home in a bag.</p>
+      <p>He still sent his mother letters by <span class="word" data-w="airmail">airmail</span>, and he stayed <span class="word" data-w="alert">alert</span> until the last year, when an <span class="word" data-w="ailment">ailment</span> nobody could name took his hearing. He kept a red ribbon for <span class="word" data-w="AIDS">AIDS</span> research clipped to his lanyard and never explained it to anyone.</p>
+    `,
+    storyZhHTML: `
+      <p>目标很简单：让飞机动起来。每年夏天，航空公司在下午同样的三个小时里亏钱——机场热起来，塔台的空调罢工，警报器无缘无故地响。</p>
+      <p>他们找的人叫萨姆。他在停机坪干了二十年，后来管无线电，他读空域就像别人看地图。他还是楼里唯一一个能在三部电话同时响的时候心算代数的人。</p>
+      <p>他的办法是一套算法，虽然他讨厌这个词。它提前四小时预判，权衡风和油，把每架飞机都安排得比任何人以为必要的更早一点。"这不是魔法，"他对董事会说，"这是给累坏了的人的助力。"</p>
+      <p>他们给了他一块奖牌和一笔预算。他买了更好的空气滤芯、一个新麦克风，还——因为他有点念旧——给塔台买了一套大乐队唱片集。有人带了一瓶烈酒进来；另一个人指出，在管制塔里喝含酒精的饮料是个坏主意，于是那瓶酒装进袋子回了家。</p>
+      <p>他仍然用航空邮件给母亲寄信，也一直保持警觉，直到最后一年，一种谁也叫不出名字的病带走了他的听力。他的挂绳上别着一枚艾滋病研究的红丝带，他从没跟任何人解释过。</p>
+    `,
     defs: {
       "ahead": { pos:"adv.", zh:"在前面，朝前面；领先，占优势", ipa:"/əˈhed/", freq:193 },
       "aid": { pos:"n.", zh:"帮助；援助，救助", ipa:"/eɪd/", freq:156 },
@@ -630,11 +672,23 @@ const groups = [
   },
   {
     id: 8,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Library Cat",
+    storyDesc: `图书馆的猫 · 一位对猫过敏的七十八岁馆员，和一个从不开口的男孩`,
     words: ["alien", "alienate", "align", "alike", "alive", "all", "allergic", "alley", "allocate", "allow", "allowance", "almost", "aloft", "alone", "along", "alongside", "aloud", "alphabet", "alphabetically", "already"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The cat was <span class="word" data-w="already">already</span> living in the <span class="word" data-w="alley">alley</span> behind the library when Dorothy found him — thin, loud, and <span class="word" data-w="almost">almost</span> friendly. She was <span class="word" data-w="allergic">allergic</span> to cats, of course. She was also seventy-eight years old and past caring about small obstacles.</p>
+      <p>The library board did not <span class="word" data-w="allow">allow</span> animals, so Dorothy did not ask. She <span class="word" data-w="allocate">allocated</span> a corner of the reference room, put down a blanket, and named him Melvil, after the man who invented the <span class="word" data-w="alphabet">alphabet</span> system. She shelved new arrivals <span class="word" data-w="alphabetically">alphabetically</span>, and Melvil sat <span class="word" data-w="alongside">alongside</span> the returns cart like a small, breathing bookmark.</p>
+      <p><span class="word" data-w="all">All</span> the children loved him. A boy who had never spoken <span class="word" data-w="aloud">aloud</span> in the building began reading to him <span class="word" data-w="aloud">aloud</span> in the corner, and after that he never stopped. The cat did not care about the story; he cared about the voice. <span class="word" data-w="alike">Alike</span> in nothing, the two of them were <span class="word" data-w="alive">alive</span> in exactly the same way.</p>
+      <p>The board found out, naturally. There was a meeting, there was a vote, and Dorothy was given a monthly <span class="word" data-w="allowance">allowance</span> for cat food and one strict rule: Melvil stays off the desks. She <span class="word" data-w="align">aligned</span> the blanket <span class="word" data-w="along">along</span> the wall, held the cat <span class="word" data-w="aloft">aloft</span> for the photograph in the local paper, and for the first time in years did not feel <span class="word" data-w="alone">alone</span>.</p>
+      <p>The word <span class="word" data-w="alien">alien</span> means foreign, and Dorothy had always felt a little of that in her own town. The cat changed it. Nothing <span class="word" data-w="alienate">alienates</span> a person faster than silence, and nothing fixes it faster than somebody reading out loud.</p>
+    `,
+    storyZhHTML: `
+      <p>多萝西发现那只猫的时候，它已经住在图书馆后面的小巷里了——瘦、吵，几乎算得上友好。当然，她对猫过敏。她还七十八岁了，早就不在乎这种小障碍。</p>
+      <p>图书馆理事会不允许动物入内，所以多萝西没问。她在参考室分出一个角落，铺了条毯子，给它取名梅尔维尔——用的是发明字母分类法的那位先生的名字。她按字母顺序上架新书，梅尔维尔就挨着还书车坐着，像一枚会呼吸的小书签。</p>
+      <p>所有的孩子都喜欢他。一个从没在馆内出过声的男孩开始在角落里对着他大声朗读，此后就再没停过。猫并不在乎故事，他在乎的是那个声音。两人没有一点相像，却以完全相同的方式活着。</p>
+      <p>理事会自然知道了。开了会，投了票，多萝西拿到每月一笔猫粮补贴，和一条硬规矩：梅尔维尔不许上桌。她沿着墙把毯子摆正，为了本地报纸的照片把猫高高举起，多年来第一次不觉得孤单。</p>
+      <p>alien 这个词的意思是"外来的"，而多萝西在自己的小镇里一直有点这种感觉。这只猫改变了它。没有什么比沉默更能让人疏离，也没有什么比有人大声读书更能把人拉回来。</p>
+    `,
     defs: {
       "alien": { pos:"adj.", zh:"陌生的；外国的，异域的", ipa:"/ˈeɪliən/", freq:335 },
       "alienate": { pos:"v.", zh:"使疏远，使敌对；使格格不入", ipa:"/ˈeɪliəneɪt/", freq:335 },
@@ -660,11 +714,23 @@ const groups = [
   },
   {
     id: 9,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Amateur",
+    storyDesc: `业余登山队 · 海拔五千六百米，凌晨四点，而我不是登山者`,
     words: ["also", "alter", "alternative", "although", "altitude", "altogether", "aluminium", "always", "am", "a.m./am/A.M.", "amateur", "amaze", "amazing", "ambassador", "ambassadress", "ambiguous", "ambition", "ambitious", "ambulance", "America"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>I <span class="word" data-w="am">am</span> not a climber. Let me say that first, because at four <span class="word" data-w="a.m./am/A.M.">a.m./am/A.M.</span> on the third morning, at an <span class="word" data-w="altitude">altitude</span> of 5,600 metres, it mattered.</p>
+      <p>I went up with an <span class="word" data-w="amateur">amateur</span> team, <span class="word" data-w="although">although</span> half of them had climbed in Nepal. Our guide carried a roll of <span class="word" data-w="aluminium">aluminium</span> foil, a radio, and an <span class="word" data-w="alternative">alternative</span> route in his head in case the weather <span class="word" data-w="alter">altered</span>.</p>
+      <p><span class="word" data-w="America">America</span> had sent us an <span class="word" data-w="ambassador">ambassador</span>'s wife — the <span class="word" data-w="ambassadress">ambassadress</span>, if you like old words — and she was, <span class="word" data-w="altogether">altogether</span>, the toughest person on the mountain. Her <span class="word" data-w="ambition">ambition</span> was not the summit. It was to prove that a woman of sixty could still be <span class="word" data-w="ambitious">ambitious</span> about something small.</p>
+      <p>An <span class="word" data-w="ambulance">ambulance</span> waited at base camp all week and never moved. The sky was <span class="word" data-w="amazing">amazing</span> — I do not use that word — and it <span class="word" data-w="amaze">amazed</span> me that the team was <span class="word" data-w="always">always</span> in a good mood. The route description had been <span class="word" data-w="ambiguous">ambiguous</span> about one thing only: how cold it got. It was cold.</p>
+      <p>We <span class="word" data-w="also">also</span> learned that the mountain does not care about your resume.</p>
+    `,
+    storyZhHTML: `
+      <p>我不是登山者。这话我得先说，因为在第三天凌晨四点、海拔五千六百米的地方，这件事很重要。</p>
+      <p>我跟着一支业余队伍上去，尽管其中一半人在尼泊尔爬过山。我们的向导带着一卷铝箔、一台无线电，脑子里还装着一条备选路线，以防天气变化。</p>
+      <p>美国派来了一位大使的夫人——如果你喜欢老派说法，叫女大使——总的来说，她是山上最硬的人。她的抱负不是登顶，而是证明一个六十岁的女人仍然可以为一件小事雄心勃勃。</p>
+      <p>一辆救护车整周都停在登山大本营，从没动过。天空美得惊人——我平时不用这个词——而让我惊讶的是，全队情绪总是很好。路线说明只在一件事上含糊不清：到底有多冷。反正很冷。</p>
+      <p>我们还学到一件事：山不在乎你的简历。</p>
+    `,
     defs: {
       "also": { pos:"adv.", zh:"此外，而且；也，同样", ipa:"/ˈɔːlsəʊ/", freq:303 },
       "alter": { pos:"v.", zh:"改变，改动；（使）变化", ipa:"/ˈɔːltə(r)/", freq:336 },
@@ -690,11 +756,23 @@ const groups = [
   },
   {
     id: 10,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "Forty Million Years",
+    storyDesc: `四千万年前的鲸 · 一具挂不上天花板的骨架，和一位扫了三十年地的守夜人`,
     words: ["American", "amid", "among", "amount", "ample", "amuse", "amusement", "analyse/-yze", "analysis", "ancestor", "anchor", "ancient", "and", "anecdote", "anesthesia", "anger", "angle", "angry", "animal", "animation"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p><span class="word" data-w="American">American</span> museums love a giant skeleton, and this one was <span class="word" data-w="ancient">ancient</span>: a whale that had died in a shallow sea forty million years ago. <span class="word" data-w="amid">Amid</span> the scaffolding, <span class="word" data-w="among">among</span> a dozen curators, the director asked the only question that mattered — how much would it weigh?</p>
+      <p>Its <span class="word" data-w="ancestor">ancestor</span> had walked on land, which is the strangest sentence in this story. The answer took six months of <span class="word" data-w="analysis">analysis</span>. The engineer's <span class="word" data-w="angle">angle</span> was clever: hang it at twelve degrees instead of ninety, and the <span class="word" data-w="amount">amount</span> of stress on the ceiling drops by half. <span class="word" data-w="and">And</span> the museum, which had <span class="word" data-w="ample">ample</span> space and no money, suddenly had a plan.</p>
+      <p>The local TV <span class="word" data-w="anchor">anchor</span> came to film it. She wanted an <span class="word" data-w="anecdote">anecdote</span>, something human. What she got was the night watchman, who had swept under that whale for thirty years and could <span class="word" data-w="analyse/-yze">analyse</span> a visitor's mood in ten seconds.</p>
+      <p>The museum also ran a children's room, where a small <span class="word" data-w="animal">animal</span> on an <span class="word" data-w="animation">animation</span> loop <span class="word" data-w="amuse">amused</span> toddlers for hours. <span class="word" data-w="amusement">Amusement</span> is underrated, the watchman said. It is how people learn.</p>
+      <p>In the end the whale went up, and the only <span class="word" data-w="anger">anger</span> in the building belonged to a curator who had wanted it lower. Nobody stayed <span class="word" data-w="angry">angry</span> for long. Then a dentist in the same building gave a lecture on <span class="word" data-w="anesthesia">anesthesia</span> for whales — a joke, mostly.</p>
+    `,
+    storyZhHTML: `
+      <p>美国博物馆都爱一具巨大的骨架，而这一具很古老：一头四千万年前死在浅海里的鲸。脚手架之间、十几位策展人当中，馆长只问了一个真正重要的问题——它挂上去会有多重？</p>
+      <p>它的祖先曾在陆地上行走，这是本文最奇怪的一句话。答案花了六个月的分析。工程师的角度很聪明：按十二度而不是九十度悬挂，天花板承受的应力就减半。于是这座空间充裕、却没钱的博物馆，忽然有了方案。</p>
+      <p>当地电视台的主播来拍它。她想要一段轶事，一点人情味。结果她拍到的是守夜人：他在那头鲸下面扫了三十年地，十秒钟就能分析出一个参观者的心情。</p>
+      <p>博物馆还开了儿童厅，一段循环播放的小动物动画能让幼儿着迷好几个小时。"娱乐被低估了，"守夜人说，"人就是这样学会东西的。"</p>
+      <p>最后鲸挂上去了，馆里唯一的气愤来自一位希望它挂得更低的策展人。没人气太久。后来，同一栋楼里的一位牙医开了场讲座，讲"鲸的麻醉"——主要是开玩笑。</p>
+    `,
     defs: {
       "American": { pos:"n.", zh:"美国人，美洲人；美国英语", ipa:"/əˈmerɪkən/", freq:306 },
       "amid": { pos:"prep.", zh:"在……过程中，在……中；四周是，被……所环绕", ipa:"/əˈmɪd/", freq:334 },
@@ -720,11 +798,23 @@ const groups = [
   },
   {
     id: 11,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Anniversary",
+    storyDesc: `周年跑 · 第十九英里扭伤的脚踝，和父母四十周年的南极之行`,
     words: ["ankle", "annals", "anniversary", "announce", "annoy", "annual", "another", "answer", "ant", "Antarctic", "anthropomorphism", "anticipate", "antioxidant", "antique", "anxiety", "anxious", "any", "anybody", "anyhow", "anymore"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>Every <span class="word" data-w="annual">annual</span> race in the county ends at the same corner, and this year it also ended at the same <span class="word" data-w="ankle">ankle</span>. Mara rolled it at mile nineteen — <span class="word" data-w="another">another</span> injury, <span class="word" data-w="another">another</span> season gone. <span class="word" data-w="anybody">Anybody</span> who has done it knows the sound.</p>
+      <p>She limped home, iced it, and did not <span class="word" data-w="answer">answer</span> her phone for two days. <span class="word" data-w="anxiety">Anxiety</span> is not the same thing as <span class="word" data-w="anxious">anxious</span> thinking, her physio said; one is a body, the other is a habit. He told her not to <span class="word" data-w="anticipate">anticipate</span> pain that had not arrived.</p>
+      <p>Her parents' fortieth <span class="word" data-w="anniversary">anniversary</span> fell on the same weekend. They <span class="word" data-w="announce">announced</span> at dinner that they were going to the <span class="word" data-w="Antarctic">Antarctic</span> — her mother had read about it in the <span class="word" data-w="annals">annals</span> of some travel magazine and had been <span class="word" data-w="anxious">anxious</span> to go ever since.</p>
+      <p>The <span class="word" data-w="ant">ant</span> on the kitchen floor became, that evening, a subject of long conversation. <span class="word" data-w="anthropomorphism">Anthropomorphism</span> is what we do to animals, her father said; we give them <span class="word" data-w="any">any</span> feelings we happen to have spare. <span class="word" data-w="anyhow">Anyhow</span>, he added, this one was carrying a crumb five times its size, and that was worth watching.</p>
+      <p>Mara does not run <span class="word" data-w="anymore">anymore</span>. She swims. It does not <span class="word" data-w="annoy">annoy</span> her; some mornings it does not even hurt. She takes an <span class="word" data-w="antioxidant">antioxidant</span> supplement, more out of habit than hope, and keeps a small <span class="word" data-w="antique">antique</span> clock on the shelf that no longer tells the time.</p>
+    `,
+    storyZhHTML: `
+      <p>县里每一场年度赛跑都在同一个拐角结束，而今年，它也在同一个脚踝结束。玛拉在第十九英里扭了脚踝——又一处伤，又一个报废的赛季。跑过的人都认得那个声音。</p>
+      <p>她一瘸一拐回家，冰敷，两天没接电话。"焦虑"和"焦虑式思维"不是一回事，她的理疗师说；一个是身体，一个是习惯。他叫她别去预支还没到来的疼痛。</p>
+      <p>父母的四十周年结婚纪念日正好落在同一个周末。他们在晚饭时宣布要去南极——她母亲在某个旅行杂志的年鉴栏目里读到过，从此就一直盼着去。</p>
+      <p>那天晚上，厨房地板上的一只蚂蚁成了长时间讨论的话题。"拟人化就是我们干的事，"她父亲说，"把我们多余的感受分给动物。"不管怎样，他补了一句，这只正搬着一块比它大五倍的面包屑，这值得看一会儿。</p>
+      <p>玛拉不再跑步了。她游泳。这不让她心烦；有些早上甚至不疼。她吃一种抗氧化剂补充剂，更多是习惯而非指望，书架上还摆着一只不再报时的小古董钟。</p>
+    `,
     defs: {
       "ankle": { pos:"n.", zh:"脚踝，踝关节", ipa:"/ˈæŋk(ə)l/", freq:290 },
       "annals": { pos:"n.", zh:"年报；编年史", ipa:"/ˈæn(ə)lz/", freq:344 },
@@ -750,11 +840,23 @@ const groups = [
   },
   {
     id: 12,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Applicant",
+    storyDesc: `申请人 · 四页表格的最后一格，他写了一句不该写的话`,
     words: ["anyone", "anything", "anyway", "anywhere", "apart", "apartment", "ape", "apologise/-ize", "apology", "apparent", "apparently", "appeal", "appear", "appearance", "appendix", "appetite", "applaud", "apple", "applicant", "application"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="application">application</span> was four pages long and asked, in the last box, whether there was <span class="word" data-w="anything">anything</span> the <span class="word" data-w="applicant">applicant</span> wished to explain. Joel wrote: "I have no <span class="word" data-w="appetite">appetite</span> for paperwork." He did not get that job. He did get a call about another one.</p>
+      <p>The <span class="word" data-w="apartment">apartment</span> on the fifth floor was falling <span class="word" data-w="apart">apart</span>. It became <span class="word" data-w="apparent">apparent</span> why the rent was so low — the pipes <span class="word" data-w="apparently">apparently</span> dated from 1955 — but the view had real <span class="word" data-w="appeal">appeal</span>. The landlord's <span class="word" data-w="appearance">appearance</span> was that of a man who had not slept since the war. He <span class="word" data-w="appear">appeared</span> at the door in slippers and asked, "Can <span class="word" data-w="anyone">anyone</span> vouch for you?"</p>
+      <p><span class="word" data-w="apart">Apart</span> from his sister, no. She <span class="word" data-w="applaud">applauded</span> anyway. "<span class="word" data-w="anyway">Anyway</span>," she said, "<span class="word" data-w="anywhere">anywhere</span> is better than your old place."</p>
+      <p>On the first night, the man upstairs dropped an <span class="word" data-w="apple">apple</span> off the balcony, and Joel, who had once worked at a zoo, said it reminded him of the <span class="word" data-w="ape">ape</span> house. He went up to <span class="word" data-w="apologise/-ize">apologise</span> for the noise complaint he was about to make. The man's <span class="word" data-w="apology">apology</span> was a bottle of wine and a long, funny story about his <span class="word" data-w="appendix">appendix</span>.</p>
+      <p>Joel put the apple in the fruit bowl and the story in the <span class="word" data-w="appendix">appendix</span> of his notebook, where he kept the good ones.</p>
+    `,
+    storyZhHTML: `
+      <p>那份申请表有四页长，最后一个格子里问申请人是否有什么想说明的。乔尔写道："我对文书工作没有胃口。"那份工作没要他。另一份工作倒是给他打了电话。</p>
+      <p>五楼那套公寓正在散架。为什么租金这么低，很快就清楚了——水管显然是 1955 年的——但窗外风景真有吸引力。房东的样子像个战后就没睡过觉的人。他穿着拖鞋出现在门口，问："有人能给你担保吗？"</p>
+      <p>除了他姐姐，没有。她照样鼓掌。"反正，"她说，"哪儿都比你现在那地方强。"</p>
+      <p>第一晚，楼上那位把一只苹果掉下了阳台。乔尔以前在动物园干过，说这让他想起猿猴馆。他上楼去为自己即将提出的噪音投诉道歉。那人的道歉是一瓶酒，外加一个又长又好笑的故事，讲他的阑尾。</p>
+      <p>乔尔把苹果放进果盘，把那个故事放进笔记本的附录里——好东西他都放那儿。</p>
+    `,
     defs: {
       "anyone": { pos:"pron.", zh:"任何人，无论谁，任何一个人（泛指）", ipa:"/ˈeniwʌn/", freq:306 },
       "anything": { pos:"pron.", zh:"任何事物 （用于含有否定意义的陈述句中）", ipa:"/ˈeniθɪŋ/", freq:306 },
@@ -780,11 +882,23 @@ const groups = [
   },
   {
     id: 13,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Arch",
+    storyDesc: `拱桥 · 一个面包学徒、四十张任性的图纸，和一座该不该拆的老桥`,
     words: ["apply", "appoint", "appointment", "appreciate", "appreciation", "apprenticeship", "approach", "appropriate", "approval", "approve", "approximately", "apron", "arbitrary", "arch", "architect", "architecture", "Arctic", "are", "area", "argue"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>There <span class="word" data-w="are">are</span> two kinds of people in this town: those who <span class="word" data-w="argue">argue</span> about the old <span class="word" data-w="arch">arch</span> bridge, and those who ignore it. Nadia ignored it for eleven years while she finished her <span class="word" data-w="apprenticeship">apprenticeship</span> at the bakery on the corner.</p>
+      <p>Her <span class="word" data-w="approach">approach</span> to bread was simple and, she thought, <span class="word" data-w="appropriate">appropriate</span>: flour, water, salt, time. Her boss did not <span class="word" data-w="approve">approve</span>. He wanted her to <span class="word" data-w="apply">apply</span> for a pastry job in the city; she wanted to <span class="word" data-w="appoint">appoint</span> herself the town's first sourdough historian.</p>
+      <p>She made an <span class="word" data-w="appointment">appointment</span> with the <span class="word" data-w="architect">architect</span> who had surveyed the bridge. He showed her <span class="word" data-w="approximately">approximately</span> forty drawings, each one an act of <span class="word" data-w="arbitrary">arbitrary</span> genius, and explained that the local <span class="word" data-w="architecture">architecture</span> had been copied from a church inside the <span class="word" data-w="Arctic">Arctic</span> circle. No one knew why.</p>
+      <p>She baked a loaf in the shape of the arch and left it in his office with a note: "With <span class="word" data-w="appreciation">appreciation</span>." He called that evening. She wore an <span class="word" data-w="apron">apron</span> to the meeting, which turned out to be the right call; he was covered in plaster dust. He did not <span class="word" data-w="appreciate">appreciate</span> her first joke about dough, but he laughed at the second.</p>
+      <p>The bridge was saved by a narrow vote. Nadia got <span class="word" data-w="approval">approval</span> for the bakery's new sign — one word, ARCH — and a standing order from the surveyor's office. The <span class="word" data-w="area">area</span> around the bridge is now, technically, a historic district. She still argues about it.</p>
+    `,
+    storyZhHTML: `
+      <p>这个镇上有两种人：为那座老拱桥争论的人，和直接无视它的人。娜迪亚无视了它十一年，那段时间她完成了街角面包店的学徒期。</p>
+      <p>她对面包的做法简单，而且她认为恰当：面粉、水、盐、时间。她的老板不认可。他想让她去城里申请一份糕点师的工作；她想任命自己为这个镇上第一位酸种面包史学家。</p>
+      <p>她约了那位测绘过老桥的建筑师。他给她看了大约四十张图纸，每一张都是任性的天才之作，还解释说，当地的建筑样式是从北极圈内一座教堂抄来的。没人知道为什么。</p>
+      <p>她烤了一个拱桥形状的面包，留在他办公室，附了张条子："致以欣赏。"他当晚就打来电话。她戴着围裙去见他，这个选择很对；他满身是灰泥粉。他没欣赏她第一个关于面团的笑话，但第二个他笑了。</p>
+      <p>老桥以微弱优势保住了。娜迪亚拿到了面包店新招牌的批准——就一个词：拱。测绘所还给了她一份长期订单。桥周围那一片现在技术上算历史街区了。她还在为它争论。</p>
+    `,
     defs: {
       "apply": { pos:"v.", zh:"申请；涂，敷", ipa:"/əˈplaɪ/", freq:97 },
       "appoint": { pos:"v.", zh:"任命，指派；约定，安排（日期、时间）", ipa:"/əˈpɔɪnt/", freq:86 },
@@ -810,11 +924,23 @@ const groups = [
   },
   {
     id: 14,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Armchair",
+    storyDesc: `扶手椅侦探 · 一条坏掉扶手的椅子，和一幅挂在没有窗的画廊里的画`,
     words: ["argument", "arise", "arithmetic", "arm", "armchair", "army", "aroma", "around", "arouse", "arrange", "arrangement", "arrest", "arrival", "arrive", "arrow", "art", "article", "artificial", "artist", "as"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>Mr. Park did his best thinking in an <span class="word" data-w="armchair">armchair</span> with a broken <span class="word" data-w="arm">arm</span>, surrounded by the <span class="word" data-w="aroma">aroma</span> of coffee and the <span class="word" data-w="art">art</span> he could not afford. He had been in the <span class="word" data-w="army">army</span> once; now he solved other people's problems from that chair.</p>
+      <p>The <span class="word" data-w="argument">argument</span> started, <span class="word" data-w="as">as</span> arguments do, over something small: a missing <span class="word" data-w="article">article</span> in the local paper about the <span class="word" data-w="arrival">arrival</span> of a new painting. Nobody could explain the <span class="word" data-w="artificial">artificial</span> light in the photograph — the gallery had no windows.</p>
+      <p>He <span class="word" data-w="arrange">arranged</span> three chairs in a row and sat in each in turn, following a different <span class="word" data-w="arrow">arrow</span> of sight each time. The <span class="word" data-w="arrangement">arrangement</span> made no sense to his daughter. "<span class="word" data-w="arithmetic">Arithmetic</span>," he said. "Everything is arithmetic."</p>
+      <p>Questions began to <span class="word" data-w="arise">arise</span>. Who had keys? Who had access? The <span class="word" data-w="artist">artist</span> had <span class="word" data-w="arrive">arrived</span> two days early, which was in the paper if you read to the bottom. The <span class="word" data-w="arrest">arrest</span> came on a Thursday and was, he admitted, the least dramatic arrest in the history of the county.</p>
+      <p>What <span class="word" data-w="arouse">aroused</span> his interest was not the theft but the motive: the painting had been copied, badly, and hung where the original had been. He never said a word <span class="word" data-w="around">around</span> the station. He just went home and sat down again.</p>
+    `,
+    storyZhHTML: `
+      <p>帕克先生最好的思考都发生在一张扶手椅上——那椅子一条扶手是坏的——四周是咖啡的香气和他买不起的艺术品。他当过兵；如今他坐在那张椅子上解决别人的问题。</p>
+      <p>争论像所有争论一样，是由一件小事起的：本地报纸上缺了一篇文章，讲的是某幅新画运到。没人解释得清照片里的那种人造光——那间画廊没有窗。</p>
+      <p>他把三把椅子排成一行，挨个坐过去，每次顺着一条不同的视线箭头看。这个安排在女儿看来毫无道理。"算术，"他说，"一切都是算术。"</p>
+      <p>问题开始冒出来。谁有钥匙？谁有权限？画家本人提前两天就到了，这事在报纸最后几行里写着。逮捕发生在一个周四，他承认，那是本县历史上最不戏剧化的一次逮捕。</p>
+      <p>激起他兴趣的不是偷窃，而是动机：那幅画被拙劣地复制过，挂在了原作的位置上。他在警局里一个字都没说。他只是回家，又坐下了。</p>
+    `,
     defs: {
       "argument": { pos:"n.", zh:"争论，争吵；论据，理由", ipa:"/ˈɑːɡjumənt/", freq:113 },
       "arise": { pos:"v.", zh:"产生，出现；起源（于），由……引出", ipa:"/əˈraɪz/", freq:222 },
@@ -840,11 +966,23 @@ const groups = [
   },
   {
     id: 15,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "Twelve Grams",
+    storyDesc: `十二克 · 火山灰落了一周，实验室从土里测出了不该有的东西`,
     words: ["ash", "ashamed", "Asia", "Asian", "aside", "ask", "asleep", "aspect", "ass", "assay", "assemble", "assess", "assessment", "asset", "assign", "assist", "assistance", "assistant", "associate", "association"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The lab in <span class="word" data-w="Asia">Asia</span> smelled of <span class="word" data-w="ash">ash</span> — not metaphorically. A volcano two hundred kilometres away had dusted the city for a week, and every sample on the bench carried it. Mei was the newest <span class="word" data-w="assistant">assistant</span>, and she was <span class="word" data-w="ashamed">ashamed</span> of how much she liked the smell.</p>
+      <p>Her job was to <span class="word" data-w="assay">assay</span> the samples: twelve grams, three runs, one number. <span class="word" data-w="aside">Aside</span> from the dust, the soil was ordinary. <span class="word" data-w="ask">Ask</span> anyone in the department; they would tell you the same.</p>
+      <p>The <span class="word" data-w="assessment">assessment</span> came back with one strange <span class="word" data-w="aspect">aspect</span>: the eastern fields were rich in selenium, which nobody had expected. Mei had to <span class="word" data-w="assess">assess</span> whether the equipment or the soil was lying, so she <span class="word" data-w="assemble">assembled</span> a second set of samples and ran them again.</p>
+      <p>Her supervisor, an <span class="word" data-w="Asian">Asian</span> geologist with an <span class="word" data-w="association">association</span> to a university in Tokyo, asked her to <span class="word" data-w="assist">assist</span> with the write-up. She needed no <span class="word" data-w="assistance">assistance</span> deciding what to say. The selenium was real, and it was an <span class="word" data-w="asset">asset</span> — a marketable one.</p>
+      <p>They <span class="word" data-w="assign">assigned</span> her the follow-up study and <span class="word" data-w="associate">associated</span> her name with the paper. In the spring she had to stand up with her hands <span class="word" data-w="asleep">asleep</span> from nerves and present it to forty people. Her brother, who considered geology a waste of a life, called the whole project a pain in the <span class="word" data-w="ass">ass</span>; she laughed, because he was not entirely wrong.</p>
+    `,
+    storyZhHTML: `
+      <p>亚洲的这间实验室有一股灰烬味——不是比喻。两百公里外的一座火山让这座城市落了整整一周的灰，工作台上每个样品都带着它。梅是最新来的助理，她为自己竟然喜欢这个味道而羞愧。</p>
+      <p>她的工作是化验样品：十二克，跑三次，出一个数。除了那层灰，土壤很普通。去问系里任何人，他们都会这么说。</p>
+      <p>评估报告回来时带了一个奇怪的方面：东部田地的硒含量很高，这没人预料到。梅必须判断是仪器在撒谎还是土壤在撒谎，于是她又配了一组样品重跑。</p>
+      <p>她的主管是一位亚洲地质学家，与东京一所大学有合作，让她协助撰写报告。她并不需要别人帮忙判断该说什么。硒是真的，而且它是一种资产——能卖钱的那种。</p>
+      <p>他们把后续研究分配给了她，也把她的名字和那篇论文关联在一起。春天，她得站起来，双手因紧张而发麻，向四十个人做陈述。她哥哥认为地质学是浪费生命，把这整个项目称作"一桩屁事"；她笑了，因为他并没有全错。</p>
+    `,
     defs: {
       "ash": { pos:"n.", zh:"（香烟或木头等的）灰；灰烬，废墟", ipa:"/æʃ/", freq:276 },
       "ashamed": { pos:"adj.", zh:"感到羞愧，感到羞耻；羞于（做某事）", ipa:"/əˈʃeɪmd/", freq:225 },
@@ -870,11 +1008,23 @@ const groups = [
   },
   {
     id: 16,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Hill Above the Atlantic",
+    storyDesc: `大西洋上方的山丘 · 一个哮喘男孩，和一台用邮筒做的望远镜`,
     words: ["assume", "assumption", "asthma", "astonish", "astronaut", "astronomer", "astronomy", "at", "athlete", "athletic", "Atlantic", "atmosphere", "atom", "attach", "attack", "attain", "attempt", "attend", "attention", "attitude"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>Everyone <span class="word" data-w="assume">assumed</span> that the boy with <span class="word" data-w="asthma">asthma</span> would sit out gym. It was a reasonable <span class="word" data-w="assumption">assumption</span>, and it was wrong. He could not run a mile, but he could name every star in the northern sky while the rest of us were still tying our shoes.</p>
+      <p>His name was Ellis. He was not an <span class="word" data-w="athlete">athlete</span> in the <span class="word" data-w="athletic">athletic</span> sense and never pretended to be. <span class="word" data-w="at">At</span> sixteen he wrote to NASA; a form letter came back, and he framed it. His <span class="word" data-w="attitude">attitude</span> toward that letter told you everything.</p>
+      <p>The <span class="word" data-w="astronomer">astronomer</span> who ran our club was sixty and had never <span class="word" data-w="attempt">attempted</span> to leave the state. She had <span class="word" data-w="attach">attached</span> a note to the club door: "If you want to <span class="word" data-w="attain">attain</span> something, <span class="word" data-w="attend">attend</span> first." Twelve of us did. Her <span class="word" data-w="attention">attention</span> to one question — why some stars flicker and others do not — was total.</p>
+      <p>The <span class="word" data-w="astronomy">astronomy</span> unit ended with a field trip to a hill above the <span class="word" data-w="Atlantic">Atlantic</span>. Ellis brought a telescope he had built from a mailing tube and a lens he had ground himself, which <span class="word" data-w="astonish">astonished</span> everyone. The <span class="word" data-w="atmosphere">atmosphere</span> was so clear that a single <span class="word" data-w="atom">atom</span> of streetlight, forty miles off, seemed to bend.</p>
+      <p>He never became an <span class="word" data-w="astronaut">astronaut</span>. He became a respiratory therapist, which is a longer word and, he says, a better job. An <span class="word" data-w="attack">attack</span> of coughing still takes him at the top of the hill. He goes up anyway.</p>
+    `,
+    storyZhHTML: `
+      <p>大家都以为那个有哮喘的男孩会免上体育课。这个假设很合理，但错了。他跑不了一英里，可他能说出北半球天空里每一颗星的名字，而我们还在系鞋带。</p>
+      <p>他叫埃利斯。他不是运动意义上的运动员，也从不假装是。十六岁时他给 NASA 写信；收到一封模板回信，他把它装裱起来。他对那封信的态度，说明了一切。</p>
+      <p>带我们社团的天文学家六十岁，从没打算离开过这个州。她在社团门上贴了张纸条："想得到什么，先来出席。"我们十二个人来了。她对一个问题的专注——为什么有些星星闪、有些不闪——是全然的。</p>
+      <p>天文学单元以一次去大西洋边山上的郊游收尾。埃利斯带了一台他自己做的望远镜，镜筒是邮寄纸筒，镜片是他自己磨的，这让所有人大吃一惊。那晚大气通透到，四十英里外一盏路灯的一个原子都像是弯的。</p>
+      <p>他最终没成为宇航员，而是做了呼吸治疗师——这个词更长，他说，也是更好的工作。爬到山顶，一阵咳嗽仍会找上他。他还是照去。</p>
+    `,
     defs: {
       "assume": { pos:"v.", zh:"假定，假设，认为；装出，做出", ipa:"/əˈsjuːm/", freq:245 },
       "assumption": { pos:"n.", zh:"假定，假设；取得，承担", ipa:"/əˈsʌmpʃn/", freq:266 },
@@ -900,11 +1050,23 @@ const groups = [
   },
   {
     id: 17,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Long Way Round",
+    storyDesc: `绕远路 · 从澳洲来的姑姑、十九个听众，和一次什么都没查出来的审计`,
     words: ["attract", "attraction", "attractive", "audience", "audio", "audit", "aunt", "Australia", "Australian", "author", "authorise/-ize", "authority", "autism", "automatic", "autonomous", "autumn", "available", "avenue", "average", "aviation"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>My <span class="word" data-w="aunt">aunt</span> Robyn came over from <span class="word" data-w="Australia">Australia</span> every <span class="word" data-w="autumn">autumn</span>, and every autumn she volunteered at the community radio station on Fifth <span class="word" data-w="avenue">Avenue</span>. She was <span class="word" data-w="Australian">Australian</span> to the bone: loud, funny, and completely unimpressed by <span class="word" data-w="authority">authority</span>.</p>
+      <p>The station had an <span class="word" data-w="audit">audit</span> that year. The <span class="word" data-w="author">author</span> of the report had never listened to the station, and his findings were <span class="word" data-w="average">average</span> at best. The licensing <span class="word" data-w="authority">authority</span> came down, asked three questions, and left.</p>
+      <p>Robyn's show was called The Long Way Round. Her <span class="word" data-w="audience">audience</span> was nineteen people, one of whom was usually me. She <span class="word" data-w="attract">attracted</span> listeners the way a porch light attracts moths — slowly, then all at once. Her <span class="word" data-w="attraction">attraction</span> was simple: she never pretended to know more than she did.</p>
+      <p>The manager <span class="word" data-w="authorise/-ize">authorised</span> a new <span class="word" data-w="audio">audio</span> booth, an <span class="word" data-w="automatic">automatic</span> transmitter, and something called an <span class="word" data-w="autonomous">autonomous</span> news feed, which nobody trusted. In <span class="word" data-w="aviation">aviation</span> terms the station was a glider: no engine, very good at staying up. It also ran a Saturday hour written and produced by young people on the <span class="word" data-w="autism">autism</span> spectrum, and it was the best-produced hour of the week.</p>
+      <p>By spring the booth was <span class="word" data-w="available">available</span> to anyone who could book sixty minutes. The most <span class="word" data-w="attractive">attractive</span> thing about it, Robyn said, was that it was empty.</p>
+    `,
+    storyZhHTML: `
+      <p>我姑姑罗宾每年秋天都从澳大利亚飞过来，每年秋天都在第五大道那家社区电台做志愿者。她是骨子里的澳洲人：嗓门大、好笑，而且完全不把权威当回事。</p>
+      <p>那家电台那年接受审计。报告的撰写者从没听过这家电台，他的结论充其量是中等水平。发照机关来了人，问了三个问题，走了。</p>
+      <p>罗宾的节目叫《绕远路》。她的听众有十九个人，其中一个通常是我。她吸引听众的方式像门廊灯吸引飞蛾——先很慢，然后一下子全来了。她的吸引力很简单：她从不假装自己懂得比实际多。</p>
+      <p>台长批准了一间新的音频录音间、一台自动发射机，还有一样叫"自主新闻流"的东西，没人信它。用航空业的说法，这家电台是架滑翔机：没有发动机，特别擅长待在空中。它还播出一档由自闭症谱系的年轻人自己写、自己制作的周六节目，那是全周制作最好的一小时。</p>
+      <p>到春天，那间录音间已经向任何能预订六十分钟的人开放了。罗宾说，它最迷人的地方是它是空的。</p>
+    `,
     defs: {
       "attract": { pos:"v.", zh:"吸引；（物体间）产生引力", ipa:"/əˈtrækt/", freq:98 },
       "attraction": { pos:"n.", zh:"有吸引力的事物；吸引力", ipa:"/əˈtrækʃ(ə)n/", freq:169 },
@@ -930,11 +1092,23 @@ const groups = [
   },
   {
     id: 18,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Badge",
+    storyDesc: `证件 · 一张卫生检查证、一块砧板，和一个不肯走捷径的老板`,
     words: ["avoid", "awake", "award", "aware", "away", "awe", "awesome", "awful", "awkward", "baby", "bachelor", "back", "background", "backup", "backward(s)", "bacon", "bacterium", "bad", "badge", "badly"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="badge">badge</span> came out of a coat pocket, and the kitchen went quiet. Health inspectors do not need to raise their voice; they only need to be <span class="word" data-w="aware">aware</span> that everyone has stopped talking. <span class="word" data-w="away">Away</span> from the fryer, a cook was wiping his hands on an <span class="word" data-w="awful">awful</span> grey cloth.</p>
+      <p>The report was going to be <span class="word" data-w="bad">bad</span>, and I knew it <span class="word" data-w="badly">badly</span>. There was <span class="word" data-w="bacon">bacon</span> in a drawer that should have been cold, and a <span class="word" data-w="bacterium">bacterium</span> count on the cutting board that would make a <span class="word" data-w="baby">baby</span> cry.</p>
+      <p>The owner was a <span class="word" data-w="bachelor">bachelor</span> in his fifties who had run the place since he was twenty-two. He followed me <span class="word" data-w="back">back</span> to the counter and stood at an <span class="word" data-w="awkward">awkward</span> angle, half turned <span class="word" data-w="backward(s)">backward</span> to watch his own cook.</p>
+      <p>I gave him a list, <span class="word" data-w="backup">backup</span> copies of the same list, and a date. "<span class="word" data-w="avoid">Avoid</span> the shortcuts," I said. "They cost more." He nodded, and something in his <span class="word" data-w="background">background</span> — nineteen years, no serious violations — made me want him to pass.</p>
+      <p>He passed on the second visit. There was an <span class="word" data-w="award">award</span> on the wall by the register, framed badly, from a local paper. I had been <span class="word" data-w="awake">awake</span> since four, and I looked at that frame with something close to <span class="word" data-w="awe">awe</span>. He offered me a bacon sandwich, on the house. I said no. Then I said yes. It was <span class="word" data-w="awesome">awesome</span>, and I do not use that word.</p>
+    `,
+    storyZhHTML: `
+      <p>证件从外套口袋里掏出来，厨房就安静了。卫生检查员不需要提高嗓门，他们只需要意识到所有人都不说话了。离油锅远一点的地方，一个厨师正用一块难看的灰抹布擦手。</p>
+      <p>报告会很糟，而我很清楚它有多糟。抽屉里有该冷藏的培根，砧板上的细菌数能让一个婴儿哭出来。</p>
+      <p>老板五十多岁的单身汉，二十二岁起就经营这家店。他跟着我回到柜台，站成一个别扭的角度，半侧着身子往后看自己的厨师。</p>
+      <p>我给了他一张清单、几份同样的清单副本，和一个期限。"别走捷径，"我说，"捷径更贵。"他点头，而他背景里的某些东西——十九年，无重大违规——让我希望他能过。</p>
+      <p>第二次复查他过了。收银台旁边的墙上挂着一个奖，相框装得很糟，是本地报纸给的。我从凌晨四点就没睡，看着那个框子，心里近乎敬畏。他请我吃一个培根三明治，店里的。我说不用。然后我说好。那真了不起——我平时不用这个词。</p>
+    `,
     defs: {
       "avoid": { pos:"v.", zh:"避免，防止；回避，避开", ipa:"/əˈvɔɪd/", freq:84 },
       "awake": { pos:"adj.", zh:"醒着的", ipa:"/əˈweɪk/", freq:236 },
@@ -960,11 +1134,23 @@ const groups = [
   },
   {
     id: 19,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Bakery on the Square",
+    storyDesc: `广场上的面包店 · 脾气最坏的面包师、一只红气球，和一袋当行李的节日`,
     words: ["badminton", "bad-tempered", "bag", "baggage", "bake", "baker", "bakery", "balance", "balcony", "bald", "ball", "ballet", "balloon", "bamboo", "ban", "banana", "band", "bandage", "bandwagon", "bang"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="bakery">bakery</span> on the square had a <span class="word" data-w="balcony">balcony</span>, a <span class="word" data-w="bald">bald</span> owner, and a <span class="word" data-w="ban">ban</span> on mobile phones that everybody ignored. His name was Piotr, and he was, by general agreement, the most <span class="word" data-w="bad-tempered">bad-tempered</span> man in town — and the best <span class="word" data-w="baker">baker</span>.</p>
+      <p>Every morning he <span class="word" data-w="bake">baked</span> the same nine things: rye, sourdough, a seed loaf, four kinds of roll, a <span class="word" data-w="banana">banana</span> bread, and a <span class="word" data-w="bamboo">bamboo</span>-steamed bun that made no sense in that town and sold out by eight.</p>
+      <p>On Saturdays the square filled up: <span class="word" data-w="badminton">badminton</span> on the grass, a <span class="word" data-w="ballet">ballet</span> class in the hall above the pharmacy, a <span class="word" data-w="band">band</span> that played loudly and badly, and children chasing a <span class="word" data-w="ball">ball</span> that was always the same ball, year after year.</p>
+      <p>Then someone hung a red <span class="word" data-w="balloon">balloon</span> from the lamppost and started a <span class="word" data-w="bandwagon">bandwagon</span>: the whole street wanted flags, bunting, a festival. Piotr wanted quiet. He stood in the doorway with a <span class="word" data-w="bag">bag</span> of flour on his shoulder and said, "A festival is just <span class="word" data-w="baggage">baggage</span> with music."</p>
+      <p>That summer he fell off a ladder, cut his arm, and let the baker's daughter wrap it in a <span class="word" data-w="bandage">bandage</span> because he refused to close early. The screen door went <span class="word" data-w="bang">bang</span> behind her. He kept his <span class="word" data-w="balance">balance</span>, said nothing, and went back to the oven.</p>
+    `,
+    storyZhHTML: `
+      <p>广场上那家面包店有个阳台、一个秃头老板，还有一条所有人都无视的禁打手机规定。他叫彼得，全镇公认脾气最坏的人——也是最好的面包师。</p>
+      <p>每天早上他烤同样的九样东西：黑麦、酸种、种子面包、四种小圆面包、一条香蕉面包，还有一种竹屉蒸的包子——在这个镇上毫无道理，却总在八点前卖光。</p>
+      <p>周六广场就满了：草地上的羽毛球，药房楼上厅里的芭蕾课，一支又响又难听的乐队，还有追着一只球的孩子们——那只球年年都是同一只。</p>
+      <p>后来有人在路灯上挂了一只红气球，带起了风气：整条街都想要旗子、彩带、一个节日。彼得想要安静。他肩上扛着一袋面粉站在门口说："节日就是带音乐的行李。"</p>
+      <p>那年夏天他从梯子上摔下来，割伤了手臂，却让面包师的女儿给他缠上绷带，因为他不肯提前关门。纱门在她身后"砰"地一声。他保持了平衡，什么也没说，回炉子边去了。</p>
+    `,
     defs: {
       "badminton": { pos:"n.", zh:"羽毛球", ipa:"/ˈbædmɪntən/", freq:313 },
       "bad-tempered": { pos:"adj.", zh:"脾气不好的，易怒的", ipa:"/ˌbæd ˈtempəd/", freq:344 },
@@ -990,11 +1176,23 @@ const groups = [
   },
   {
     id: 20,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "Saturday",
+    storyDesc: `周六 · 理发店、酒吧、烧烤，和地下室墙上的那个篮筐`,
     words: ["bank", "bank", "bar", "barbecue", "barber", "barbershop", "bare", "barely", "bargain", "bark", "barrier", "base", "baseball", "basement", "basic", "basin", "basis", "basket", "basketball", "bat"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>In this town, Saturday starts at the <span class="word" data-w="barbershop">barbershop</span>. The <span class="word" data-w="barber">barber</span> is seventy-one, has cut hair here for forty years, and talks about <span class="word" data-w="baseball">baseball</span> the way other men talk about the weather. The <span class="word" data-w="bank">bank</span> next door has changed owners three times; the barber has not changed chairs.</p>
+      <p>By noon the <span class="word" data-w="bar">bar</span> opens, and by one the <span class="word" data-w="barbecue">barbecue</span> starts smoking out back. There is a <span class="word" data-w="basket">basket</span> of bread on every table, and a <span class="word" data-w="bat">bat</span> above the door that nobody can explain — signed by somebody, probably.</p>
+      <p>The <span class="word" data-w="base">base</span> of all of it is the low brick <span class="word" data-w="barrier">barrier</span> between the sidewalk and the street, where kids sit. On summer nights the wall is <span class="word" data-w="bare">bare</span> of space by seven and <span class="word" data-w="barely">barely</span> wide enough for a <span class="word" data-w="basin">basin</span> of ice and four coolers.</p>
+      <p>The <span class="word" data-w="basis">basis</span> for the town's economy is <span class="word" data-w="basic">basic</span>: feed people, cut hair, lend money. The <span class="word" data-w="bargain">bargain</span> is understood. You <span class="word" data-w="bark">bark</span> at your neighbor about the game, you buy a round, and by dark you are friends again.</p>
+      <p>In the <span class="word" data-w="basement">basement</span> under the bar, someone painted a <span class="word" data-w="basketball">basketball</span> hoop on the wall, and photos of every team since 1961 hang beside it. The barber is in most of them, and he is also, if you ask, the reason the <span class="word" data-w="bank">bank</span> keeps the town's money in town.</p>
+    `,
+    storyZhHTML: `
+      <p>在这个镇上，周六从理发店开始。理发师七十一岁，在这儿剪了四十年头发，聊棒球的样子就像别人聊天气。隔壁那家银行换过三次东家；理发师的椅子没换过。</p>
+      <p>中午酒吧开门，一点后院开始冒烧烤的烟。每张桌上都有一篮面包，门口上方挂着一根没人解释得清的球棒——大概是某个人签的名。</p>
+      <p>这一切的基础是人行道和街道之间那道矮砖屏障，孩子们坐在上面。夏夜七点，那道墙上就一点空位都没有了，宽度勉强够放一盆冰和四个保温箱。</p>
+      <p>这个镇子的经济基础很基本：喂人、剪头、借钱。这桩交易大家都懂。你为比赛冲邻居吼两句，你请一轮酒，天黑前你们又是朋友了。</p>
+      <p>酒吧地下室有人在墙上画了个篮球筐，旁边挂着 1961 年以来每支球队的照片。理发师在大多数照片里；如果你问，他还是那家银行把钱留在这个镇上的原因。</p>
+    `,
     defs: {
       "bank": { pos:"n.", zh:"银行；储蓄罐", ipa:"/bæŋk/", freq:307 },
       "bank": { pos:"n.", zh:"银行；储蓄罐", ipa:"/bæŋk/", freq:309 },
