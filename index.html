@@ -332,8 +332,7 @@
     <p class="sub">每 20 词一组 · 点击查看词表与发音</p>
     <div id="groupList"></div>
     <div class="pending-note">
-      已生成 <b>30 组</b>（前 600 词）。<br>
-      第 1–20 组配有趣味短文 + 中文翻译；第 21–30 组暂只提供词表。<br>
+      已生成 <b>30 组</b>（前 600 词），<b>1–30 组全部配有趣味短文 + 中文翻译</b>。<br>
       其余 197 组（约 3947 词）待后续扩展。
     </div>
   </aside>
@@ -1218,11 +1217,23 @@ const groups = [
   },
   {
     id: 21,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Light at the Bay",
+    storyDesc: `灯塔 · 从公元前就在的海湾，一个把海当邻居的守塔人`,
     words: ["bath", "bathe", "bathroom", "bathtub", "battery", "battle", "bay", "BC/B.C.", "be", "beach", "bead", "beak", "beam", "bean", "bear", "beard", "beast", "beat", "beautiful", "beauty"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The lighthouse at the mouth of the <span class="word" data-w="bay">bay</span> had stood there since 300 <span class="word" data-w="BC/B.C.">BC/B.C.</span>, or so the sign said. The keeper liked to <span class="word" data-w="be">be</span> exact: the tower itself was built in 1891, and the <span class="word" data-w="beautiful">beautiful</span> view from the gallery was, he said, the only <span class="word" data-w="beauty">beauty</span> on that coast which did not sell tickets.</p>
+      <p>He had a <span class="word" data-w="beard">beard</span> that made him look like a <span class="word" data-w="beast">beast</span> in old photographs, a bad knee, and a <span class="word" data-w="battery">battery</span> radio he kept in the <span class="word" data-w="bathroom">bathroom</span>, where the <span class="word" data-w="bathtub">bathtub</span> had held rope since 1974. In summer he would <span class="word" data-w="bathe">bathe</span> off the <span class="word" data-w="beach">beach</span> at six, before the cars came; in winter he took a cold <span class="word" data-w="bath">bath</span> in the kitchen and ate the same lunch — bread, a can of <span class="word" data-w="bean">bean</span>s, an apple.</p>
+      <p>The <span class="word" data-w="beam">beam</span> was old but honest. On foggy nights it broke into a string of <span class="word" data-w="bead">bead</span>s along the wet rail, and the gulls on the sill turned their heads without opening a <span class="word" data-w="beak">beak</span>. Every night was a small <span class="word" data-w="battle">battle</span> against the dark, and he won it the same way every time: by showing up.</p>
+      <p>What he could not <span class="word" data-w="bear">bear</span> was August. The beach filled, the bay filled with boats, and the radio played the same four songs. He would <span class="word" data-w="beat">beat</span> the dust off his cap against the rail and wait for September.</p>
+      <p>Nobody ever asked him why he stayed, and he would not have had an answer. He was no poet. He just liked the second when the beam swung past and the whole bay went white, like a room with the light switched on.</p>
+    `,
+    storyZhHTML: `
+      <p>海湾口那座灯塔从公元前 300 年就立在那儿了——至少牌子是这么写的。守塔人喜欢精确一点：塔本身是 1891 年建的，而从观景廊看出去的景色，他说，是这片海岸上唯一不需要门票的美。</p>
+      <p>他有一把胡子，旧照片里看着像头野兽；一条坏膝盖；一台电池收音机，放在浴室里——那间浴室的浴缸从 1974 年起就用来堆绳子。夏天他六点去海滩边的水里泡一泡，赶在车来之前；冬天就在厨房洗个冷水澡，午饭永远是同样的东西：面包、一罐豆子、一个苹果。</p>
+      <p>那道光很旧，但很老实。起雾的夜里，光在湿漉漉的栏杆上碎成一串珠子，窗台上的海鸥转过头，连喙都不张。每一夜都是一场对抗黑暗的小仗，而他每次都用一个办法赢：出现。</p>
+      <p>他受不了的是八月。海滩满了，海湾里满是船，收音机翻来覆去就那四首歌。他会把帽子在栏杆上拍掉灰，等九月。</p>
+      <p>从没有人问过他为什么留下，他也答不上来。他不是诗人。他只是喜欢光扫过去的那一秒——整个海湾白了一下，像有人给一间屋子开了灯。</p>
+    `,
     defs: {
       "bath": { pos:"n.", zh:"浴缸，浴盆；洗澡，沐浴", ipa:"/bɑːθ/", freq:309 },
       "bathe": { pos:"v.", zh:"洗澡，给（某人）洗澡；游泳，嬉水", ipa:"/beɪð/", freq:205 },
@@ -1248,11 +1259,23 @@ const groups = [
   },
   {
     id: 22,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Bee in the Bedroom",
+    storyDesc: `蜂 · 六点钟的门铃、卧室里的蜂，和一扇关不严的窗`,
     words: ["because", "become", "bed", "bedroom", "bee", "beef", "beer", "before", "beg", "begin", "behalf", "behave", "behavior(u)r", "behind", "being", "belief", "believe", "bell", "belly", "belong"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="bell">bell</span> at reception rang at six, which is never good news. The complaint <span class="word" data-w="begin">began</span>, as complaints do, with a <span class="word" data-w="bee">bee</span>. It had got into the <span class="word" data-w="bedroom">bedroom</span> through a window that did not close, and it had found its way to the <span class="word" data-w="bed">bed</span> <span class="word" data-w="because">because</span> somebody had left a glass of <span class="word" data-w="beer">beer</span> on the nightstand.</p>
+      <p>The guest did not <span class="word" data-w="beg">beg</span> for a refund. She described, in detail, the <span class="word" data-w="behavior(u)r">behavior</span> of the insect and then her own. "I <span class="word" data-w="behave">behaved</span> well," she said. "I did not scream." I told her I <span class="word" data-w="believe">believed</span> her, and I did; her <span class="word" data-w="belief">belief</span> in the hotel was still intact, and she only wanted the window fixed.</p>
+      <p>I was the manager that week, so the problem was mine on <span class="word" data-w="behalf">behalf</span> of an owner who was in Florida. I went up to look. <span class="word" data-w="behind">Behind</span> the curtain was a nest the size of a fist, and the room, I realized, did not really <span class="word" data-w="belong">belong</span> to us at all.</p>
+      <p>We moved her downstairs, gave her dinner — <span class="word" data-w="beef">beef</span>, not the fish — and I sat with her until the dining room emptied. I did not enjoy <span class="word" data-w="being">being</span> the person who explains bees. She was a woman whose laugh came from her <span class="word" data-w="belly">belly</span>, and she used it on me twice.</p>
+      <p>By morning the nest was gone and the window was sealed. The hotel did not <span class="word" data-w="become">become</span> famous for anything that week. But <span class="word" data-w="before">before</span> she left, she wrote a note: "The bee was not your fault. The beef was excellent."</p>
+    `,
+    storyZhHTML: `
+      <p>前台的门铃六点响了，这从来不是什么好消息。投诉也像所有投诉一样，是从一只蜂开始的。它从一扇关不严的窗进了卧室，然后一路找到了床——因为有人在床头柜上留了杯啤酒。</p>
+      <p>客人没有要求退款。她详细描述了那只虫的行为，然后描述了自己的。"我表现很好，"她说，"我没叫。"她对这家酒店的信任还在，她只想把那扇窗修好。</p>
+      <p>那周我是经理，所以这事算我的，代表一位在佛罗里达的老板。我上去看。窗帘后面有个拳头大的巢，而那间房，我意识到，其实并不属于我们。</p>
+      <p>我们把她换到楼下，给她上了晚饭——牛肉，不是鱼——我陪她坐到餐厅空掉。我并不享受当那个解释蜜蜂的人。她是那种笑声从肚子里出来的人，她对我用了两次。</p>
+      <p>到早上，巢没了，窗也封好了。那周这家酒店没有因为任何事出名。但她走之前留了张条子："蜂不是你的错。牛肉很好。"</p>
+    `,
     defs: {
       "because": { pos:"conj.", zh:"（说明原因）因为，由于；（作出解释）因为", ipa:"/bɪˈkəz; bɪˈkɒz/", freq:304 },
       "become": { pos:"v.", zh:"变得，变成，成为；适合，使显得漂亮", ipa:"/bɪˈkʌm/", freq:302 },
@@ -1278,11 +1301,23 @@ const groups = [
   },
   {
     id: 23,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Bid",
+    storyDesc: `拍卖 · 一辆红色旧自行车，和一个不愿看你的邻居`,
     words: ["below", "belt", "bench", "bend", "beneath", "beneficial", "benefit", "bent", "beside", "besides", "best", "bet", "betray", "better", "between", "beware", "beyond", "bias", "bicycle", "bid"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="best">best</span> thing at the auction was not the furniture. It was a <span class="word" data-w="bicycle">bicycle</span>, red, <span class="word" data-w="bent">bent</span> at the rear wheel, sitting <span class="word" data-w="beneath">beneath</span> a tarp at the back of the barn. I had come for a <span class="word" data-w="bench">bench</span> for the garden, and I stayed for the bike.</p>
+      <p>The <span class="word" data-w="bid">bid</span> opened at five dollars. I went to twenty, then forty, then <span class="word" data-w="beyond">beyond</span> what the bike was worth — which is what happens <span class="word" data-w="between">between</span> two people who have silently decided that this is about something else now.</p>
+      <p><span class="word" data-w="besides">Besides</span> the bike there was a box of tools <span class="word" data-w="below">below</span> the table and a note <span class="word" data-w="beneath">beneath</span> the seat: "For whoever fixes her." The handwriting was my brother's. He had sold the bike in 2011 to the neighbor now standing <span class="word" data-w="beside">beside</span> me, <span class="word" data-w="bent">bent</span> forward, not looking my way. I <span class="word" data-w="bet">bet</span> myself it would not matter.</p>
+      <p>It mattered. Not because of the bike, but because that neighbor had <span class="word" data-w="betray">betrayed</span> a promise he made the week my brother died, and because he was wearing the same <span class="word" data-w="belt">belt</span> he had worn to the funeral. <span class="word" data-w="beware">Beware</span> of country auctions: they hand you your own history in a cardboard box.</p>
+      <p>I let him have it for sixty. He was, <span class="word" data-w="besides">besides</span> everything, a good mechanic, and the bike would run again. On the way home I sat on the <span class="word" data-w="bench">bench</span> by the memorial and tried to <span class="word" data-w="bend">bend</span> my thinking <span class="word" data-w="better">better</span>. The <span class="word" data-w="benefit">benefit</span> of losing, I told myself, is that you keep your <span class="word" data-w="bias">bias</span> to yourself. A bicycle, unlike a grudge, is a <span class="word" data-w="beneficial">beneficial</span> thing to leave in the world.</p>
+    `,
+    storyZhHTML: `
+      <p>拍卖会上最好的东西不是家具，而是一辆自行车。红色的，后轮压弯了，压在谷仓后面的一块帆布下面。我本来是来给园子买一条长椅的，结果留下来是为了这辆车。</p>
+      <p>起拍价五美元。我叫到二十，又叫到四十，然后叫过了这辆车该值的钱——两个已经默默决定"这已经不是车的事了"的人之间，就会这样。</p>
+      <p>除了车，桌子下面还有一箱工具，车座底下压着一张纸条："给修好她的人。"那笔迹是我哥哥的。2011 年他把车卖给了现在站在我旁边的这位邻居——他正俯着身子，不往我这边看。我跟自己打赌，这不算什么。</p>
+      <p>这算什么。不是因为车，而是因为这位邻居在我哥哥去世那周许下的承诺，他没有守；还因为他系着去葬礼时的那条皮带。对乡下拍卖会要当心：它们会把你自己的历史装进一个纸箱递给你。</p>
+      <p>我让他六十块拿走了。撇开一切不说，他是个好修车匠，这车还能跑起来。回家路上，我在纪念碑旁的长椅上坐了一会儿，试着把想法往好里掰。输的好处，我告诉自己，是你可以把自己的偏见收好。一辆自行车，跟一桩旧怨不同，是能留在世上的一件有益的东西。</p>
+    `,
     defs: {
       "below": { pos:"prep.", zh:"（位置）在……下面", ipa:"/bɪˈləʊ/", freq:147 },
       "belt": { pos:"n.", zh:"腰带，皮带；传送带", ipa:"/belt/", freq:330 },
@@ -1308,11 +1343,23 @@ const groups = [
   },
   {
     id: 24,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Bishop's Birthday",
+    storyDesc: `主教的生日 · 九十岁、一本笔记本，和一句只听不说的话`,
     words: ["big", "bike", "bilingual", "bill", "billion", "bind", "biochemistry", "biography", "biology", "biomass", "biosphere", "bird", "birth", "birthday", "birthplace", "biscuit", "bishop", "bit", "bite", "bitter"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="bishop">bishop</span> was ninety, and for his <span class="word" data-w="birthday">birthday</span> the village gave him what he actually wanted: a morning with a notebook and no speeches. He had been born in this valley, and he asked to be taken back to his <span class="word" data-w="birthplace">birthplace</span>, a farmhouse with a <span class="word" data-w="big">big</span> garden gone wild.</p>
+      <p>He was a <span class="word" data-w="bilingual">bilingual</span> man — Latin and birdsong, he said — and he had spent forty years writing a <span class="word" data-w="biography">biography</span> of somebody nobody remembered. <span class="word" data-w="biochemistry">Biochemistry</span> had been his first love, then <span class="word" data-w="biology">biology</span>, then, in the end, everything. He had watched the <span class="word" data-w="birth">birth</span> of a word, "ecology", and did not much like it.</p>
+      <p>His thesis was simple and, to some, <span class="word" data-w="bitter">bitter</span>: a <span class="word" data-w="biosphere">biosphere</span> is not a machine. You cannot measure a marsh by its <span class="word" data-w="biomass">biomass</span> alone, any more than you can measure a man by his <span class="word" data-w="bill">bill</span>s.</p>
+      <p>A <span class="word" data-w="bird">bird</span> landed on the fence post and he did not move. "<span class="word" data-w="bite">Bite</span> your tongue," he whispered, "<span class="word" data-w="bind">bind</span> your notes loosely." He had a <span class="word" data-w="bit">bit</span> of <span class="word" data-w="biscuit">biscuit</span> in his pocket, which he did not eat; he was saving it, he said, for the <span class="word" data-w="bike">bike</span> ride home.</p>
+      <p>He wrote one line that morning and read it aloud: "A <span class="word" data-w="billion">billion</span> small things make a place, and not one of them can be replaced."</p>
+    `,
+    storyZhHTML: `
+      <p>主教九十岁了。生日那天，村子给了他真正想要的东西：一个上午、一本笔记本，没有致辞。他生在这个山谷，要求被带回他的出生地——一座花园已经野掉的农舍。</p>
+      <p>他是个双语的人——拉丁语和鸟叫，他说——花了四十年给一个没人记得的人写传记。生物化学曾是他的初恋，然后是生物学，最后是一切。他眼看着"生态学"这个词诞生，并不太喜欢它。</p>
+      <p>他的论点简单，对某些人来说还很苦：生物圈不是一台机器。你不能只靠生物量来衡量一片沼泽，就像你不能用账单来衡量一个人。</p>
+      <p>一只鸟落在栅栏柱上，他一动不动。"咬住舌头，"他低声说，"把笔记松松地系起来。"他口袋里有一小块饼干，没吃；他说，留着骑车回去的路上吃。</p>
+      <p>那天上午他只写了一句，念了出来："十亿件小事凑成一个地方，其中没有一件可以被替换。"</p>
+    `,
     defs: {
       "big": { pos:"adj.", zh:"（尺寸、数量、规模或年龄）大的；重大的，严重的", ipa:"/bɪɡ/", freq:320 },
       "bike": { pos:"n.", zh:"自行车，脚踏车，单车；摩托车", ipa:"/baɪk/", freq:326 },
@@ -1338,11 +1385,23 @@ const groups = [
   },
   {
     id: 25,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Blizzard",
+    storyDesc: `暴风雪 · 四月的暴风雪、两只羊羔，和一个从不找借口的女人`,
     words: ["black", "blackboard", "blade", "blame", "blank", "blanket", "bleed", "bless", "blind", "blink", "blizzard", "block", "blog", "blood", "blossom", "blouse", "blow", "blue", "blue-sky", "blur"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The forecast said flurries. What came was a <span class="word" data-w="blizzard">blizzard</span>, the kind that turns the world <span class="word" data-w="blank">blank</span> — no fence, no road, just a <span class="word" data-w="blur">blur</span> where the field used to be and a thin <span class="word" data-w="black">black</span> line of spruce on the ridge. My grandmother stood at the window in her good <span class="word" data-w="blouse">blouse</span>, did not <span class="word" data-w="blink">blink</span>, and said, "Well."</p>
+      <p>She had been <span class="word" data-w="blind">blind</span> in one eye since 1985 and never once used it as an excuse. She could read the sky the way other people read a <span class="word" data-w="blackboard">blackboard</span>: a <span class="word" data-w="blue">blue</span> morning meant work, a <span class="word" data-w="blue-sky">blue-sky</span> afternoon meant company.</p>
+      <p>By noon the power was out. She wrapped a lamb in a <span class="word" data-w="blanket">blanket</span> and put it by the stove, and when the ewe would not take it, she cut a <span class="word" data-w="block">block</span> of hay with a <span class="word" data-w="blade">blade</span> that was too dull, and her thumb <span class="word" data-w="bleed">bled</span> onto the boards. She did not <span class="word" data-w="blame">blame</span> anyone for the <span class="word" data-w="blood">blood</span> on the floor.</p>
+      <p>There was no phone, no <span class="word" data-w="blog">blog</span> to check, nobody to call. She <span class="word" data-w="blow">blew</span> on her hands and went back out. Ten minutes later she came in with another lamb, <span class="word" data-w="bless">blessed</span> it under her breath in the old way, and said, "Two."</p>
+      <p>In the morning the world came back, white and still, and the plum tree behind the shed was in <span class="word" data-w="blossom">blossom</span> — in a blizzard, in April. That is the thing about weather, she said. It <span class="word" data-w="blur">blur</span>s the rules, and then it stops.</p>
+    `,
+    storyZhHTML: `
+      <p>天气预报说小雪。来的是一场暴风雪，那种让世界变成一片空白的风雪——没有栅栏，没有路，只有一片模糊，取代了原来的田，山脊上剩一道细细的黑云杉。我祖母穿着她那条好衬衫站在窗前，眼睛都没眨一下，说了声："行吧。"</p>
+      <p>她 1985 年起一只眼睛就瞎了，从没拿它当借口。她看天的本事，就像别人看黑板：蓝色的早晨意味着干活，天马行空的下午意味着有客来。</p>
+      <p>到中午电就断了。她用一条毯子裹住一只羊羔，放在炉子边；母羊不肯认它，她就用一把太钝的刀去切一块干草，割到了拇指，却没为地上的血怪任何人。</p>
+      <p>没有电话，没有博客可刷，没有人可打。她往手上哈了口气，又出去了。十分钟后她抱着另一只羊羔进来，低声用老法子念了句祝福，说："两只。"</p>
+      <p>早上世界回来了，白而静，棚屋后面的李子树居然开花了——在四月的暴风雪里。天气就是这样，她说。它把规矩弄模糊，然后停下来。</p>
+    `,
     defs: {
       "black": { pos:"adj.", zh:"黑的，黑色的；黑色人种的", ipa:"/blæk/", freq:315 },
       "blackboard": { pos:"n.", zh:"黑板", ipa:"/ˈblækbɔːd/", freq:315 },
@@ -1368,11 +1427,23 @@ const groups = [
   },
   {
     id: 26,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Boat",
+    storyDesc: `那条船 · 一块块木板铺起来的船，和一个不肯卖的价钱`,
     words: ["board", "boast", "boat", "body", "boil", "bold", "bomb", "bond", "bone", "bonus", "book", "boom", "boost", "boot", "booth", "border", "bored", "boring", "born", "borrow"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>My father <span class="word" data-w="boast">boasted</span> about one thing only: the <span class="word" data-w="boat">boat</span>. He had <span class="word" data-w="borrow">borrowed</span> money to buy her the year I was <span class="word" data-w="born">born</span>, and he paid it back in four years, which he considered the <span class="word" data-w="bold">boldest</span> thing he had ever done.</p>
+      <p>Her <span class="word" data-w="body">body</span> was wood, <span class="word" data-w="board">board</span> by <span class="word" data-w="board">board</span>, and every spring we sanded her until our <span class="word" data-w="bone">bone</span>s ached. The <span class="word" data-w="bond">bond</span> between us was the boat, mostly. We did not talk much. We did not need to.</p>
+      <p>I was <span class="word" data-w="bored">bored</span> in that shed for about ten years, and if you had asked me then I would have said it was <span class="word" data-w="boring">boring</span> work. Then he died, and I found I could not sell her.</p>
+      <p>The <span class="word" data-w="boom">boom</span> came in the nineties, when everyone wanted a slip in the marina; a developer offered me three times what she was worth plus a <span class="word" data-w="bonus">bonus</span> for signing before June. I said no. He said it was a <span class="word" data-w="bold">bold</span> mistake. I said I had made <span class="word" data-w="bold">bold</span>er.</p>
+      <p>That winter I let the kettle <span class="word" data-w="boil">boil</span> over while I stood in the pay <span class="word" data-w="booth">booth</span> by the ramp, arguing about a new <span class="word" data-w="boot">boot</span> for the trailer. Afterwards I ran her along the <span class="word" data-w="border">border</span> of the channel, where the sand shifts, and the fresh paint <span class="word" data-w="boost">boosted</span> her by half a knot. The old men say a <span class="word" data-w="bomb">bomb</span> went into the bay in 1943 and never went off. I do not know about that. I know I wrote it in the <span class="word" data-w="book">book</span> he kept, on the page after the last entry.</p>
+    `,
+    storyZhHTML: `
+      <p>我父亲只吹一件事：那条船。他是借钱把她买下来的，那一年我出生；四年他还清了，他认为那是他这辈子做过最胆大的事。</p>
+      <p>她是木头的，一块板一块板拼起来的。每年春天我们打磨她，直到骨头都酸。我们之间的纽带，多半就是这条船。我们话不多，也不需要多。</p>
+      <p>在那间棚屋里我无聊了大约十年；要是当年问我，我会说那是份无聊的活儿。后来他走了，我发现我卖不掉她。</p>
+      <p>九十年代行情起来了，人人都想在海湾里有个泊位。一个开发商出了她价值三倍的价钱，还外加一笔六月前签约的奖金。我说不卖。他说这是个胆大的错误。我说我犯过更大的。</p>
+      <p>那年冬天，我让水壶在炉上烧干，自己站在码头边的付费电话亭里，为一辆拖车的新轮胎跟人争。之后我带着她沿着航道边缘走——那儿沙子会移——新漆让她快了半节。老人们说 1943 年有一枚炸弹落进湾里，一直没炸。这我不清楚。我只知道，我把它写进了他留下的那本册子里，写在最后一条记录的后一页。</p>
+    `,
     defs: {
       "board": { pos:"n.", zh:"板，木板；黑板，告示牌", ipa:"/bɔːd/", freq:233 },
       "boast": { pos:"v.", zh:"有（值得自豪的东西）；吹嘘，夸耀", ipa:"/bəʊst/", freq:350 },
@@ -1398,11 +1469,23 @@ const groups = [
   },
   {
     id: 27,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Bowling Alley",
+    storyDesc: `保龄球馆 · 1963 年的一块招牌，和一条再也拆不掉的底线`,
     words: ["boss", "botany", "both", "bother", "bottle", "bottom", "bounce", "bound", "boundary", "bow", "bowl", "bowling", "box", "boxing", "boy", "boycott", "brain", "brake", "branch", "brand"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>My <span class="word" data-w="boss">boss</span> owned the <span class="word" data-w="bowling">bowling</span> alley on Route 9, and he had two subjects: <span class="word" data-w="botany">botany</span> and <span class="word" data-w="boxing">boxing</span>. <span class="word" data-w="both">Both</span> of them, he claimed, are about timing. He was not wrong about the second one.</p>
+      <p>He had been a <span class="word" data-w="boy">boy</span> in 1963, when the alley's front door still carried a sign that should never have been there, and he told me once about the <span class="word" data-w="boycott">boycott</span> his own mother had organized against it. A <span class="word" data-w="brand">brand</span> of soda was pulled off the shelves. The <span class="word" data-w="boundary">boundary</span> of who could <span class="word" data-w="bowl">bowl</span> where was redrawn that year, and he said the only thing that <span class="word" data-w="bound">bound</span> the two sides afterwards was the league.</p>
+      <p>He had a <span class="word" data-w="brain">brain</span> for numbers and a <span class="word" data-w="bottle">bottle</span> of rye behind the register that he never opened. When a customer began to <span class="word" data-w="bother">bother</span> him, he would give a small, formal <span class="word" data-w="bow">bow</span> — mocking and sincere at once — and go check the pins.</p>
+      <p>The <span class="word" data-w="branch">branch</span> bank next door wanted the lot, and so did the <span class="word" data-w="brake">brake</span> shop on the corner. He would not sell. He said a <span class="word" data-w="bounce">bounce</span> off the side cushion on lane four was worth more than the whole <span class="word" data-w="bottom">bottom</span> line, and then he laughed at himself for saying it.</p>
+      <p>He died in 2019. The alley is a <span class="word" data-w="box">box</span> now — those storage units — and the old sign is gone. But there is still a plaque, low on the wall, at the height of a twelve-year-old: for the <span class="word" data-w="boy">boy</span> who learned to <span class="word" data-w="bowl">bowl</span> here, and for the <span class="word" data-w="boy">boy</span> his mother raised.</p>
+    `,
+    storyZhHTML: `
+      <p>我老板是九号公路那家保龄球馆的主人，他只有两个话题：植物学和拳击。他声称，这两样都讲究时机。第二个他没说错。</p>
+      <p>1963 年他还是个男孩，球馆正门上还挂着一块本不该存在的牌子。他跟我讲过一次，他母亲当年怎么组织抵制那块牌子。一个汽水品牌被从货架上撤了下来。谁能在这儿打球的那条界线，那年被重画了；他说，后来把两方连在一起的，只剩下那个联赛。</p>
+      <p>他脑子里有本账，柜台后面放着一瓶黑麦威士忌，从来不打开。有客人开始烦他，他就微微一躬身——既揶揄又真诚——然后去查看球瓶。</p>
+      <p>隔壁那家银行支行想要这块地，街角的刹车修理店也想要。他不卖。他说，四号道边垫上弹一下的价值，比整张损益表底行还大；说完自己也笑了。</p>
+      <p>他 2019 年去世。球馆现在成了储物间——那种一格格的小仓房——旧招牌也没了。但墙上低处还有一块铭牌，只有十二岁孩子那么高：给在这儿学会打球的男孩，也给他母亲养大的那个男孩。</p>
+    `,
     defs: {
       "boss": { pos:"n.", zh:"上司，领导，领班；圆形装饰物，浮雕装饰", ipa:"/bɒs/", freq:322 },
       "botany": { pos:"n.", zh:"植物学；（特定地区的）植物（生态）", ipa:"/ˈbɒtəni/", freq:282 },
@@ -1428,11 +1511,23 @@ const groups = [
   },
   {
     id: 28,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Bride on the Bridge",
+    storyDesc: `桥上的新娘 · 一场十一点的婚礼，和一顿六点的早餐`,
     words: ["brave", "bravery", "bread", "break", "breakfast", "breakthrough", "breast", "breath", "breathe", "breathless", "breed", "breeze", "brewery", "brick", "bride", "bridegroom", "bridge", "brief", "bright", "brilliant"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The wedding was at eleven, which meant <span class="word" data-w="breakfast">breakfast</span> was at six, which meant my mother was in the kitchen at five with <span class="word" data-w="bread">bread</span> dough on her hands. She is the <span class="word" data-w="brave">brave</span> one in this family; the rest of us just wait for food.</p>
+      <p>The <span class="word" data-w="bride">bride</span> and <span class="word" data-w="bridegroom">bridegroom</span> had met on the <span class="word" data-w="bridge">bridge</span> over the river, in a <span class="word" data-w="breeze">breeze</span> that took her hat. That is the whole story, they tell it every year, and it gets <span class="word" data-w="brief">briefer</span> each time and better.</p>
+      <p>The reception was in the old <span class="word" data-w="brewery">brewery</span> — <span class="word" data-w="brick">brick</span> walls, long tables, a <span class="word" data-w="breed">breed</span> of dog that slept under the bar all afternoon and did not <span class="word" data-w="break">break</span> its sleep for anyone. I stepped outside to <span class="word" data-w="breathe">breathe</span> for a minute and found my father doing the same.</p>
+      <p>He had stopped smoking that spring, and he said the <span class="word" data-w="breakthrough">breakthrough</span> was not willpower but arithmetic: he counted the cigarettes he did not buy. He talked for a while. I had never heard him talk so long without a <span class="word" data-w="breath">breath</span>, and twice he laughed until he was <span class="word" data-w="breathless">breathless</span>.</p>
+      <p>The sun came out, <span class="word" data-w="bright">bright</span> and hard, and the river under the bridge went <span class="word" data-w="brilliant">brilliant</span>. The invitation was still in his <span class="word" data-w="breast">breast</span> pocket, folded twice. My mother came out to say the cake was cut, saw the two of us standing there, and went back in without a word. He is not a man of <span class="word" data-w="bravery">bravery</span>, my father. He is a man of arithmetic.</p>
+    `,
+    storyZhHTML: `
+      <p>婚礼十一点开始，所以早餐六点吃，所以我母亲五点就在厨房里，手上全是面包面团。这个家里胆大的是她；我们剩下的只等着吃。</p>
+      <p>新娘和新郎是在河上那座桥认识的，一阵风把她的帽子吹走了。故事就这么点，他们每年都讲一遍，每讲一次就更短一点，也更好一点。</p>
+      <p>婚宴在旧酿酒厂办——砖墙、长桌、一条整个下午都睡在吧台底下的狗，谁也不为谁醒。我出去透口气，发现我父亲也在外面。</p>
+      <p>那春天他戒了烟，他说突破点不是意志力，是算术：他数那些没买的烟。他讲了一会儿话。我从没听他一口气讲这么久，有两回他笑到喘不上气。</p>
+      <p>太阳出来了，又亮又硬，桥下的河水亮得刺眼。请帖还在他胸前的口袋里，折了两折。我母亲出来说蛋糕切了，看见我们俩站在那儿，一句话没说就回去了。我父亲不是个勇敢的人。他是个算账的人。</p>
+    `,
     defs: {
       "brave": { pos:"adj.", zh:"勇敢的，无畏的；非常好的", ipa:"/breɪv/", freq:312 },
       "bravery": { pos:"n.", zh:"勇敢的行为（态度），勇气", ipa:"/ˈbreɪvəri/", freq:269 },
@@ -1458,11 +1553,23 @@ const groups = [
   },
   {
     id: 29,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Brochure",
+    storyDesc: `宣传册 · 四月的英国、一辆老车，和一家什么都承认的餐馆`,
     words: ["brine", "bring", "brink", "Britain", "British", "broad", "broadcast", "brochure", "broken", "broken-down", "broom", "brother", "brown", "brunch", "brush", "brutal", "bubble", "bucket", "budget", "buffalo"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>The <span class="word" data-w="brochure">brochure</span> promised "a traditional <span class="word" data-w="British">British</span> seaside holiday." <span class="word" data-w="Britain">Britain</span> in April is not what the brochure means by that, but my <span class="word" data-w="brother">brother</span> had already paid, so we went.</p>
+      <p>The car was <span class="word" data-w="broken-down">broken-down</span> before we left the county — not <span class="word" data-w="broken">broken</span> exactly, just tired — and the repair took the whole of Saturday. We ate <span class="word" data-w="brunch">brunch</span> in a café with a <span class="word" data-w="broad">broad</span> window and a <span class="word" data-w="broom">broom</span> by the door.</p>
+      <p>The owner was <span class="word" data-w="brutal">brutal</span> about his own menu. "The fish is frozen," he said before we asked. "The <span class="word" data-w="bubble">bubble</span> and squeak is from a bag. The <span class="word" data-w="brown">brown</span> sauce is the only thing I make myself."</p>
+      <p>Outside, the sea was the colour of <span class="word" data-w="brine">brine</span> and the tide stood on the <span class="word" data-w="brink">brink</span> of the wall. My brother and I cleaned the café windows with a <span class="word" data-w="bucket">bucket</span> and a <span class="word" data-w="brush">brush</span> as a thank-you, and that is how the <span class="word" data-w="budget">budget</span> for the trip disappeared.</p>
+      <p>There was a <span class="word" data-w="broadcast">broadcast</span> that night about <span class="word" data-w="buffalo">buffalo</span> in Montana, of all things, and we watched it in the car with the heater on, because the television in the guesthouse had died. Tomorrow, he said, we would <span class="word" data-w="bring">bring</span> the car back to the man properly, and maybe stay another week.</p>
+    `,
+    storyZhHTML: `
+      <p>宣传册上写的是"传统的英国海滨假期"。四月的英国显然不是那个意思，但我哥哥已经付了钱，所以我们就去了。</p>
+      <p>车还没出县就抛锚了——算不上坏了，只是累了——修车占掉了整个周六。我们在一家有宽窗、门边立着扫帚的小馆子吃了顿早午餐。</p>
+      <p>老板对自己家的菜单毫不留情。"鱼是冻的，"我们还没问他就说了，"土豆煎饼是袋装的。只有棕色酱是我自己做的。"</p>
+      <p>外面，海是盐水的颜色，潮水正站在防波墙的边沿上。我和哥哥用水桶和刷子把小馆的窗子擦了一遍算是答谢，旅行的预算就是这么没的。</p>
+      <p>那天晚上电视里播的居然是蒙大拿的野牛，我们在车里开着暖风看完的——因为旅馆的电视坏了。他说，明天要把车好好送回那家店，也许再待一周。</p>
+    `,
     defs: {
       "brine": { pos:"n.", zh:"卤水；盐水", ipa:"/braɪn/", freq:347 },
       "bring": { pos:"v.", zh:"拿来，带来；使……转入（新的话题）", ipa:"/brɪŋ/", freq:21 },
@@ -1488,11 +1595,23 @@ const groups = [
   },
   {
     id: 30,
-    storyTitle: "",
-    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    storyTitle: "The Permit",
+    storyDesc: `许可证 · 一座工具棚、一个窃贼，和一位七十岁的邻居`,
     words: ["buffet", "build", "building", "bum", "bunch", "bungalow", "bunny", "burden", "bureau", "bureaucratic", "burglar", "burn", "burst", "bury", "bus", "bush", "business", "businessman", "busy", "but"],
-    storyHTML: "",
-    storyZhHTML: "",
+    storyHTML: `
+      <p>All I wanted was to <span class="word" data-w="build">build</span> a shed. The <span class="word" data-w="building">building</span> department said I needed a permit. The <span class="word" data-w="bureau">bureau</span> that issued permits sat on the third floor of a <span class="word" data-w="building">building</span> with no lift, staffed by <span class="word" data-w="busy">busy</span> people who were never at their desks, and governed by a <span class="word" data-w="bureaucratic">bureaucratic</span> form that asked, in section nine, whether my <span class="word" data-w="bungalow">bungalow</span> had a chimney.</p>
+      <p>I am a <span class="word" data-w="businessman">businessman</span> who runs a small <span class="word" data-w="business">business</span>, which means I <span class="word" data-w="bury">bury</span> my temper for a living. By week three I had a <span class="word" data-w="bunch">bunch</span> of photocopies and a <span class="word" data-w="burden">burden</span> of forms, and the <span class="word" data-w="bus">bus</span> ride downtown had become the worst hour of my week.</p>
+      <p>Then, the week the permit finally came through, a <span class="word" data-w="burglar">burglar</span> took every tool I owned out of the garage. I stood in the <span class="word" data-w="bush">bush</span>es at the bottom of the garden and looked at the shed that was not there.</p>
+      <p>My neighbor offered to help. She is seventy, she keeps <span class="word" data-w="bunny">bunnies</span>, and she can <span class="word" data-w="burn">burn</span> through a fence post in an afternoon. We <span class="word" data-w="burst">burst</span> out laughing at the permit, which was now useless, and we built the shed in two weekends without it. My <span class="word" data-w="bum">bum</span> knee gave out on the ladder twice; hers did not.</p>
+      <p>In September the inspector came, looked at the shed, and asked who had signed off on it. "Nobody," I said, "<span class="word" data-w="but">but</span> my neighbor." He wrote something down and left. We had a cold <span class="word" data-w="buffet">buffet</span> on the lawn to celebrate, and in January a cat had kittens under the workbench, which I took as the only permit that mattered.</p>
+    `,
+    storyZhHTML: `
+      <p>我只是想搭一间工具棚。建筑部门说需要许可证。发证的那个办事处在三层，楼里没电梯，办事的人总是忙得不在座位上，而那份官僚气十足的表格在第九项里问我：这座平房有没有烟囱。</p>
+      <p>我经营一家小公司，靠的就是把脾气埋起来过日子。到第三周，我手里已有一摞复印件和一堆表格，进城的那趟公交车成了我一周里最难受的一小时。</p>
+      <p>然后，就在许可证终于批下来那周，一个小偷把我车库里的工具全拿走了。我站在园子底下的灌木丛里，看着那间还不存在的棚子。</p>
+      <p>邻居来帮忙。她七十岁，养兔子，一个下午就能用电焊烧穿一根栅栏柱。我们对着那张如今毫无用处的许可证一起大笑，然后两个周末就把棚子搭起来了，没它。我那条不好的膝盖在梯子上软了两次；她的没有。</p>
+      <p>九月，检查员来了，看了看棚子，问是谁签的字。"没人，"我说，"就我邻居。"他记了点什么就走了。我们在草坪上摆了冷餐会庆祝；到了一月，一只猫在工作台下面生了小猫——我当那是唯一要紧的许可证。</p>
+    `,
     defs: {
       "buffet": { pos:"n.", zh:"自助餐；快餐部，点心柜", ipa:"/ˈbʌfeɪ; ˈbʊfeɪ/", freq:289 },
       "build": { pos:"v.", zh:"建造，修建；发展，建立", ipa:"/bɪld/", freq:48 },
