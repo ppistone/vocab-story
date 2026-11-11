@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英语词汇记忆 · 分组短文</title>
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --panel: #ffffff;
+    --ink: #22262e;
+    --muted: #7a7f8a;
+    --accent: #c2185b;
+    --accent-soft: #fde7ef;
+    --line: #e7e3db;
+    --side-bg: #efece5;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Georgia", "Times New Roman", "PingFang SC", "Microsoft YaHei", serif;
+    line-height: 1.8;
+  }
+
+  /* 左右框架 */
+  .frame {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: 100vh;
+  }
+
+  /* 左栏：分组导航 */
+  .sidebar {
+    background: var(--side-bg);
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 16px;
+  }
+  .sidebar h1 {
+    font-size: 18px;
+    margin: 0 0 4px;
+    letter-spacing: .5px;
+  }
+  .sidebar .sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 20px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .grp {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    transition: all .15s ease;
+  }
+  .grp:hover { border-color: var(--accent); transform: translateX(2px); }
+  .grp .no { color: var(--muted); font-size: 12px; margin-right: 6px; }
+  .grp .range { color: var(--muted); font-size: 12px; }
+  .grp.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .grp.active .no, .grp.active .range { color: #ffe3ee; }
+  .grp.disabled {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+  .grp.disabled:hover { transform: none; border-color: var(--line); }
+  .pending-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: rgba(0,0,0,.03);
+    border-radius: 8px;
+    line-height: 1.6;
+  }
+
+  /* 右栏：内容 */
+  .content {
+    overflow-y: auto;
+    padding: 40px 48px 60px;
+  }
+  .content-inner { max-width: 760px; margin: 0 auto; }
+  .group-title {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 700;
+  }
+  .story-title {
+    font-size: 26px;
+    margin: 0 0 8px;
+    letter-spacing: .5px;
+  }
+  .story-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 24px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  /* 本组单词 chips */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .chip {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 13px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid #f3c1d6;
+    border-radius: 999px;
+    padding: 3px 12px;
+    cursor: help;
+  }
+
+  /* 短文 */
+  .story { border-top: 1px solid var(--line); padding-top: 26px; }
+  .story p {
+    margin: 0 0 20px;
+    font-size: 18px;
+    text-align: justify;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  /* 目标词 */
+  .word {
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 1.5px dashed var(--accent);
+    cursor: help;
+    position: relative;
+  }
+  .word:hover { background: var(--accent-soft); border-radius: 3px; }
+
+  /* 释义卡片 */
+  #tooltip {
+    position: fixed;
+    width: 330px;
+    background: #2b2f3a;
+    color: #f2f3f7;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 12px 34px rgba(0,0,0,.32);
+    z-index: 999;
+    display: none;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.55;
+    pointer-events: auto;
+  }
+  #tooltip .tip-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  #tooltip .tip-word { font-size: 20px; font-weight: 700; color: #fff; }
+  #tooltip .tip-freq { font-size: 12px; color: #9aa0ad; }
+  #tooltip .tip-ipa { font-size: 14px; color: #ffd6e5; margin-bottom: 4px; }
+  #tooltip .tip-zh { font-size: 16px; color: #fff; margin-bottom: 8px; font-weight: 600; }
+  #tooltip .tip-label {
+    font-size: 11px;
+    color: #9aa0ad;
+    letter-spacing: 1px;
+    margin: 8px 0 2px;
+    text-transform: uppercase;
+  }
+  #tooltip .tip-en { font-size: 13px; color: #dfe2ea; }
+  #tooltip .tip-ex {
+    font-size: 13px;
+    color: #c6cbd6;
+    font-style: italic;
+    border-left: 2px solid var(--accent);
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+  #tooltip .tip-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  #tooltip .play {
+    flex: 1;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    transition: filter .15s ease;
+  }
+  #tooltip .play:hover { filter: brightness(1.15); }
+
+  /* 中文翻译 + 词汇表 */
+  .section { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 24px; }
+  .section-title {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 16px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 700;
+  }
+  .trans p {
+    margin: 0 0 18px;
+    font-size: 16px;
+    color: #4a4f5c;
+    text-align: justify;
+    line-height: 1.9;
+  }
+  .trans p:last-child { margin-bottom: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: .5px;
+  }
+  tr:hover td { background: #faf8f5; }
+  td.en { font-weight: 700; color: var(--accent); }
+  td.ipa { color: #6b7280; }
+  td.freq { color: var(--muted); }
+
+  .hint {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 30px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <!-- 左栏 -->
+  <aside class="sidebar">
+    <h1>英语词汇记忆</h1>
+    <p class="sub">每 20 词一组 · 点击组名查看短文</p>
+    <div id="groupList"></div>
+    <div class="pending-note">
+      已生成 <b>3 组</b>（前 60 词）。<br>
+      其余约 224 组（共 4487 词）待后续扩展。
+    </div>
+  </aside>
+
+  <!-- 右栏 -->
+  <main class="content">
+    <div class="content-inner">
+      <div class="group-title" id="groupTitle"></div>
+      <h2 class="story-title" id="storyTitle"></h2>
+      <p class="story-desc" id="storyDesc"></p>
+      <div class="chips" id="chips"></div>
+      <div class="story" id="story"></div>
+
+      <div class="section">
+        <h3 class="section-title">中文翻译</h3>
+        <div class="trans" id="trans"></div>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">本组词汇表</h3>
+        <table id="wordTable">
+          <thead>
+            <tr><th>单词</th><th>词性</th><th>音标</th><th>中文释义</th><th>词频</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <p class="hint">提示：把鼠标悬停在<span style="color:var(--accent);font-weight:700">红色单词</span>上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。</p>
+    </div>
+  </main>
+</div>
+
+<!-- 悬停释义卡片 -->
+<div id="tooltip"></div>
+
+<script>
+/* ===================== 数据 ===================== */
+const groups = [
+  {
+    id: 1,
+    storyTitle: "The Abbot's Secret",
+    storyDesc: "修道院奇案 · 年轻学者探访海外修道院，发现院长的秘密",
+    words: ["a, an","abandon","abbot","ability","able","abnormal","aboard","abolish","abortion","about","above","abroad","abrupt","absence","absent","absolute","absolutely","absorb","abstract","absurd"],
+    storyHTML: `
+      <p>Thomas was a young scholar with a rare <span class="word" data-w="ability">ability</span> to <span class="word" data-w="absorb">absorb</span> complex ideas. When he heard <span class="word" data-w="about">about</span> an old monastery <span class="word" data-w="abroad">abroad</span>, he boarded a small ship and stood <span class="word" data-w="aboard">aboard</span> its deck, dreaming of the monks' <span class="word" data-w="abstract">abstract</span> theology. <span class="word" data-w="above">Above</span> him, the stars formed <span class="word" data-w="a, an">a</span> bright map, and he felt ready for anything.</p>
+      <p>At the monastery, the <span class="word" data-w="abbot">abbot</span> was famous for his strict discipline. But Thomas soon noticed something <span class="word" data-w="abnormal">abnormal</span>: the old man's <span class="word" data-w="abrupt">abrupt</span> <span class="word" data-w="absence">absence</span> from morning prayers. The abbot was <span class="word" data-w="absent">absent</span> every dawn, slipping off to the cold cellar alone. Thomas was <span class="word" data-w="able">able</span> to follow him one night and found him reading a forbidden book. It called to <span class="word" data-w="abolish">abolish</span> the monastery's harshest rules — even to end the ban on any talk of <span class="word" data-w="abortion">abortion</span>.</p>
+      <p>At first this seemed <span class="word" data-w="absurd">absurd</span> to Thomas. "You have the <span class="word" data-w="absolute">absolute</span> truth here," Thomas whispered. "No," the abbot said sadly. "My brother once chose to <span class="word" data-w="abandon">abandon</span> his faith over this, and he is gone. I am <span class="word" data-w="absolutely">absolutely</span> certain I will not repeat his mistake."</p>
+    `,
+    storyZhHTML: `
+      <p>托马斯是一位年轻的学者，拥有罕见的能力去吸收复杂的思想。当他听说国外有一座古老的修道院时，他登上了一艘小船，站在甲板上，憧憬着修士们抽象的教义。他头顶上方，繁星形成了一幅明亮的地图，他觉得已经准备好迎接一切。</p>
+      <p>在修道院里，修道院长以纪律严明著称。但托马斯很快注意到一些异常：老人突然缺席了晨祷。修道院长每天黎明都不在，独自溜进冰冷的地窖。托马斯有一晚得以跟踪他，发现他正在读一本禁书。这本书呼吁废除修道院最严苛的戒律——甚至要解除对任何堕胎话题的禁令。</p>
+      <p>起初这在托马斯看来十分荒谬。“你这里有绝对的真理，”托马斯低声说。“不，”修道院长悲伤地说，“我弟弟曾经因为这件事选择放弃信仰，而他已经不在了。我绝对确定，我不会重蹈他的覆辙。”</p>
+    `,
+    defs: {
+      "a, an":     { pos:"art.", zh:"一（个）", ipa:"/ə/, /ən/", en:"used before a noun to refer to a single thing or person", ex:"She saw a cat and an owl.", freq:301 },
+      "abandon":   { pos:"v.", zh:"抛弃，放弃", ipa:"/əˈbændən/", en:"to leave someone or something completely and forever", ex:"They had to abandon the sinking ship.", freq:162 },
+      "abbot":     { pos:"n.", zh:"修道院长", ipa:"/ˈæbət/", en:"the man who is in charge of an abbey (a building where monks live)", ex:"The abbot led the monks in morning prayer.", freq:347 },
+      "ability":   { pos:"n.", zh:"能力", ipa:"/əˈbɪləti/", en:"the physical or mental power or skill to do something", ex:"She has the ability to solve problems quickly.", freq:82 },
+      "able":      { pos:"adj.", zh:"有能力的，能够的", ipa:"/ˈeɪbl/", en:"having the skill, strength, or opportunity to do something", ex:"He is able to speak three languages.", freq:56 },
+      "abnormal":  { pos:"adj.", zh:"异常的，不正常的", ipa:"/æbˈnɔːml/", en:"different from what is usual or expected, often in a worrying way", ex:"The doctor found abnormal cells in the test.", freq:300 },
+      "aboard":    { pos:"adv./prep.", zh:"在船（机）上", ipa:"/əˈbɔːd/", en:"on or onto a ship, plane, train, or bus", ex:"All passengers must go aboard before departure.", freq:293 },
+      "abolish":   { pos:"v.", zh:"废除，废止", ipa:"/əˈbɒlɪʃ/", en:"to officially end a law, system, or practice", ex:"The country voted to abolish the old tax.", freq:297 },
+      "abortion":  { pos:"n.", zh:"堕胎；中止", ipa:"/əˈbɔːʃn/", en:"the ending of a pregnancy before the baby is born", ex:"The law on abortion is still debated.", freq:290 },
+      "about":     { pos:"prep./adv.", zh:"关于", ipa:"/əˈbaʊt/", en:"on the subject of; concerning", ex:"We talked about our summer plans.", freq:305 },
+      "above":     { pos:"prep./adv.", zh:"在…上方", ipa:"/əˈbʌv/", en:"in a higher position than something else", ex:"The plane flew above the clouds.", freq:77 },
+      "abroad":    { pos:"adv.", zh:"在国外，去国外", ipa:"/əˈbrɔːd/", en:"in or to a foreign country", ex:"She wants to study abroad next year.", freq:293 },
+      "abrupt":    { pos:"adj.", zh:"突然的，唐突的", ipa:"/əˈbrʌpt/", en:"sudden and unexpected, often in a rude way", ex:"The meeting came to an abrupt end.", freq:260 },
+      "absence":   { pos:"n.", zh:"缺席，不在", ipa:"/ˈæbsəns/", en:"the fact of being away from a place where you are expected", ex:"Her absence from work was noticed.", freq:220 },
+      "absent":    { pos:"adj.", zh:"缺席的", ipa:"/ˈæbsənt/", en:"not present in a place where you are expected to be", ex:"He was absent from school yesterday.", freq:198 },
+      "absolute":  { pos:"adj.", zh:"绝对的，完全的", ipa:"/ˈæbsəluːt/", en:"complete and total; not limited in any way", ex:"You have my absolute trust.", freq:260 },
+      "absolutely":{ pos:"adv.", zh:"绝对地，完全地", ipa:"/ˌæbsəˈluːtli/", en:"completely; used to emphasize that something is true", ex:"I am absolutely sure she is right.", freq:296 },
+      "absorb":    { pos:"v.", zh:"吸收；理解", ipa:"/əbˈzɔːb/", en:"to take in a liquid or information; to understand fully", ex:"Plants absorb water through their roots.", freq:205 },
+      "abstract":  { pos:"adj.", zh:"抽象的", ipa:"/ˈæbstrækt/", en:"existing as an idea, not as a physical object", ex:"Beauty is an abstract concept.", freq:252 },
+      "absurd":    { pos:"adj.", zh:"荒谬的，可笑的", ipa:"/əbˈsɜːd/", en:"completely unreasonable or ridiculous", ex:"It is absurd to think money grows on trees.", freq:297 }
+    }
+  },
+  {
+    id: 2,
+    storyTitle: "The Academy Scandal",
+    storyDesc: "学院舞弊案 · 会计师循着一笔神秘资金，揪出潜伏多年的黑手",
+    words: ["abundant","abuse","academic","academy","accelerate","accent","accept","access","accessible","accident","accommodation","accompany","accomplice","accomplish","accordance","according to","account","accountant","accredit","accumulate"],
+    storyHTML: `
+      <p>Elena was an <span class="word" data-w="accountant">accountant</span> at a small <span class="word" data-w="academy">academy</span>. Her office held <span class="word" data-w="abundant">abundant</span> records, and she had <span class="word" data-w="access">access</span> to every <span class="word" data-w="account">account</span>. One day, in <span class="word" data-w="accordance">accordance</span> with an anonymous tip, she noticed that money seemed to <span class="word" data-w="accumulate">accumulate</span> in a secret fund. <span class="word" data-w="according to">According to</span> the ledger, an <span class="word" data-w="academic">academic</span> adviser named Mr. Cole was involved — and at first she could not <span class="word" data-w="accept">accept</span> it.</p>
+      <p>To <span class="word" data-w="accelerate">accelerate</span> her investigation, she asked a colleague to <span class="word" data-w="accompany">accompany</span> her to the <span class="word" data-w="accommodation">accommodation</span> building where Mr. Cole lived. There she found an <span class="word" data-w="accomplice">accomplice</span> — a young clerk with a strange <span class="word" data-w="accent">accent</span> — copying files that were not <span class="word" data-w="accessible">accessible</span> to normal staff. Mr. Cole had been able to <span class="word" data-w="accredit">accredit</span> false invoices and <span class="word" data-w="abuse">abuse</span> his position for years.</p>
+      <p>In the end, Elena's careful work helped her <span class="word" data-w="accomplish">accomplish</span> what no one else could. The so-called <span class="word" data-w="accident">accident</span> that had hidden the fraud was uncovered, and the two men were arrested.</p>
+    `,
+    storyZhHTML: `
+      <p>埃琳娜是一家小学院的会计师。她的办公室存放着大量的记录，她可以访问每一个账户。有一天，依照一条匿名举报，她发现资金似乎在一个秘密基金里不断积累。根据账本，一位名叫科尔先生的学术顾问牵涉其中——起初她无法接受这一点。</p>
+      <p>为了加快调查，她请一位同事陪她前往科尔先生居住的宿舍楼。在那里，她发现了一个同谋——一个带着奇怪口音的年轻职员——正在复制普通员工无法访问的文件。科尔先生多年来一直能够为虚假发票做认证，并滥用职权。</p>
+      <p>最终，埃琳娜的细致工作帮助她完成了别人无法做到的事。那场掩盖了舞弊的所谓“事故”被揭穿，两人被逮捕。</p>
+    `,
+    defs: {
+      "abundant":    { pos:"adj.", zh:"丰富的，充裕的", ipa:"/əˈbʌndənt/", en:"existing in large quantities; more than enough", ex:"The garden has abundant fruit this year.", freq:225 },
+      "abuse":       { pos:"v./n.", zh:"滥用；虐待", ipa:"/əˈbjuːz/", en:"to use something in a bad or wrong way, or to treat someone cruelly", ex:"He abused his power as a manager.", freq:279 },
+      "academic":    { pos:"adj.", zh:"学术的；教学的", ipa:"/ˌækəˈdemɪk/", en:"related to education, study, or universities", ex:"She wrote an academic paper on history.", freq:200 },
+      "academy":     { pos:"n.", zh:"学院，专科学校", ipa:"/əˈkædəmi/", en:"a school or college that teaches a special subject", ex:"He studies music at a famous academy.", freq:291 },
+      "accelerate":  { pos:"v.", zh:"加速，加快", ipa:"/əkˈseləreɪt/", en:"to make something happen faster or earlier", ex:"The car accelerated onto the highway.", freq:233 },
+      "accent":      { pos:"n.", zh:"口音；重音", ipa:"/ˈæksent/", en:"a way of pronouncing words that shows where you come from", ex:"She speaks English with a French accent.", freq:254 },
+      "accept":      { pos:"v.", zh:"接受，同意", ipa:"/əkˈsept/", en:"to take something that is offered, or to agree to something", ex:"He accepted the job offer.", freq:87 },
+      "access":      { pos:"n./v.", zh:"进入；访问；使用权", ipa:"/ˈækses/", en:"the right or ability to use or enter something", ex:"Students have access to the library.", freq:104 },
+      "accessible":  { pos:"adj.", zh:"可到达的，易接近的", ipa:"/əkˈsesəbl/", en:"easy to reach, use, or understand", ex:"The building is accessible to wheelchair users.", freq:203 },
+      "accident":    { pos:"n.", zh:"事故，意外", ipa:"/ˈæksɪdənt/", en:"an event that happens by chance and causes damage or injury", ex:"He broke his arm in a car accident.", freq:117 },
+      "accommodation":{ pos:"n.", zh:"住宿，膳宿", ipa:"/əˌkɒməˈdeɪʃn/", en:"a place to live or stay, such as a room or apartment", ex:"The hotel offers cheap accommodation.", freq:275 },
+      "accompany":   { pos:"v.", zh:"陪伴，伴随", ipa:"/əˈkʌmpəni/", en:"to go somewhere with someone", ex:"She accompanied her friend to the doctor.", freq:205 },
+      "accomplice":  { pos:"n.", zh:"同谋，帮凶", ipa:"/əˈkʌmplɪs/", en:"a person who helps another commit a crime", ex:"The thief and his accomplice were both caught.", freq:351 },
+      "accomplish":  { pos:"v.", zh:"完成，实现", ipa:"/əˈkʌmplɪʃ/", en:"to succeed in doing or finishing something", ex:"She accomplished her goal in one year.", freq:224 },
+      "accordance":  { pos:"n.", zh:"依照，一致", ipa:"/əˈkɔːdns/", en:"agreement with a rule or wish (used in 'in accordance with')", ex:"The work was done in accordance with the rules.", freq:333 },
+      "according to":{ pos:"prep.", zh:"根据，依照", ipa:"/əˈkɔːdɪŋ tu/", en:"as stated or reported by someone or something", ex:"According to the weather report, it will rain.", freq:196 },
+      "account":     { pos:"n.", zh:"账户；描述", ipa:"/əˈkaʊnt/", en:"an arrangement with a bank to keep money; a report or description", ex:"She opened a savings account.", freq:135 },
+      "accountant":  { pos:"n.", zh:"会计师", ipa:"/əˈkaʊntənt/", en:"a person whose job is to keep or check financial records", ex:"The accountant checked the company's books.", freq:290 },
+      "accredit":    { pos:"v.", zh:"认证，委任", ipa:"/əˈkredɪt/", en:"to officially recognize an organization or person as meeting standards", ex:"The college is accredited by the state.", freq:333 },
+      "accumulate":  { pos:"v.", zh:"积累，堆积", ipa:"/əˈkjuːmjəleɪt/", en:"to gradually collect or gather over time", ex:"Dust accumulates on the shelves.", freq:261 }
+    }
+  },
+  {
+    id: 3,
+    storyTitle: "The Leading Role",
+    storyDesc: "舞台逆袭 · 替补女演员临危受命，用实力赢回掌声",
+    words: ["accuracy","accurate","accuse","accustomed","ache","achieve","achievement","acid","acknowledge","acquaintance","acquire","acquisition","acre","across","act","action","active","activity","actor","actress"],
+    storyHTML: `
+      <p>Mia was an <span class="word" data-w="actress">actress</span> who had spent years playing small parts. She was <span class="word" data-w="accustomed">accustomed</span> to waiting in the wings, but she never let the <span class="word" data-w="ache">ache</span> of disappointment stop her. Her goal was to <span class="word" data-w="achieve">achieve</span> something real, and her greatest <span class="word" data-w="achievement">achievement</span> was still ahead.</p>
+      <p>One day the leading <span class="word" data-w="actor">actor</span> fell ill, and Mia had to <span class="word" data-w="act">act</span> on a moment's notice. Her quick <span class="word" data-w="action">action</span> saved the show. She walked <span class="word" data-w="across">across</span> the stage, feeling <span class="word" data-w="active">active</span> and alive. After the show, a critic praised the <span class="word" data-w="accuracy">accuracy</span> of her work and called it <span class="word" data-w="accurate">accurate</span> in every detail. Some jealous rivals tried to <span class="word" data-w="accuse">accuse</span> her of stealing the part, but the director refused to <span class="word" data-w="acknowledge">acknowledge</span> their gossip.</p>
+      <p>Soon a famous studio decided to <span class="word" data-w="acquire">acquire</span> the play, and the <span class="word" data-w="acquisition">acquisition</span> brought her fame. She bought a small farm with ten <span class="word" data-w="acre">acre</span>s of land, where she could relax after the daily <span class="word" data-w="activity">activity</span> of rehearsals. A new <span class="word" data-w="acquaintance">acquaintance</span> there once told her, "Life can be <span class="word" data-w="acid">acid</span> sometimes, but the sweet moments make it worthwhile."</p>
+    `,
+    storyZhHTML: `
+      <p>米娅是一位女演员，多年来一直演小角色。她习惯了在舞台侧翼等待，但她从未让失望的隐痛阻挡自己。她的目标是实现一些真正的东西，而她最大的成就还在前方。</p>
+      <p>有一天，男主角病倒了，米娅不得不临时救场。她迅速的行动挽救了这场演出。她穿过舞台，感到充满活力、生机勃勃。演出结束后，一位评论家称赞她表演的准确性，称其每个细节都精准无误。一些嫉妒的对手试图指控她抢了角色，但导演拒绝理会他们的闲言碎语。</p>
+      <p>不久，一家著名制片厂决定收购这部戏，这笔收购给她带来了名声。她买下了一个有十英亩土地的小农场，可以在每天的排练活动之后放松。那里一位新认识的熟人曾告诉她：“生活有时会酸涩，但甜蜜的时刻让它值得。”</p>
+    `,
+    defs: {
+      "accuracy":   { pos:"n.", zh:"准确性，精确度", ipa:"/ˈækjərəsi/", en:"the quality of being correct or exact", ex:"The accuracy of the report was checked.", freq:195 },
+      "accurate":   { pos:"adj.", zh:"准确的，精确的", ipa:"/ˈækjərət/", en:"correct and true in every detail", ex:"The map is accurate and easy to read.", freq:287 },
+      "accuse":     { pos:"v.", zh:"指控，指责", ipa:"/əˈkjuːz/", en:"to say that someone has done something wrong or illegal", ex:"They accused him of stealing the money.", freq:279 },
+      "accustomed": { pos:"adj.", zh:"习惯的", ipa:"/əˈkʌstəmd/", en:"familiar with something and accepting it as normal", ex:"She is accustomed to getting up early.", freq:276 },
+      "ache":       { pos:"n./v.", zh:"（持续的）疼痛", ipa:"/eɪk/", en:"a continuous, dull pain", ex:"He felt an ache in his back.", freq:290 },
+      "achieve":    { pos:"v.", zh:"达到，实现", ipa:"/əˈtʃiːv/", en:"to succeed in reaching a goal by effort", ex:"She achieved her dream of becoming a doctor.", freq:101 },
+      "achievement":{ pos:"n.", zh:"成就，成绩", ipa:"/əˈtʃiːvmənt/", en:"something done successfully, especially with effort", ex:"Winning the prize was a great achievement.", freq:300 },
+      "acid":       { pos:"n./adj.", zh:"酸；酸的，尖刻的", ipa:"/ˈæsɪd/", en:"a liquid chemical that can burn; sour or sharp in taste", ex:"Lemon juice contains acid.", freq:284 },
+      "acknowledge":{ pos:"v.", zh:"承认；致谢", ipa:"/əkˈnɒlɪdʒ/", en:"to accept that something is true, or show you have noticed someone", ex:"He acknowledged his mistake.", freq:249 },
+      "acquaintance":{ pos:"n.", zh:"熟人，相识", ipa:"/əˈkweɪntəns/", en:"a person you know slightly but not well", ex:"She is an acquaintance from work.", freq:287 },
+      "acquire":    { pos:"v.", zh:"获得，取得", ipa:"/əˈkwaɪə/", en:"to get or buy something", ex:"He acquired a new skill.", freq:276 },
+      "acquisition":{ pos:"n.", zh:"获得；收购", ipa:"/ˌækwɪˈzɪʃn/", en:"the act of getting something; a company or thing bought", ex:"The firm announced a major acquisition.", freq:300 },
+      "acre":       { pos:"n.", zh:"英亩", ipa:"/ˈeɪkə/", en:"a unit of land area (about 4,047 square meters)", ex:"The farm covers fifty acres.", freq:317 },
+      "across":     { pos:"prep./adv.", zh:"穿过，横过", ipa:"/əˈkrɒs/", en:"from one side to the other side", ex:"She walked across the street.", freq:302 },
+      "act":        { pos:"v./n.", zh:"行动；表演；行为", ipa:"/ækt/", en:"to do something; to perform in a play", ex:"He had to act quickly to save the child.", freq:137 },
+      "action":     { pos:"n.", zh:"行动，行为", ipa:"/ˈækʃn/", en:"the process of doing something to achieve a result", ex:"The police took action immediately.", freq:90 },
+      "active":     { pos:"adj.", zh:"活跃的，积极的", ipa:"/ˈæktɪv/", en:"doing things regularly; full of energy", ex:"She stays active by walking daily.", freq:312 },
+      "activity":   { pos:"n.", zh:"活动", ipa:"/ækˈtɪvəti/", en:"a thing that you do for interest, fun, or a purpose", ex:"Swimming is her favorite activity.", freq:325 },
+      "actor":      { pos:"n.", zh:"演员", ipa:"/ˈæktə/", en:"a person who performs in plays or films", ex:"The actor won an award.", freq:321 },
+      "actress":    { pos:"n.", zh:"女演员", ipa:"/ˈæktrəs/", en:"a woman who performs in plays or films", ex:"The actress played the queen.", freq:321 }
+    }
+  }
+];
+
+/* ===================== 渲染 ===================== */
+const groupList = document.getElementById('groupList');
+const tooltip = document.getElementById('tooltip');
+const elTitle = document.getElementById('groupTitle');
+const elStoryTitle = document.getElementById('storyTitle');
+const elStoryDesc = document.getElementById('storyDesc');
+const elChips = document.getElementById('chips');
+const elStory = document.getElementById('story');
+const elTrans = document.getElementById('trans');
+const elWordTableBody = document.querySelector('#wordTable tbody');
+let currentGroup = null;
+
+// 左栏：3 组可点 + 后续占位
+function renderSidebar() {
+  let html = '';
+  groups.forEach(g => {
+    html += `<button class="grp" data-id="${g.id}">
+      <span class="no">第 ${g.id} 组</span>
+      <span class="range">${g.words[0]} — ${g.words[g.words.length-1]}</span>
+    </button>`;
+  });
+  // 后续占位（灰显）
+  for (let i = 4; i <= 8; i++) {
+    html += `<button class="grp disabled"><span class="no">第 ${i} 组</span><span class="range">待扩展</span></button>`;
+  }
+  groupList.innerHTML = html;
+}
+
+// 右栏渲染某组
+function renderGroup(id) {
+  const g = groups.find(x => x.id === id);
+  if (!g) return;
+  currentGroup = id;
+  elTitle.textContent = `第 ${g.id} 组 · 20 词`;
+  elStoryTitle.textContent = g.storyTitle;
+  elStoryDesc.textContent = g.storyDesc;
+  elStory.innerHTML = g.storyHTML;
+
+  elChips.innerHTML = g.words.map(w =>
+    `<span class="chip word" data-w="${w}">${w}</span>`
+  ).join('');
+
+  // 中文翻译
+  elTrans.innerHTML = g.storyZhHTML || '';
+
+  // 词汇表
+  elWordTableBody.innerHTML = g.words.map(w => {
+    const d = g.defs[w];
+    return `<tr>
+      <td class="en">${w}</td>
+      <td>${d.pos}</td>
+      <td class="ipa">${d.ipa}</td>
+      <td>${d.zh}</td>
+      <td class="freq">${d.freq}</td>
+    </tr>`;
+  }).join('');
+
+  // 左栏高亮
+  document.querySelectorAll('.grp').forEach(b => {
+    b.classList.toggle('active', b.dataset.id == id);
+  });
+}
+
+/* ===================== 悬停释义 ===================== */
+function getDef(word) {
+  const g = groups.find(x => x.id === currentGroup);
+  return g && g.defs[word];
+}
+
+let hideTimer = null;
+let activeWordEl = null;
+
+function clearHide() {
+  if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+}
+
+function showTip(wordEl) {
+  const word = wordEl.dataset.w;
+  const d = getDef(word);
+  if (!d) return;
+  clearHide();
+  activeWordEl = wordEl;
+  tooltip.innerHTML = `
+    <div class="tip-head">
+      <span class="tip-word">${word}</span>
+      <span class="tip-freq">词频 ${d.freq}</span>
+    </div>
+    <div class="tip-ipa">${d.pos} · ${d.ipa}</div>
+    <div class="tip-zh">${d.zh}</div>
+    <div class="tip-label">英文释义</div>
+    <div class="tip-en">${d.en}</div>
+    <div class="tip-label">例句</div>
+    <div class="tip-ex">${d.ex}</div>
+    <div class="tip-btns">
+      <button class="play" data-w="${word}" data-accent="uk">🔊 英音</button>
+      <button class="play" data-w="${word}" data-accent="us">🔊 美音</button>
+    </div>`;
+  tooltip.style.display = 'block';
+  positionTip(wordEl);
+}
+
+// 卡片锚定在单词正下方，不再跟随鼠标，这样按钮始终可点
+function positionTip(wordEl) {
+  const r = wordEl.getBoundingClientRect();
+  const w = tooltip.offsetWidth;
+  const h = tooltip.offsetHeight;
+  let left = r.left;
+  let top = r.bottom + 4;
+  if (top + h > window.innerHeight - 8) top = r.top - h - 4;
+  if (left + w > window.innerWidth - 8) left = window.innerWidth - 8 - w;
+  if (left < 8) left = 8;
+  if (top < 8) top = 8;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+}
+
+// 离开单词和卡片后延迟隐藏，留出把鼠标移到按钮上的时间
+function scheduleHide() {
+  clearHide();
+  hideTimer = setTimeout(() => {
+    tooltip.style.display = 'none';
+    activeWordEl = null;
+  }, 300);
+}
+
+document.addEventListener('mouseover', e => {
+  const w = e.target.closest('.word');
+  if (w && w.dataset.w) {
+    showTip(w);
+    return;
+  }
+  if (e.target.closest('#tooltip')) {
+    clearHide();
+  }
+});
+
+document.addEventListener('mouseout', e => {
+  const rel = e.relatedTarget;
+  if (rel && (rel.closest('.word') || rel.closest('#tooltip'))) return;
+  scheduleHide();
+});
+
+/* ===================== 发音 ===================== */
+function audioWord(w) {
+  // 多词条（如 "a, an"、"according to"）取第一个词发音
+  return w.split(/[ ,]/)[0];
+}
+// 缓存浏览器内置语音引擎列表
+let voices = [];
+function loadVoices() {
+  try { voices = window.speechSynthesis.getVoices(); } catch (e) { voices = []; }
+}
+function pickVoice(accent) {
+  const lang = accent === 'uk' ? 'en-GB' : 'en-US';
+  return voices.find(v => v.lang === lang)
+      || voices.find(v => v.lang.toLowerCase().replace('_', '-').startsWith(lang))
+      || voices.find(v => v.lang.toLowerCase().startsWith('en'));
+}
+if ('speechSynthesis' in window) {
+  // 提前多轮加载语音列表（部分浏览器首次 getVoices 返回空）
+  loadVoices();
+  setTimeout(loadVoices, 50);
+  setTimeout(loadVoices, 300);
+  if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  // 页面加载即预热语音引擎，消除首次点击的冷启动延迟
+  try {
+    const warm = new SpeechSynthesisUtterance(' ');
+    warm.volume = 0;
+    warm.rate = 1;
+    window.speechSynthesis.speak(warm);
+  } catch (e) {}
+}
+
+// 浏览器内置发音：无需联网，英音=en-GB、美音=en-US
+function speak(w, accent) {
+  const aw = audioWord(w);
+  const lang = accent === 'uk' ? 'en-GB' : 'en-US';
+  const u = new SpeechSynthesisUtterance(aw);
+  u.lang = lang;
+  u.rate = 1;
+  const v = pickVoice(accent);
+  if (v) u.voice = v;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+// 有道真人发音（备用：在系统浏览器中直接打开本文件时音质更好）
+function playYoudao(w, accent) {
+  const aw = audioWord(w);
+  const type = accent === 'uk' ? 1 : 2;   // type=1 英音, type=2 美音
+  const url = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(aw)}&type=${type}`;
+  const a = new Audio(url);
+  a.play().catch(() => {});
+}
+
+function playAudio(w, accent) {
+  if ('speechSynthesis' in window) {
+    speak(w, accent);
+  } else {
+    playYoudao(w, accent);
+  }
+}
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('.grp');
+  if (g && !g.classList.contains('disabled')) {
+    renderGroup(parseInt(g.dataset.id, 10));
+    return;
+  }
+  const b = e.target.closest('.play');
+  if (b) {
+    playAudio(b.dataset.w, b.dataset.accent);
+  }
+});
+
+/* ===================== 初始化 ===================== */
+renderSidebar();
+renderGroup(1);
+</script>
+</body>
+</html>
