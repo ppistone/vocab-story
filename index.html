@@ -301,6 +301,20 @@
   td.en { font-weight: 700; color: var(--accent); }
   td.ipa { color: #6b7280; }
   td.freq { color: var(--muted); }
+  td.clip { white-space: nowrap; }
+  /* 经典例句（getyarn.io 影视原声）链接 */
+  .yarn {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 9px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    transition: all .15s ease;
+  }
+  .yarn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
   .hint {
     font-size: 13px;
@@ -344,7 +358,7 @@
         <h3 class="section-title">本组词汇表</h3>
         <table id="wordTable">
           <thead>
-            <tr><th>单词</th><th>词性</th><th>音标</th><th>中文释义</th><th>词频</th></tr>
+            <tr><th>单词</th><th>词性</th><th>音标</th><th>中文释义</th><th>词频</th><th>经典例句</th></tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -1379,6 +1393,20 @@ function renderStoryTabs(g) {
     <button class="story-tab" data-idx="1"><span class="tab-no">故事二 · ${g.altStory.tag || '换境'}</span>${g.altStory.storyTitle}</button>`;
 }
 
+// 把词条转成 getyarn.io 的搜索词：
+// "a, an"→a ; "BC/B.C."→BC ; "analyse/-yze"→analyse ; "afterward(s)"→afterward
+// "behavior(u)r"→behavior ; "according to" 原样保留
+function yarnQuery(w) {
+  let q = w.split(/[,/]/)[0];
+  const m = q.match(/^([a-z]+)\([a-z]*\)[a-z]*$/i);   // 带可选字母的词形，取括号前部分
+  if (m) q = m[1];
+  q = q.replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').trim();
+  return q || w;
+}
+function yarnUrl(w) {
+  return 'https://getyarn.io/yarn-find?text=' + encodeURIComponent(yarnQuery(w));
+}
+
 // 右栏渲染某组
 function renderGroup(id) {
   const g = groups.find(x => x.id === id);
@@ -1403,6 +1431,7 @@ function renderGroup(id) {
       <td class="ipa">${d.ipa}</td>
       <td>${d.zh}</td>
       <td class="freq">${d.freq}</td>
+      <td class="clip"><a class="yarn" href="${yarnUrl(w)}" target="_blank" rel="noopener" title="在 getyarn.io 看「${yarnQuery(w)}」的影视原声例句">🎬 看例句</a></td>
     </tr>`;
   }).join('');
 
