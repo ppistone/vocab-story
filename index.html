@@ -117,6 +117,33 @@
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   }
 
+  /* 故事切换标签 */
+  .story-tabs {
+    display: none;
+    gap: 10px;
+    margin: 0 0 22px;
+    flex-wrap: wrap;
+  }
+  .story-tab {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 13px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .story-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .story-tab.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .story-tab .tab-no { font-size: 11px; opacity: .75; margin-right: 6px; }
+
   /* 本组单词 chips */
   .chips {
     display: flex;
@@ -277,6 +304,7 @@
   <main class="content">
     <div class="content-inner">
       <div class="group-title" id="groupTitle"></div>
+      <div class="story-tabs" id="storyTabs"></div>
       <h2 class="story-title" id="storyTitle"></h2>
       <p class="story-desc" id="storyDesc"></p>
       <div class="chips" id="chips"></div>
@@ -297,7 +325,7 @@
         </table>
       </div>
 
-      <p class="hint">提示：把鼠标悬停在<span style="color:var(--accent);font-weight:700">红色单词</span>上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。</p>
+      <p class="hint">提示：把鼠标悬停在<span style="color:var(--accent);font-weight:700">红色单词</span>上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。第 1 组有两篇故事，可点上方标签切换。</p>
     </div>
   </main>
 </div>
@@ -344,6 +372,20 @@ const groups = [
       "absorb":    { pos:"v.", zh:"吸收；理解", ipa:"/əbˈzɔːb/", en:"to take in a liquid or information; to understand fully", ex:"Plants absorb water through their roots.", freq:205 },
       "abstract":  { pos:"adj.", zh:"抽象的", ipa:"/ˈæbstrækt/", en:"existing as an idea, not as a physical object", ex:"Beauty is an abstract concept.", freq:252 },
       "absurd":    { pos:"adj.", zh:"荒谬的，可笑的", ipa:"/əbˈsɜːd/", en:"completely unreasonable or ridiculous", ex:"It is absurd to think money grows on trees.", freq:297 }
+    },
+    altStory: {
+      storyTitle: "The Blue That Got Away",
+      storyDesc: "求而不得 · 调漆师跨海寻访一罐传说中的「绝对之蓝」，最后带回家的却是一只空罐",
+      storyHTML: `
+        <p>Nora mixed paint for a living, and she had a rare <span class="word" data-w="ability">ability</span> to <span class="word" data-w="absorb">absorb</span> a colour once and never forget it. So when a client wrote <span class="word" data-w="about">about</span> "the <span class="word" data-w="absolute">absolute</span> blue" — a shade no one had mixed since the war — she booked a passage <span class="word" data-w="abroad">abroad</span> that afternoon. <span class="word" data-w="a, an">A</span> handwritten note said the last jar sat in a monastery <span class="word" data-w="above">above</span> a fishing village, guarded by an old <span class="word" data-w="abbot">abbot</span>.</p>
+        <p>She went <span class="word" data-w="aboard">aboard</span> a rusty ferry at dawn. The abbot was <span class="word" data-w="absent">absent</span>, though; his <span class="word" data-w="absence">absence</span> was <span class="word" data-w="abrupt">abrupt</span> and, the villagers whispered, <span class="word" data-w="abnormal">abnormal</span> — he had not been seen since the council voted to <span class="word" data-w="abolish">abolish</span> the monastery's dye workshop. The <span class="word" data-w="abortion">abortion</span> of the whole enterprise, they said, had taken the secret with it. Nora was still <span class="word" data-w="able">able</span> to laugh: chasing an <span class="word" data-w="abstract">abstract</span> idea across two seas was, she admitted, fairly <span class="word" data-w="absurd">absurd</span>.</p>
+        <p>On the last evening she <span class="word" data-w="abandon">abandon</span>ed the search and sat on the harbour wall, watching the light go. The water below was that exact blue — deep, unrepeatable, and <span class="word" data-w="absolutely">absolutely</span> free. She sailed home with an empty jar and told everyone it was the best colour money could never buy.</p>
+      `,
+      storyZhHTML: `
+        <p>诺拉以调漆为生，有一种罕见的本事：一种颜色只要看过一次，就能吸收进脑子里，几十年不忘。所以，当一位客户写信问起「那种绝对的蓝」——据说战后就再没人调得出来——她当天下午就订了出国的船票。一张手写便条说，最后一罐藏在一座渔村上方的修道院里，由一位年迈的院长守着。</p>
+        <p>黎明时分，她登上一艘锈迹斑斑的渡轮。可院长不在；他的缺席来得突然，村民们私下说，反常得很——自从议事会投票废除了修道院的染坊，就再没人见过他。他们说，那门手艺半途夭折，秘密也跟着一并埋掉了。诺拉倒还笑得出来：为着一个抽象的想法跨了两片海，这趟差事本身就挺荒谬。</p>
+        <p>最后一晚，她放弃了寻找，坐在港口的石墙上看天光一点点褪去。墙下的海水正是那种蓝——深得没法复刻，也绝对免费。她带着一只空罐子坐船回家，逢人便说，那是金钱永远买不到的最好的颜色。</p>
+      `
     }
   },
   {
@@ -433,8 +475,10 @@ const elStoryDesc = document.getElementById('storyDesc');
 const elChips = document.getElementById('chips');
 const elStory = document.getElementById('story');
 const elTrans = document.getElementById('trans');
+const elStoryTabs = document.getElementById('storyTabs');
 const elWordTableBody = document.querySelector('#wordTable tbody');
 let currentGroup = null;
+let currentStory = 0;   // 0 = 主故事, 1 = 第二篇故事
 
 // 左栏：3 组可点 + 后续占位
 function renderSidebar() {
@@ -452,22 +496,50 @@ function renderSidebar() {
   groupList.innerHTML = html;
 }
 
+// 取当前组正在显示的那篇故事
+function activeStory(g) {
+  return (currentStory === 1 && g.altStory) ? g.altStory : g;
+}
+
+// 只切换故事正文/标题/翻译（chips 与词汇表两篇共用，不重绘）
+function applyStory(g) {
+  const s = activeStory(g);
+  elStoryTitle.textContent = s.storyTitle;
+  elStoryDesc.textContent = s.storyDesc;
+  elStory.innerHTML = s.storyHTML;
+  elTrans.innerHTML = s.storyZhHTML || '';
+  document.querySelectorAll('.story-tab').forEach(b => {
+    b.classList.toggle('active', Number(b.dataset.idx) === currentStory);
+  });
+}
+
+// 渲染故事切换标签（仅当该组有第二篇故事时显示）
+function renderStoryTabs(g) {
+  if (!g.altStory) {
+    elStoryTabs.style.display = 'none';
+    elStoryTabs.innerHTML = '';
+    return;
+  }
+  elStoryTabs.style.display = 'flex';
+  elStoryTabs.innerHTML = `
+    <button class="story-tab" data-idx="0"><span class="tab-no">故事一</span>${g.storyTitle}</button>
+    <button class="story-tab" data-idx="1"><span class="tab-no">故事二 · 难求</span>${g.altStory.storyTitle}</button>`;
+}
+
 // 右栏渲染某组
 function renderGroup(id) {
   const g = groups.find(x => x.id === id);
   if (!g) return;
   currentGroup = id;
+  currentStory = 0;                 // 换组时默认回到故事一
   elTitle.textContent = `第 ${g.id} 组 · 20 词`;
-  elStoryTitle.textContent = g.storyTitle;
-  elStoryDesc.textContent = g.storyDesc;
-  elStory.innerHTML = g.storyHTML;
+
+  renderStoryTabs(g);
+  applyStory(g);
 
   elChips.innerHTML = g.words.map(w =>
     `<span class="chip word" data-w="${w}">${w}</span>`
   ).join('');
-
-  // 中文翻译
-  elTrans.innerHTML = g.storyZhHTML || '';
 
   // 词汇表
   elWordTableBody.innerHTML = g.words.map(w => {
@@ -630,9 +702,23 @@ function playAudio(w, accent) {
 }
 
 document.addEventListener('click', e => {
+  // 故事一 / 故事二 切换
+  const tab = e.target.closest('.story-tab');
+  if (tab) {
+    const g = groups.find(x => x.id === currentGroup);
+    if (g) {
+      currentStory = Number(tab.dataset.idx);
+      applyStory(g);
+      clearHide();
+      tooltip.style.display = 'none';
+    }
+    return;
+  }
   const g = e.target.closest('.grp');
   if (g && !g.classList.contains('disabled')) {
     renderGroup(parseInt(g.dataset.id, 10));
+    clearHide();
+    tooltip.style.display = 'none';
     return;
   }
   const b = e.target.closest('.play');
