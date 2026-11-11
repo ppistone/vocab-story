@@ -299,7 +299,30 @@
   }
   tr:hover td { background: #faf8f5; }
   td.en { font-weight: 700; color: var(--accent); }
-  td.ipa { color: #6b7280; }
+  td.ipa { color: #6b7280; white-space: nowrap; }
+  /* 音标后的小喇叭：点击即读美式发音 */
+  .spk {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 6px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: #fff;
+    color: var(--accent);
+    font-size: 11px;
+    line-height: 1;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: all .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .spk:hover { background: var(--accent); border-color: var(--accent); }
+  .spk:active { transform: scale(.9); }
+  .spk.on { background: var(--accent); color: #fff; border-color: var(--accent); }
   td.freq { color: var(--muted); }
   td.clip { white-space: nowrap; }
   /* 经典例句（getyarn.io 影视原声）链接 */
@@ -1745,7 +1768,7 @@ function renderGroup(id) {
     return `<tr>
       <td class="en">${w}</td>
       <td>${d.pos}</td>
-      <td class="ipa">${d.ipa}</td>
+      <td class="ipa">${d.ipa}<button class="spk" data-w="${w}" title="美式发音" aria-label="听 ${w} 的美式发音">🔊</button></td>
       <td>${d.zh}</td>
       <td class="freq">${d.freq}</td>
       <td class="clip"><a class="yarn" href="${yarnUrl(w)}" target="_blank" rel="noopener" title="在 getyarn.io 看「${yarnQuery(w)}」的影视原声例句">🎬 看例句</a></td>
@@ -1844,8 +1867,11 @@ function audioWord(w) {
 }
 // 缓存浏览器内置语音引擎列表
 let voices = [];
+let voiceUS = null, voiceUK = null;   // 预先解析好的英/美音色，点击时不再查找
 function loadVoices() {
   try { voices = window.speechSynthesis.getVoices(); } catch (e) { voices = []; }
+  voiceUK = pickVoice('uk');
+  voiceUS = pickVoice('us');
 }
 function pickVoice(accent) {
   const lang = accent === 'uk' ? 'en-GB' : 'en-US';
@@ -1874,13 +1900,36 @@ if ('speechSynthesis' in window) {
 function speak(w, accent) {
   const aw = audioWord(w);
   const lang = accent === 'uk' ? 'en-GB' : 'en-US';
+  const synth = window.speechSynthesis;
+  if (!voiceUS || !voiceUK) loadVoices();      // 兜底：语音列表晚到
+
+  // 关键：仅在真的有内容在播时才 interrupt，空闲时直接 speak，省掉 cancel 的额外等待
+  if (synth.speaking || synth.pending) synth.cancel();
+  if (synth.paused) synth.resume();
+
   const u = new SpeechSynthesisUtterance(aw);
   u.lang = lang;
   u.rate = 1;
-  const v = pickVoice(accent);
+  u.pitch = 1;
+  u.volume = 1;
+  const v = accent === 'uk' ? voiceUK : voiceUS;
   if (v) u.voice = v;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
+  synth.speak(u);
+}
+
+// Chrome/Edge 的语音引擎空闲约 15 秒后会「睡着」，下次说话要多等一拍。
+// 每 8 秒发一个静音空串把它唤醒，保证点击喇叭是即时出声。
+if ('speechSynthesis' in window) {
+  setInterval(() => {
+    const synth = window.speechSynthesis;
+    if (synth.speaking || synth.pending) return;
+    try {
+      const k = new SpeechSynthesisUtterance('.');
+      k.volume = 0;
+      k.rate = 2;
+      synth.speak(k);
+    } catch (e) {}
+  }, 8000);
 }
 
 // 有道真人发音（备用：在系统浏览器中直接打开本文件时音质更好）
@@ -1918,6 +1967,14 @@ document.addEventListener('click', e => {
     renderGroup(parseInt(g.dataset.id, 10));
     clearHide();
     tooltip.style.display = 'none';
+    return;
+  }
+  // 音标后的小喇叭：点击立即读美式发音
+  const spk = e.target.closest('.spk');
+  if (spk) {
+    playAudio(spk.dataset.w, 'us');
+    spk.classList.add('on');
+    setTimeout(() => spk.classList.remove('on'), 200);
     return;
   }
   const b = e.target.closest('.play');
