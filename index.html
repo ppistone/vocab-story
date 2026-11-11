@@ -28,7 +28,7 @@
   /* 左右框架 */
   .frame {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 248px 1fr;
     height: 100vh;
   }
 
@@ -116,9 +116,12 @@
   /* 右栏：内容 */
   .content {
     overflow-y: auto;
-    padding: 40px 48px 60px;
+    padding: 30px 22px 60px;
   }
-  .content-inner { max-width: 760px; margin: 0 auto; }
+  /* 内容区铺满右栏，不再限宽 */
+  .content-inner { max-width: 100%; margin: 0; }
+  /* 故事正文与翻译保持易读行宽 */
+  .story-title, .story-desc, .chips, .story, .trans, .no-story { max-width: 880px; }
   .group-title {
     font-size: 15px;
     letter-spacing: 2px;
@@ -329,16 +332,25 @@
   td.colloc {
     font-size: 12.5px;
     color: #4a4f5c;
-    line-height: 1.6;
-    min-width: 170px;
+    line-height: 1.55;
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   }
   td.colloc .co { display: block; }
   td.colloc .co + .co { margin-top: 3px; }
   td.colloc b { color: var(--accent); font-weight: 700; }
   td.colloc .none { color: #c9c9c9; }
-  .table-wrap { overflow-x: auto; }
-  #wordTable { min-width: 840px; }
+  /* 表格铺满右栏，7 列一次全部显示，无横向滚动 */
+  .table-wrap { overflow-x: visible; }
+  #wordTable { width: 100%; min-width: 0; table-layout: auto; }
+  #wordTable th, #wordTable td { padding: 8px 10px; }
+  #wordTable td.en  { white-space: nowrap; }
+  #wordTable td.pos { white-space: nowrap; font-size: 12.5px; color: #6b7280; }
+  #wordTable td.freq { white-space: nowrap; }
+  /* 极窄屏（<1180px）兜底：恢复横向滚动，避免挤压变形 */
+  @media (max-width: 1180px) {
+    .table-wrap { overflow-x: auto; }
+    #wordTable { min-width: 820px; }
+  }
   /* 经典例句（getyarn.io 影视原声）链接 */
   .yarn {
     display: inline-block;
@@ -1807,7 +1819,7 @@ function renderGroup(id) {
     const d = g.defs[w] || { pos:'', zh:'', ipa:'—', freq:'' };
     return `<tr>
       <td class="en">${w}</td>
-      <td>${d.pos}</td>
+      <td class="pos">${d.pos}</td>
       <td class="ipa">${d.ipa}<button class="spk" data-w="${w}" title="美式发音" aria-label="听 ${w} 的美式发音">🔊</button></td>
       <td>${d.zh}</td>
       <td class="colloc">${collocHTML(w)}</td>
