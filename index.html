@@ -79,6 +79,29 @@
     cursor: not-allowed;
   }
   .grp.disabled:hover { transform: none; border-color: var(--line); }
+  /* 左栏「短文」小标 */
+  .grp .badge {
+    float: right;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(200, 40, 80, .10);
+    color: var(--accent);
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .grp.active .badge { background: rgba(255,255,255,.25); color: #fff; }
+  /* 无故事组的提示条 */
+  .no-story {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: rgba(0,0,0,.03);
+    border-left: 3px solid var(--line);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    margin: 0 0 18px;
+    line-height: 1.7;
+  }
   .pending-note {
     font-size: 12px;
     color: var(--muted);
@@ -292,11 +315,12 @@
   <!-- 左栏 -->
   <aside class="sidebar">
     <h1>英语词汇记忆</h1>
-    <p class="sub">每 20 词一组 · 点击组名查看短文</p>
+    <p class="sub">每 20 词一组 · 点击查看词表与发音</p>
     <div id="groupList"></div>
     <div class="pending-note">
-      已生成 <b>3 组</b>（前 60 词）。<br>
-      其余约 224 组（共 4487 词）待后续扩展。
+      已生成 <b>30 组</b>（前 600 词）。<br>
+      第 1–3 组配有趣味短文；第 4–30 组暂只提供词表。<br>
+      其余 197 组（约 3947 词）待后续扩展。
     </div>
   </aside>
 
@@ -309,8 +333,9 @@
       <p class="story-desc" id="storyDesc"></p>
       <div class="chips" id="chips"></div>
       <div class="story" id="story"></div>
+      <div class="no-story" id="noStory" style="display:none">本组暂未生成短文 —— 先看下面的词表，把鼠标悬停在单词上可以听发音、看释义。</div>
 
-      <div class="section">
+      <div class="section" id="transSection">
         <h3 class="section-title">中文翻译</h3>
         <div class="trans" id="trans"></div>
       </div>
@@ -325,7 +350,7 @@
         </table>
       </div>
 
-      <p class="hint">提示：把鼠标悬停在<span style="color:var(--accent);font-weight:700">红色单词</span>上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。第 1 组有两篇故事，可点上方标签切换。</p>
+      <p class="hint">提示：把鼠标悬停在任意单词上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。第 1 组有两篇故事，可点上方标签切换。</p>
     </div>
   </main>
 </div>
@@ -468,6 +493,816 @@ const groups = [
       "actor":      { pos:"n.", zh:"演员", ipa:"/ˈæktə/", en:"a person who performs in plays or films", ex:"The actor won an award.", freq:321 },
       "actress":    { pos:"n.", zh:"女演员", ipa:"/ˈæktrəs/", en:"a woman who performs in plays or films", ex:"The actress played the queen.", freq:321 }
     }
+  },
+  {
+    id: 4,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["actual", "actually", "acupuncture", "acute", "ad", "AD/A.D.", "adapt", "adaptation", "add", "addict", "addicted", "addition", "address", "adequate", "adherence", "adjust", "adjustment", "administration", "admirable", "admire"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "actual": { pos:"adj.", zh:"真实的，实际的，现实的", ipa:"/ˈæktʃuəl/", freq:300 },
+      "actually": { pos:"adv.", zh:"实际上，事实上；（用于开始新话题）其实", ipa:"/ˈæktʃuəli/", freq:300 },
+      "acupuncture": { pos:"n.", zh:"针灸，针刺疗法", ipa:"/ˈækjupʌŋktʃə(r)/", freq:347 },
+      "acute": { pos:"adj.", zh:"严重的，危险的；急性的，剧烈的", ipa:"/əˈkjuːt/", freq:289 },
+      "ad": { pos:"n.", zh:"广告；促销活动", ipa:"/æd/", freq:315 },
+      "AD/A.D.": { pos:"abbr.", zh:"公元（Anno Domini）", ipa:"/ˌeɪ ˈdiː/", freq:316 },
+      "adapt": { pos:"v.", zh:"适应；调整，使适合", ipa:"/əˈdæpt/", freq:223 },
+      "adaptation": { pos:"n.", zh:"改编本，改写本；适应，改变", ipa:"/ˌædæpˈteɪʃn/", freq:296 },
+      "add": { pos:"v.", zh:"添加，掺入；（使）相加，加", ipa:"/æd/", freq:64 },
+      "addict": { pos:"n.", zh:"（尤指毒品）上瘾者，瘾君子", ipa:"/ˈædɪkt/", freq:300 },
+      "addicted": { pos:"adj.", zh:"（吸毒）成瘾的，上瘾的；入迷的，着迷的", ipa:"/əˈdɪktɪd/", freq:288 },
+      "addition": { pos:"n.", zh:"增加物，新增人员；增加", ipa:"/əˈdɪʃ(ə)n/", freq:115 },
+      "address": { pos:"n.", zh:"地址，住址；网址", ipa:"/əˈdres/", freq:143 },
+      "adequate": { pos:"adj.", zh:"足够的，适当的，合乎需要的", ipa:"/ˈædɪkwət/", freq:262 },
+      "adherence": { pos:"n.", zh:"（尤指对规则、信念等的）遵守，坚持", ipa:"/ədˈhɪərəns/", freq:339 },
+      "adjust": { pos:"v.", zh:"调整，调节；整理（衣服）", ipa:"/əˈdʒʌst/", freq:231 },
+      "adjustment": { pos:"n.", zh:"调整，校正；（行为、思想的）调节，适应", ipa:"/əˈdʒʌstmənt/", freq:296 },
+      "administration": { pos:"n.", zh:"管理，行政；管理部门，行政部门", ipa:"/ədˌmɪnɪˈstreɪʃ(ə)n/", freq:222 },
+      "admirable": { pos:"adj.", zh:"令人钦佩的，极其出色的", ipa:"/ˈædmərəb(ə)l/", freq:289 },
+      "admire": { pos:"v.", zh:"钦佩，仰慕；欣赏，观赏", ipa:"/ədˈmaɪə(r)/", freq:178 }
+    }
+  },
+  {
+    id: 5,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["admission", "admit", "adolescence", "adolescent", "adopt", "adorable", "adore", "adult", "advance", "advantage", "adventure", "advertise", "advertisement", "advice", "advise", "advocate", "aerobic", "aesthetic", "affair", "affect"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "admission": { pos:"n.", zh:"承认，供认；允许进入（加入），进入权", ipa:"/ədˈmɪʃ(ə)n/", freq:165 },
+      "admit": { pos:"v.", zh:"（勉强）承认；招认，招供", ipa:"/ədˈmɪt/", freq:111 },
+      "adolescence": { pos:"n.", zh:"青春期，青春", ipa:"/ˌædəˈles(ə)ns/", freq:276 },
+      "adolescent": { pos:"n.", zh:"青少年", ipa:"/ˌædəˈles(ə)nt/", freq:277 },
+      "adopt": { pos:"v.", zh:"收养；采取，采纳，接受", ipa:"/əˈdɒpt/", freq:215 },
+      "adorable": { pos:"adj.", zh:"可爱的，讨人喜欢的；<罕>值得崇拜的", ipa:"/əˈdɔːrəb(ə)l/", freq:288 },
+      "adore": { pos:"v.", zh:"非常喜欢，热爱；爱慕，疼爱", ipa:"/əˈdɔː(r)/", freq:276 },
+      "adult": { pos:"n.", zh:"成年人或动物", ipa:"/ˈædʌlt; əˈdʌlt/", freq:311 },
+      "advance": { pos:"v.", zh:"（使）前进，（使）向前移动；发展，进步", ipa:"/ədˈvɑːns/", freq:102 },
+      "advantage": { pos:"n.", zh:"有利条件，优势；优点", ipa:"/ədˈvɑːntɪdʒ/", freq:164 },
+      "adventure": { pos:"n.", zh:"冒险（经历），奇遇；冒险的刺激，冒险欲", ipa:"/ədˈventʃə(r)/", freq:89 },
+      "advertise": { pos:"v.", zh:"为……做广告，登广告；公布，征聘", ipa:"/ˈædvətaɪz/", freq:180 },
+      "advertisement": { pos:"n.", zh:"广告；（某一类事物的）活广告", ipa:"/ədˈvɜːtɪsmənt/", freq:180 },
+      "advice": { pos:"n.", zh:"忠告，劝告，建议；（金融交易）正式通知", ipa:"/ədˈvaɪs/", freq:304 },
+      "advise": { pos:"v.", zh:"通知，告知；劝告，建议", ipa:"/ədˈvaɪz/", freq:223 },
+      "advocate": { pos:"v.", zh:"拥护，提倡", ipa:"/ˈædvəkeɪt/", freq:242 },
+      "aerobic": { pos:"adj.", zh:"需氧的；有氧（健身）的", ipa:"/eəˈrəʊbɪk/", freq:336 },
+      "aesthetic": { pos:"adj.", zh:"审美的，美学的；美的，艺术的", ipa:"/iːsˈθetɪk/", freq:337 },
+      "affair": { pos:"n.", zh:"公共事务，政治事务；事情，事件", ipa:"/əˈfeə(r)/", freq:222 },
+      "affect": { pos:"v.", zh:"影响；（疾病）侵袭，感染", ipa:"/əˈfekt/", freq:176 }
+    }
+  },
+  {
+    id: 6,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["affection", "afford", "afraid", "Africa", "African", "after", "afternoon", "afterward(s)", "again", "against", "age", "agency", "agenda", "agent", "aggressive", "ago", "agree", "agreement", "agricultural", "agriculture"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "affection": { pos:"n.", zh:"喜爱，关爱；爱恋，爱慕之情", ipa:"/əˈfekʃn/", freq:287 },
+      "afford": { pos:"v.", zh:"买得起；有（时间）做某事", ipa:"/əˈfɔːd/", freq:143 },
+      "afraid": { pos:"adj.", zh:"害怕的；担心的", ipa:"/əˈfreɪd/", freq:102 },
+      "Africa": { pos:"n.", zh:"非洲", ipa:"/ˈæfrɪkə/", freq:306 },
+      "African": { pos:"adj.", zh:"（与）非洲（有关）的；非洲人的", ipa:"/ˈæfrɪkən/", freq:306 },
+      "after": { pos:"prep.", zh:"在……之后；紧接着", ipa:"/ˈɑːftə(r)/", freq:304 },
+      "afternoon": { pos:"n.", zh:"午后，下午", ipa:"/ˌɑːftəˈnuːn/", freq:317 },
+      "afterward(s)": { pos:"adv.", zh:"以后，后来，其后", ipa:"/ˈɑːftəwəd/", freq:305 },
+      "again": { pos:"adv.", zh:"再一次；复原", ipa:"/əˈɡen/", freq:303 },
+      "against": { pos:"prep.", zh:"反对；（行为）违背……", ipa:"/əˈɡenst/", freq:302 },
+      "age": { pos:"n.", zh:"年龄，年纪；寿命，（物的）年代", ipa:"/eɪdʒ/", freq:316 },
+      "agency": { pos:"n.", zh:"代理行，经销处", ipa:"/ˈeɪdʒənsi/", freq:199 },
+      "agenda": { pos:"n.", zh:"待议事项，议事日程；（政治）议题", ipa:"/əˈdʒendə/", freq:258 },
+      "agent": { pos:"n.", zh:"（人工智能领域）智能体；代理人，代理商", ipa:"/ˈeɪdʒənt/", freq:286 },
+      "aggressive": { pos:"adj.", zh:"好斗的，挑衅的；积极进取的", ipa:"/əˈɡresɪv/", freq:249 },
+      "ago": { pos:"adv.", zh:"以前，从前", ipa:"/əˈɡəʊ/", freq:303 },
+      "agree": { pos:"v.", zh:"同意，赞成；答应，接受", ipa:"/əˈɡriː/", freq:123 },
+      "agreement": { pos:"n.", zh:"协议，协定，契约；共识", ipa:"/əˈɡriːmənt/", freq:200 },
+      "agricultural": { pos:"adj.", zh:"农业的，与农业有关的；务农的，农用的", ipa:"/ˌæɡrɪˈkʌltʃərəl/", freq:284 },
+      "agriculture": { pos:"n.", zh:"农业，农学，农艺", ipa:"/ˈæɡrɪkʌltʃə(r)/", freq:284 }
+    }
+  },
+  {
+    id: 7,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["ahead", "aid", "AIDS", "ailment", "aim", "air", "air conditioning", "aircraft", "airline", "airmail", "airplane", "airport", "airspace", "alarm", "album", "alcohol", "alcoholic", "alert", "algebra", "algorithm"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "ahead": { pos:"adv.", zh:"在前面，朝前面；领先，占优势", ipa:"/əˈhed/", freq:193 },
+      "aid": { pos:"n.", zh:"帮助；援助，救助", ipa:"/eɪd/", freq:156 },
+      "AIDS": { pos:"abbr.", zh:"获得性免疫缺陷综合征，艾滋病（acquired immune d…", ipa:"/eɪdz/", freq:319 },
+      "ailment": { pos:"n.", zh:"疾病，小病；不安", ipa:"/ˈeɪlmənt/", freq:344 },
+      "aim": { pos:"n.", zh:"目标，目的；瞄准，对准", ipa:"/eɪm/", freq:141 },
+      "air": { pos:"n.", zh:"大气，空气；空中，天空", ipa:"/eə(r)/", freq:326 },
+      "air conditioning": { pos:"n.", zh:"空调设备，空气调节", ipa:"/ˈeə kəndɪʃənɪŋ/", freq:350 },
+      "aircraft": { pos:"n.", zh:"飞机，航空器", ipa:"/ˈeəkrɑːft/", freq:327 },
+      "airline": { pos:"n.", zh:"航空公司；输气管（air line）", ipa:"/ˈeəlaɪn/", freq:327 },
+      "airmail": { pos:"n.", zh:"航空邮件，航空信；航空邮递，航空邮政，空邮", ipa:"/ˈeəmeɪl/", freq:327 },
+      "airplane": { pos:"n.", zh:"<美>飞机", ipa:"/ˈeəpleɪn/", freq:327 },
+      "airport": { pos:"n.", zh:"机场，航空站 （港）；空旅通俗读物", ipa:"/ˈeəpɔːt/", freq:327 },
+      "airspace": { pos:"n.", zh:"领空，空域；空域使用权", ipa:"/ˈeəspeɪs/", freq:327 },
+      "alarm": { pos:"n.", zh:"警报；警报器", ipa:"/əˈlɑːm/", freq:168 },
+      "album": { pos:"n.", zh:"唱片，专辑；相册，影集，集邮册", ipa:"/ˈælbəm/", freq:282 },
+      "alcohol": { pos:"n.", zh:"含酒精饮品，酒；酒精，乙醇", ipa:"/ˈælkəhɒl/", freq:280 },
+      "alcoholic": { pos:"adj.", zh:"酒精的，含酒精的；酒精中毒的，酗酒的", ipa:"/ˌælkəˈhɒlɪk/", freq:280 },
+      "alert": { pos:"adj.", zh:"警惕的，警觉的；机敏的，敏捷的", ipa:"/əˈlɜːt/", freq:334 },
+      "algebra": { pos:"n.", zh:"代数；代数学", ipa:"/ˈældʒɪbrə/", freq:282 },
+      "algorithm": { pos:"n.", zh:"（尤指计算机）算法，运算法则", ipa:"/ˈælɡərɪðəm/", freq:347 }
+    }
+  },
+  {
+    id: 8,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["alien", "alienate", "align", "alike", "alive", "all", "allergic", "alley", "allocate", "allow", "allowance", "almost", "aloft", "alone", "along", "alongside", "aloud", "alphabet", "alphabetically", "already"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "alien": { pos:"adj.", zh:"陌生的；外国的，异域的", ipa:"/ˈeɪliən/", freq:335 },
+      "alienate": { pos:"v.", zh:"使疏远，使敌对；使格格不入", ipa:"/ˈeɪliəneɪt/", freq:335 },
+      "align": { pos:"v.", zh:"公开支持，与……结盟", ipa:"/əˈlaɪn/", freq:340 },
+      "alike": { pos:"adj.", zh:"相似的，相像的", ipa:"/əˈlaɪk/", freq:330 },
+      "alive": { pos:"adj.", zh:"活着的；仍然存在的", ipa:"/əˈlaɪv/", freq:191 },
+      "all": { pos:"det.", zh:"全部；每一个", ipa:"/ɔːl/", freq:303 },
+      "allergic": { pos:"adj.", zh:"对……过敏的；过敏引起的，过敏性的", ipa:"/əˈlɜːdʒɪk/", freq:258 },
+      "alley": { pos:"n.", zh:"小巷，胡同；（两旁有树木、灌木或石头的）小径", ipa:"/ˈæli/", freq:285 },
+      "allocate": { pos:"v.", zh:"分配，分派，划拨", ipa:"/ˈæləkeɪt/", freq:270 },
+      "allow": { pos:"v.", zh:"允许，准许；使有可能", ipa:"/əˈlaʊ/", freq:95 },
+      "allowance": { pos:"n.", zh:"津贴，补助；限额，定量", ipa:"/əˈlaʊəns/", freq:199 },
+      "almost": { pos:"adv.", zh:"几乎，差不多", ipa:"/ˈɔːlməʊst/", freq:303 },
+      "aloft": { pos:"adv.", zh:"在空中，在高处，在上面；在桅杆（或帆索）高处", ipa:"/əˈlɒft/", freq:350 },
+      "alone": { pos:"adj.", zh:"独自的；单独的", ipa:"/əˈləʊn/", freq:89 },
+      "along": { pos:"prep.", zh:"沿着，顺着；靠着……边", ipa:"/əˈlɒŋ/", freq:304 },
+      "alongside": { pos:"prep.", zh:"在……旁边；沿着……的边", ipa:"/əˌlɒŋˈsaɪd/", freq:304 },
+      "aloud": { pos:"adv.", zh:"大声地，出声地", ipa:"/əˈlaʊd/", freq:213 },
+      "alphabet": { pos:"n.", zh:"字母表；基本要素", ipa:"/ˈælfəbet/", freq:291 },
+      "alphabetically": { pos:"adv.", zh:"按字母顺序地，照字母顺序排列地", ipa:"/ˌælfəˈbetɪkli/", freq:339 },
+      "already": { pos:"adv.", zh:"已经，早已", ipa:"/ɔːlˈredi/", freq:303 }
+    }
+  },
+  {
+    id: 9,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["also", "alter", "alternative", "although", "altitude", "altogether", "aluminium", "always", "am", "a.m./am/A.M.", "amateur", "amaze", "amazing", "ambassador", "ambassadress", "ambiguous", "ambition", "ambitious", "ambulance", "America"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "also": { pos:"adv.", zh:"此外，而且；也，同样", ipa:"/ˈɔːlsəʊ/", freq:303 },
+      "alter": { pos:"v.", zh:"改变，改动；（使）变化", ipa:"/ˈɔːltə(r)/", freq:336 },
+      "alternative": { pos:"n.", zh:"可供选择的事物，替代物", ipa:"/ɔːlˈtɜːnətɪv/", freq:235 },
+      "although": { pos:"conj.", zh:"虽然，尽管；但是，然而", ipa:"/ɔːlˈðəʊ/", freq:65 },
+      "altitude": { pos:"n.", zh:"海拔高度；高地", ipa:"/ˈæltɪtjuːd/", freq:244 },
+      "altogether": { pos:"adv.", zh:"完全地；总共", ipa:"/ˌɔːltəˈɡeðə(r)/", freq:301 },
+      "aluminium": { pos:"n.", zh:"铝", ipa:"/ˌæljəˈmɪniəm/", freq:284 },
+      "always": { pos:"adv.", zh:"总是，每次都是；一直，长久以来", ipa:"/ˈɔːlweɪz/", freq:303 },
+      "am": { pos:"v.", zh:"是（be 的第一人称单数现在时）", ipa:"/æm; əm/", freq:302 },
+      "a.m./am/A.M.": { pos:"abbr.", zh:"上午，午前（ante meridiem）", ipa:"/ˌeɪ ˈem/", freq:316 },
+      "amateur": { pos:"n.", zh:"业余爱好者；生手，外行", ipa:"/ˈæmətə(r)/", freq:287 },
+      "amaze": { pos:"v.", zh:"使惊奇，使惊愕", ipa:"/əˈmeɪz/", freq:330 },
+      "amazing": { pos:"adj.", zh:"惊人的，了不起的；令人诧异的，令人惊愕的", ipa:"/əˈmeɪzɪŋ/", freq:330 },
+      "ambassador": { pos:"n.", zh:"大使，使节；（体育项目、行业等的）代表人物", ipa:"/æmˈbæsədə(r)/", freq:286 },
+      "ambassadress": { pos:"n.", zh:"大使夫人；女大使", ipa:"/æmˈbæsədres/", freq:286 },
+      "ambiguous": { pos:"adj.", zh:"模棱两可的，有歧义的；不明朗的，不确定的", ipa:"/æmˈbɪɡjuəs/", freq:288 },
+      "ambition": { pos:"n.", zh:"追求的目标，抱负；雄心，野心", ipa:"/æmˈbɪʃ(ə)n/", freq:211 },
+      "ambitious": { pos:"adj.", zh:"有抱负的，野心勃勃的；费劲的，艰巨的", ipa:"/æmˈbɪʃəs/", freq:193 },
+      "ambulance": { pos:"n.", zh:"急救车，救护车", ipa:"/ˈæmbjələns/", freq:277 },
+      "America": { pos:"n.", zh:"美洲（包括北美和南美洲）；美国", ipa:"/əˈmerɪkə/", freq:306 }
+    }
+  },
+  {
+    id: 10,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["American", "amid", "among", "amount", "ample", "amuse", "amusement", "analyse/-yze", "analysis", "ancestor", "anchor", "ancient", "and", "anecdote", "anesthesia", "anger", "angle", "angry", "animal", "animation"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "American": { pos:"n.", zh:"美国人，美洲人；美国英语", ipa:"/əˈmerɪkən/", freq:306 },
+      "amid": { pos:"prep.", zh:"在……过程中，在……中；四周是，被……所环绕", ipa:"/əˈmɪd/", freq:334 },
+      "among": { pos:"prep.", zh:"在……当中，周围是；与……在一起", ipa:"/əˈmʌŋ/", freq:305 },
+      "amount": { pos:"n.", zh:"数量，量；金额，钱数", ipa:"/əˈmaʊnt/", freq:87 },
+      "ample": { pos:"adj.", zh:"充足的，充裕的；丰满的", ipa:"/ˈæmpl/", freq:265 },
+      "amuse": { pos:"v.", zh:"逗乐，逗笑；（提供）消遣，（使）娱乐", ipa:"/əˈmjuːz/", freq:267 },
+      "amusement": { pos:"n.", zh:"开心，娱乐；娱乐活动，娱乐设施", ipa:"/əˈmjuːzmənt/", freq:288 },
+      "analyse/-yze": { pos:"v.", zh:"分析，细察；分解，化验", ipa:"/ˈænəlaɪz/", freq:295 },
+      "analysis": { pos:"n.", zh:"分析；化验分析", ipa:"/əˈnæləsɪs/", freq:295 },
+      "ancestor": { pos:"n.", zh:"祖先，祖宗；（动植物）原种", ipa:"/ˈænsestə(r)/", freq:283 },
+      "anchor": { pos:"n.", zh:"锚；支柱，靠山", ipa:"/ˈæŋkə(r)/", freq:255 },
+      "ancient": { pos:"adj.", zh:"古代的，远古的；古老的，年代久远的", ipa:"/ˈeɪnʃənt/", freq:283 },
+      "and": { pos:"conj.", zh:"（用于并列连接）和，与，及", ipa:"/ænd; ənd/", freq:302 },
+      "anecdote": { pos:"n.", zh:"轶事，趣闻；传闻", ipa:"/ˈænɪkdəʊt/", freq:292 },
+      "anesthesia": { pos:"n.", zh:"麻醉；麻醉状态", ipa:"/ˌænəsˈθiːziə/", freq:348 },
+      "anger": { pos:"n.", zh:"愤怒，怒火", ipa:"/ˈæŋɡə(r)/", freq:331 },
+      "angle": { pos:"n.", zh:"角；倾斜，斜角", ipa:"/ˈæŋɡ(ə)l/", freq:247 },
+      "angry": { pos:"adj.", zh:"愤怒的，生气的；狂风暴雨的，波涛汹涌的", ipa:"/ˈæŋɡri/", freq:218 },
+      "animal": { pos:"n.", zh:"动物；兽类", ipa:"/ˈænɪm(ə)l/", freq:328 },
+      "animation": { pos:"n.", zh:"活力，生气，热烈；动画片，动画游戏", ipa:"/ˌænɪˈmeɪʃ(ə)n/", freq:338 }
+    }
+  },
+  {
+    id: 11,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["ankle", "annals", "anniversary", "announce", "annoy", "annual", "another", "answer", "ant", "Antarctic", "anthropomorphism", "anticipate", "antioxidant", "antique", "anxiety", "anxious", "any", "anybody", "anyhow", "anymore"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "ankle": { pos:"n.", zh:"脚踝，踝关节", ipa:"/ˈæŋk(ə)l/", freq:290 },
+      "annals": { pos:"n.", zh:"年报；编年史", ipa:"/ˈæn(ə)lz/", freq:344 },
+      "anniversary": { pos:"n.", zh:"周年纪念（日）", ipa:"/ˌænɪˈvɜːsəri/", freq:275 },
+      "announce": { pos:"v.", zh:"宣布，公布；声称，郑重地说", ipa:"/əˈnaʊns/", freq:175 },
+      "annoy": { pos:"v.", zh:"使恼怒，使烦恼；打扰，骚扰", ipa:"/əˈnɔɪ/", freq:151 },
+      "annual": { pos:"adj.", zh:"一年一度的；年度的", ipa:"/ˈænjuəl/", freq:149 },
+      "another": { pos:"det.", zh:"（同类的）另一，又一", ipa:"/əˈnʌðə(r)/", freq:301 },
+      "answer": { pos:"v.", zh:"回答，答复；回复", ipa:"/ˈɑːnsə(r)/", freq:74 },
+      "ant": { pos:"n.", zh:"蚂蚁", ipa:"/ænt/", freq:329 },
+      "Antarctic": { pos:"n.", zh:"南极洲，南极地区", ipa:"/ænˈtɑːktɪk/", freq:294 },
+      "anthropomorphism": { pos:"n.", zh:"把人的形态、情感或特质赋予神、动物或无生命物体的观点或做法，即拟…", ipa:"/ˌænθrəpəˈmɔːfɪzəm/", freq:339 },
+      "anticipate": { pos:"v.", zh:"预期，预料；预见（并做准备）", ipa:"/ænˈtɪsɪpeɪt/", freq:296 },
+      "antioxidant": { pos:"n.", zh:"抗氧化剂，抗氧剂（能抑制氧化反应或清除自由基，防止或减缓氧化损伤…", ipa:"/ˌæntiˈɒksɪdənt/", freq:339 },
+      "antique": { pos:"adj.", zh:"古老的，古董的；老式的，过时的", ipa:"/ænˈtiːk/", freq:283 },
+      "anxiety": { pos:"n.", zh:"焦虑，忧虑；令人焦虑的事", ipa:"/æŋˈzaɪəti/", freq:277 },
+      "anxious": { pos:"adj.", zh:"焦虑的，担心的；渴望的，急切的", ipa:"/ˈæŋkʃəs/", freq:134 },
+      "any": { pos:"det.", zh:"任何的，任一的；一点，些许", ipa:"/ˈeni/", freq:306 },
+      "anybody": { pos:"pron.", zh:"任何人，随便哪一个人", ipa:"/ˈenibɒdi/", freq:306 },
+      "anyhow": { pos:"adv.", zh:"不管怎样，无论如何；无关紧要", ipa:"/ˈenihaʊ/", freq:306 },
+      "anymore": { pos:"adv.", zh:"（不）再，再也（不）", ipa:"/ˌeniˈmɔː(r)/", freq:333 }
+    }
+  },
+  {
+    id: 12,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["anyone", "anything", "anyway", "anywhere", "apart", "apartment", "ape", "apologise/-ize", "apology", "apparent", "apparently", "appeal", "appear", "appearance", "appendix", "appetite", "applaud", "apple", "applicant", "application"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "anyone": { pos:"pron.", zh:"任何人，无论谁，任何一个人（泛指）", ipa:"/ˈeniwʌn/", freq:306 },
+      "anything": { pos:"pron.", zh:"任何事物 （用于含有否定意义的陈述句中）", ipa:"/ˈeniθɪŋ/", freq:306 },
+      "anyway": { pos:"adv.", zh:"不管怎样，无论如何；而且，加之", ipa:"/ˈeniweɪ/", freq:306 },
+      "anywhere": { pos:"adv.", zh:"在任何地方；无论何处", ipa:"/ˈeniweə(r)/", freq:304 },
+      "apart": { pos:"adv.", zh:"（空间或时间）相隔，相距；拆开，成碎片", ipa:"/əˈpɑːt/", freq:173 },
+      "apartment": { pos:"n.", zh:"公寓套房；（总统等要人的）房间，套间", ipa:"/əˈpɑːtmənt/", freq:308 },
+      "ape": { pos:"n.", zh:"猿，类人猿；粗野的人，蠢人", ipa:"/eɪp/", freq:340 },
+      "apologise/-ize": { pos:"vi.", zh:"道歉，谢罪（apologize 的英式拼写，常与 to …", ipa:"/əˈpɒlədʒaɪz/", freq:178 },
+      "apology": { pos:"n.", zh:"道歉；（因不能赴会的）道歉信", ipa:"/əˈpɒlədʒi/", freq:192 },
+      "apparent": { pos:"adj.", zh:"显而易见的，易懂的；貌似的，表面上的", ipa:"/əˈpærənt/", freq:225 },
+      "apparently": { pos:"adv.", zh:"据说，显然；似乎，好像", ipa:"/əˈpærəntli/", freq:300 },
+      "appeal": { pos:"n.", zh:"呼吁，恳求；上诉，申诉", ipa:"/əˈpiːl/", freq:149 },
+      "appear": { pos:"v.", zh:"出现，呈现；首次使用，起源", ipa:"/əˈpɪə(r)/", freq:47 },
+      "appearance": { pos:"n.", zh:"露面，演出；出庭，到场", ipa:"/əˈpɪərəns/", freq:115 },
+      "appendix": { pos:"n.", zh:"阑尾；附录", ipa:"/əˈpendɪks/", freq:291 },
+      "appetite": { pos:"n.", zh:"食欲，胃口；欲望，爱好", ipa:"/ˈæpɪtaɪt/", freq:200 },
+      "applaud": { pos:"v.", zh:"鼓掌；称赞，赞许", ipa:"/əˈplɔːd/", freq:287 },
+      "apple": { pos:"n.", zh:"苹果；苹果树", ipa:"/ˈæp(ə)l/", freq:318 },
+      "applicant": { pos:"n.", zh:"申请人", ipa:"/ˈæplɪkənt/", freq:286 },
+      "application": { pos:"n.", zh:"正式申请，书面申请；申请书，申请表", ipa:"/ˌæplɪˈkeɪʃ(ə)n/", freq:286 }
+    }
+  },
+  {
+    id: 13,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["apply", "appoint", "appointment", "appreciate", "appreciation", "apprenticeship", "approach", "appropriate", "approval", "approve", "approximately", "apron", "arbitrary", "arch", "architect", "architecture", "Arctic", "are", "area", "argue"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "apply": { pos:"v.", zh:"申请；涂，敷", ipa:"/əˈplaɪ/", freq:97 },
+      "appoint": { pos:"v.", zh:"任命，指派；约定，安排（日期、时间）", ipa:"/əˈpɔɪnt/", freq:86 },
+      "appointment": { pos:"n.", zh:"约会，约定；任命，委派", ipa:"/əˈpɔɪntmənt/", freq:168 },
+      "appreciate": { pos:"v.", zh:"欣赏，鉴赏；理解，明白", ipa:"/əˈpriːʃieɪt/", freq:136 },
+      "appreciation": { pos:"n.", zh:"欣赏，鉴赏；感激，感谢", ipa:"/əˌpriːʃiˈeɪʃn/", freq:158 },
+      "apprenticeship": { pos:"n.", zh:"学徒期；学徒身份", ipa:"/əˈprentɪʃɪp/", freq:343 },
+      "approach": { pos:"v.", zh:"靠近，临近；接洽，交谈", ipa:"/əˈprəʊtʃ/", freq:100 },
+      "appropriate": { pos:"adj.", zh:"合适的，相称的", ipa:"/əˈprəʊpriət/", freq:253 },
+      "approval": { pos:"n.", zh:"称许，赞成；批准，许可", ipa:"/əˈpruːv(ə)l/", freq:300 },
+      "approve": { pos:"v.", zh:"同意，赞成；批准，通过", ipa:"/əˈpruːv/", freq:297 },
+      "approximately": { pos:"adv.", zh:"大约，大概", ipa:"/əˈprɒksɪmətli/", freq:296 },
+      "apron": { pos:"n.", zh:"围裙；舞台前缘，台唇", ipa:"/ˈeɪprən/", freq:281 },
+      "arbitrary": { pos:"adj.", zh:"任意的，随心所欲的；专横的，武断的", ipa:"/ˈɑːbɪtrəri/", freq:288 },
+      "arch": { pos:"n.", zh:"拱门；拱顶", ipa:"/ɑːtʃ/", freq:292 },
+      "architect": { pos:"n.", zh:"建筑师；设计师，缔造者", ipa:"/ˈɑːkɪtekt/", freq:286 },
+      "architecture": { pos:"n.", zh:"建筑设计，建筑风格；建筑学", ipa:"/ˈɑːkɪtektʃə(r)/", freq:286 },
+      "Arctic": { pos:"adj.", zh:"北极的", ipa:"/ˈɑːktɪk/", freq:294 },
+      "are": { pos:"v.", zh:"是", ipa:"/ɑː(r); ə(r)/", freq:302 },
+      "area": { pos:"n.", zh:"地区，区域；场地，地方", ipa:"/ˈeəriə/", freq:307 },
+      "argue": { pos:"v.", zh:"主张，认为；说服", ipa:"/ˈɑːɡjuː/", freq:138 }
+    }
+  },
+  {
+    id: 14,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["argument", "arise", "arithmetic", "arm", "armchair", "army", "aroma", "around", "arouse", "arrange", "arrangement", "arrest", "arrival", "arrive", "arrow", "art", "article", "artificial", "artist", "as"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "argument": { pos:"n.", zh:"争论，争吵；论据，理由", ipa:"/ˈɑːɡjumənt/", freq:113 },
+      "arise": { pos:"v.", zh:"产生，出现；起源（于），由……引出", ipa:"/əˈraɪz/", freq:222 },
+      "arithmetic": { pos:"n.", zh:"算术；演算，计算", ipa:"/əˈrɪθmətɪk/", freq:262 },
+      "arm": { pos:"n.", zh:"手臂，上肢；武器，军备", ipa:"/ɑːm/", freq:321 },
+      "armchair": { pos:"n.", zh:"扶手椅，单人沙发", ipa:"/ˈɑːmtʃeə(r)/", freq:321 },
+      "army": { pos:"n.", zh:"陆军，军队；大批，大群", ipa:"/ˈɑːmi/", freq:321 },
+      "aroma": { pos:"n.", zh:"芳香，浓香；（喻）气氛", ipa:"/əˈrəʊmə/", freq:350 },
+      "around": { pos:"adv.", zh:"围绕，环绕；大约", ipa:"/əˈraʊnd/", freq:305 },
+      "arouse": { pos:"v.", zh:"引起，激起；叫醒，唤醒", ipa:"/əˈraʊz/", freq:334 },
+      "arrange": { pos:"v.", zh:"安排，筹备；整理，布置，排列", ipa:"/əˈreɪndʒ/", freq:115 },
+      "arrangement": { pos:"n.", zh:"安排，筹备；商定，约定", ipa:"/əˈreɪndʒmənt/", freq:294 },
+      "arrest": { pos:"v.", zh:"逮捕，拘留；阻止，抑制", ipa:"/əˈrest/", freq:279 },
+      "arrival": { pos:"n.", zh:"到达，到来；到达者，加入者", ipa:"/əˈraɪv(ə)l/", freq:159 },
+      "arrive": { pos:"v.", zh:"到达，抵达；送达，寄到", ipa:"/əˈraɪv/", freq:45 },
+      "arrow": { pos:"n.", zh:"箭，矢；箭头，箭号", ipa:"/ˈærəʊ/", freq:332 },
+      "art": { pos:"n.", zh:"美术，艺术；艺术品", ipa:"/ɑːt/", freq:322 },
+      "article": { pos:"n.", zh:"文章，论文；物品", ipa:"/ˈɑːtɪk(ə)l/", freq:276 },
+      "artificial": { pos:"adj.", zh:"人造的，人工的；人为的", ipa:"/ˌɑːtɪˈfɪʃ(ə)l/", freq:227 },
+      "artist": { pos:"n.", zh:"艺术家，美术家；表演艺术家", ipa:"/ˈɑːtɪst/", freq:322 },
+      "as": { pos:"prep.", zh:"作为；以……身份", ipa:"/æz; əz/", freq:305 }
+    }
+  },
+  {
+    id: 15,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["ash", "ashamed", "Asia", "Asian", "aside", "ask", "asleep", "aspect", "ass", "assay", "assemble", "assess", "assessment", "asset", "assign", "assist", "assistance", "assistant", "associate", "association"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "ash": { pos:"n.", zh:"（香烟或木头等的）灰；灰烬，废墟", ipa:"/æʃ/", freq:276 },
+      "ashamed": { pos:"adj.", zh:"感到羞愧，感到羞耻；羞于（做某事）", ipa:"/əˈʃeɪmd/", freq:225 },
+      "Asia": { pos:"n.", zh:"亚洲", ipa:"/ˈeɪʒə; ˈeɪʃə/", freq:306 },
+      "Asian": { pos:"n.", zh:"亚洲人，亚裔", ipa:"/ˈeɪʒ(ə)n/", freq:306 },
+      "aside": { pos:"adv.", zh:"在旁边，到（或向）一边；积攒，留出", ipa:"/əˈsaɪd/", freq:304 },
+      "ask": { pos:"v.", zh:"询问，打听；要求，请求", ipa:"/ɑːsk/", freq:8 },
+      "asleep": { pos:"adj.", zh:"睡着的；麻木的，发麻的", ipa:"/əˈsliːp/", freq:197 },
+      "aspect": { pos:"n.", zh:"方面，特色；朝向，方位", ipa:"/ˈæspekt/", freq:116 },
+      "ass": { pos:"n.", zh:"傻瓜，笨蛋；屁股，臀部", ipa:"/æs/", freq:350 },
+      "assay": { pos:"n.", zh:"化验，测定，试验；（矿石）试金", ipa:"/əˈseɪ/", freq:348 },
+      "assemble": { pos:"v.", zh:"（使）集合，（使）聚集；装配，组装", ipa:"/əˈsemb(ə)l/", freq:348 },
+      "assess": { pos:"v.", zh:"评价，评定；估价，估计", ipa:"/əˈses/", freq:190 },
+      "assessment": { pos:"n.", zh:"评估，评价；估价，估计", ipa:"/əˈsesmənt/", freq:295 },
+      "asset": { pos:"n.", zh:"有利条件，有价值的人或物；资产，财产", ipa:"/ˈæset/", freq:345 },
+      "assign": { pos:"v.", zh:"分派，布置（工作、任务）；分配（某物）", ipa:"/əˈsaɪn/", freq:274 },
+      "assist": { pos:"v.", zh:"帮助，协助；<古>参加，出席", ipa:"/əˈsɪst/", freq:146 },
+      "assistance": { pos:"n.", zh:"帮助，援助", ipa:"/əˈsɪstəns/", freq:192 },
+      "assistant": { pos:"n.", zh:"助理，助手；店员，售货员", ipa:"/əˈsɪstənt/", freq:286 },
+      "associate": { pos:"v.", zh:"联想，联系；支持，同意", ipa:"/əˈsəʊsieɪt; əˈsəʊʃieɪt/", freq:206 },
+      "association": { pos:"n.", zh:"协会，社团，联盟；交往，联合", ipa:"/əˌsəʊsiˈeɪʃn; əˌsəʊʃiˈeɪʃn/", freq:300 }
+    }
+  },
+  {
+    id: 16,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["assume", "assumption", "asthma", "astonish", "astronaut", "astronomer", "astronomy", "at", "athlete", "athletic", "Atlantic", "atmosphere", "atom", "attach", "attack", "attain", "attempt", "attend", "attention", "attitude"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "assume": { pos:"v.", zh:"假定，假设，认为；装出，做出", ipa:"/əˈsjuːm/", freq:245 },
+      "assumption": { pos:"n.", zh:"假定，假设；取得，承担", ipa:"/əˈsʌmpʃn/", freq:266 },
+      "asthma": { pos:"n.", zh:"哮喘，气喘", ipa:"/ˈæsmə/", freq:341 },
+      "astonish": { pos:"v.", zh:"使吃惊，使惊讶", ipa:"/əˈstɒnɪʃ/", freq:287 },
+      "astronaut": { pos:"n.", zh:"宇航员，太空人", ipa:"/ˈæstrənɔːt/", freq:286 },
+      "astronomer": { pos:"n.", zh:"天文学家", ipa:"/əˈstrɒnəmə(r)/", freq:296 },
+      "astronomy": { pos:"n.", zh:"天文学", ipa:"/əˈstrɒnəmi/", freq:286 },
+      "at": { pos:"prep.", zh:"在（表示存在或出现的地点、场所、位置、空间）", ipa:"/æt; ət/", freq:302 },
+      "athlete": { pos:"n.", zh:"运动员，体育健将；擅长运动的人", ipa:"/ˈæθliːt/", freq:286 },
+      "athletic": { pos:"adj.", zh:"运动的，体育的；强壮的，健壮的", ipa:"/æθˈletɪk/", freq:286 },
+      "Atlantic": { pos:"n.", zh:"大西洋；（地质）大西洋气候期", ipa:"/ətˈlæntɪk/", freq:294 },
+      "atmosphere": { pos:"n.", zh:"（包围地球或其他行星的）大气，大气层", ipa:"/ˈætməsfɪə(r)/", freq:166 },
+      "atom": { pos:"n.", zh:"原子；微量，极小量", ipa:"/ˈætəm/", freq:280 },
+      "attach": { pos:"v.", zh:"系上，贴上，连接；附上（附件）", ipa:"/əˈtætʃ/", freq:117 },
+      "attack": { pos:"v.", zh:"批评，抨击；侵蚀，侵害", ipa:"/əˈtæk/", freq:144 },
+      "attain": { pos:"v.", zh:"获得，实现；达到", ipa:"/əˈteɪn/", freq:300 },
+      "attempt": { pos:"v.", zh:"努力，尝试", ipa:"/əˈtempt/", freq:130 },
+      "attend": { pos:"v.", zh:"随同，陪同；经常去，定期去(学校、教堂等)", ipa:"/əˈtend/", freq:56 },
+      "attention": { pos:"n.", zh:"注意；注意力", ipa:"/əˈtenʃ(ə)n/", freq:50 },
+      "attitude": { pos:"n.", zh:"态度，看法；姿势", ipa:"/ˈætɪtjuːd/", freq:86 }
+    }
+  },
+  {
+    id: 17,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["attract", "attraction", "attractive", "audience", "audio", "audit", "aunt", "Australia", "Australian", "author", "authorise/-ize", "authority", "autism", "automatic", "autonomous", "autumn", "available", "avenue", "average", "aviation"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "attract": { pos:"v.", zh:"吸引；（物体间）产生引力", ipa:"/əˈtrækt/", freq:98 },
+      "attraction": { pos:"n.", zh:"有吸引力的事物；吸引力", ipa:"/əˈtrækʃ(ə)n/", freq:169 },
+      "attractive": { pos:"adj.", zh:"吸引人的，有吸引力的；（人）迷人的，有魅力的", ipa:"/əˈtræktɪv/", freq:327 },
+      "audience": { pos:"n.", zh:"观众，听众；读者", ipa:"/ˈɔːdiəns/", freq:287 },
+      "audio": { pos:"adj.", zh:"声音的，音频的", ipa:"/ˈɔːdiəʊ/", freq:348 },
+      "audit": { pos:"n.", zh:"审计，查……的账目；审查，审核", ipa:"/ˈɔːdɪt/", freq:338 },
+      "aunt": { pos:"n.", zh:"姑妈，伯母，舅妈等（指父亲或母亲的姐妹，或伯父、叔父、舅父等的妻子", ipa:"/ɑːnt/", freq:310 },
+      "Australia": { pos:"n.", zh:"澳大利亚，澳洲（正式名称为澳大利亚联邦）", ipa:"/ɒˈstreɪliə/", freq:306 },
+      "Australian": { pos:"adj.", zh:"澳大利亚的，澳大利亚人的", ipa:"/ɒˈstreɪliən/", freq:306 },
+      "author": { pos:"n.", zh:"作者，著者；作家", ipa:"/ˈɔːθə(r)/", freq:321 },
+      "authorise/-ize": { pos:"vt.", zh:"授权，委任，委托", ipa:"/ˈɔːθəraɪz/", freq:340 },
+      "authority": { pos:"n.", zh:"专家，权威人士；行政管理机构", ipa:"/ɔːˈθɒrəti/", freq:191 },
+      "autism": { pos:"n.", zh:"孤独症，自闭症；臆想", ipa:"/ˈɔːtɪzəm/", freq:349 },
+      "automatic": { pos:"adj.", zh:"自动的；必然的", ipa:"/ˌɔːtəˈmætɪk/", freq:296 },
+      "autonomous": { pos:"adj.", zh:"自治的，有自治权的；自主的，有自主权的", ipa:"/ɔːˈtɒnəməs/", freq:303 },
+      "autumn": { pos:"n.", zh:"秋天，秋季；晚年，渐衰期", ipa:"/ˈɔːtəm/", freq:313 },
+      "available": { pos:"adj.", zh:"可用的，可获得的；有空的，有闲暇的", ipa:"/əˈveɪləb(ə)l/", freq:59 },
+      "avenue": { pos:"n.", zh:"大街；（通向大宅子的）林荫道", ipa:"/ˈævənjuː/", freq:298 },
+      "average": { pos:"n.", zh:"平均水平，一般标准；平均数，平均值", ipa:"/ˈævərɪdʒ/", freq:70 },
+      "aviation": { pos:"n.", zh:"航空，飞行（术）；航空工业，飞机工业", ipa:"/ˌeɪviˈeɪʃ(ə)n/", freq:350 }
+    }
+  },
+  {
+    id: 18,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["avoid", "awake", "award", "aware", "away", "awe", "awesome", "awful", "awkward", "baby", "bachelor", "back", "background", "backup", "backward(s)", "bacon", "bacterium", "bad", "badge", "badly"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "avoid": { pos:"v.", zh:"避免，防止；回避，避开", ipa:"/əˈvɔɪd/", freq:84 },
+      "awake": { pos:"adj.", zh:"醒着的", ipa:"/əˈweɪk/", freq:236 },
+      "award": { pos:"n.", zh:"奖，奖品；（收入的）增加", ipa:"/əˈwɔːd/", freq:114 },
+      "aware": { pos:"adj.", zh:"知道的，明白的；察觉到的，意识到的", ipa:"/əˈweə(r)/", freq:191 },
+      "away": { pos:"adv.", zh:"距离……有多远，距离……有多久；朝另一个方向", ipa:"/əˈweɪ/", freq:305 },
+      "awe": { pos:"n.", zh:"敬畏，惊叹；<古>使人敬畏的力量", ipa:"/ɔː/", freq:345 },
+      "awesome": { pos:"adj.", zh:"让人惊叹的，令人敬畏的；非常棒的，极佳的", ipa:"/ˈɔːsəm/", freq:288 },
+      "awful": { pos:"adj.", zh:"让人讨厌的，糟糕的；骇人听闻的，可怕的", ipa:"/ˈɔːf(ə)l/", freq:288 },
+      "awkward": { pos:"adj.", zh:"令人尴尬的，使人难堪的；难对付的，难处理的", ipa:"/ˈɔːkwəd/", freq:187 },
+      "baby": { pos:"n.", zh:"婴儿，婴孩；动物幼崽", ipa:"/ˈbeɪbi/", freq:311 },
+      "bachelor": { pos:"n.", zh:"未婚男子，单身汉；学士", ipa:"/ˈbætʃələ(r)/", freq:285 },
+      "back": { pos:"n.", zh:"后面，后部；背部", ipa:"/bæk/", freq:305 },
+      "background": { pos:"n.", zh:"出身背景，学历，经历；（事件或情况的）背景", ipa:"/ˈbækɡraʊnd/", freq:316 },
+      "backup": { pos:"n.", zh:"支援，增援；备用品，后备", ipa:"/ˈbækʌp/", freq:346 },
+      "backward(s)": { pos:"adj.", zh:"向后的，朝后的；倒退的", ipa:"/ˈbækwəd/", freq:305 },
+      "bacon": { pos:"n.", zh:"培根，烟熏咸肉片", ipa:"/ˈbeɪkən/", freq:329 },
+      "bacterium": { pos:"n.", zh:"细菌", ipa:"/bækˈtɪəriəm/", freq:280 },
+      "bad": { pos:"adj.", zh:"坏的，不好的，令人不悦的", ipa:"/bæd/", freq:319 },
+      "badge": { pos:"n.", zh:"徽章，奖章；标记，象征", ipa:"/bædʒ/", freq:350 },
+      "badly": { pos:"adv.", zh:"严重地；差，拙劣地", ipa:"/ˈbædli/", freq:319 }
+    }
+  },
+  {
+    id: 19,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["badminton", "bad-tempered", "bag", "baggage", "bake", "baker", "bakery", "balance", "balcony", "bald", "ball", "ballet", "balloon", "bamboo", "ban", "banana", "band", "bandage", "bandwagon", "bang"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "badminton": { pos:"n.", zh:"羽毛球", ipa:"/ˈbædmɪntən/", freq:313 },
+      "bad-tempered": { pos:"adj.", zh:"脾气不好的，易怒的", ipa:"/ˌbæd ˈtempəd/", freq:344 },
+      "bag": { pos:"n.", zh:"袋，包；一袋的量", ipa:"/bæɡ/", freq:329 },
+      "baggage": { pos:"n.", zh:"行李；思想包袱，成见", ipa:"/ˈbæɡɪdʒ/", freq:291 },
+      "bake": { pos:"v.", zh:"炎热，灼热；烤，烘，焙", ipa:"/beɪk/", freq:346 },
+      "baker": { pos:"n.", zh:"面包师，糕点师；专用轻便烤箱", ipa:"/ˈbeɪkə(r)/", freq:346 },
+      "bakery": { pos:"n.", zh:"面包店；烘焙食品（如面包，蛋糕）", ipa:"/ˈbeɪkəri/", freq:289 },
+      "balance": { pos:"n.", zh:"平衡，均衡，均势；平衡能力", ipa:"/ˈbæləns/", freq:125 },
+      "balcony": { pos:"n.", zh:"露台，阳台；楼座，楼厅", ipa:"/ˈbælkəni/", freq:285 },
+      "bald": { pos:"adj.", zh:"秃头的；光秃的，磨光的，掉光的", ipa:"/bɔːld/", freq:312 },
+      "ball": { pos:"n.", zh:"球，球状物；球类运动", ipa:"/bɔːl/", freq:315 },
+      "ballet": { pos:"n.", zh:"芭蕾舞剧；芭蕾舞团", ipa:"/ˈbæleɪ/", freq:313 },
+      "balloon": { pos:"n.", zh:"气球；热气球", ipa:"/bəˈluːn/", freq:320 },
+      "bamboo": { pos:"n.", zh:"竹，竹子；（制手杖或家具、器具用的）竹竿，竹筒", ipa:"/ˌbæmˈbuː/", freq:328 },
+      "ban": { pos:"n.", zh:"禁止，禁令；逐出令", ipa:"/bæn/", freq:141 },
+      "banana": { pos:"n.", zh:"香蕉；香蕉树", ipa:"/bəˈnɑːnə/", freq:318 },
+      "band": { pos:"n.", zh:"乐队；一伙，一群", ipa:"/bænd/", freq:309 },
+      "bandage": { pos:"n.", zh:"绷带", ipa:"/ˈbændɪdʒ/", freq:281 },
+      "bandwagon": { pos:"n.", zh:"流行，时尚，潮流；乐队花车", ipa:"/ˈbændwæɡən/", freq:345 },
+      "bang": { pos:"n.", zh:"突然的巨响；重击，猛撞", ipa:"/bæŋ/", freq:213 }
+    }
+  },
+  {
+    id: 20,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["bank", "bank", "bar", "barbecue", "barber", "barbershop", "bare", "barely", "bargain", "bark", "barrier", "base", "baseball", "basement", "basic", "basin", "basis", "basket", "basketball", "bat"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "bank": { pos:"n.", zh:"银行；储蓄罐", ipa:"/bæŋk/", freq:307 },
+      "bank": { pos:"n.", zh:"银行；储蓄罐", ipa:"/bæŋk/", freq:309 },
+      "bar": { pos:"n.", zh:"酒吧；吧台", ipa:"/bɑː(r)/", freq:315 },
+      "barbecue": { pos:"n.", zh:"户外烧烤；（户外烧烤用的）烤肉架", ipa:"/ˈbɑːbɪkjuː/", freq:278 },
+      "barber": { pos:"n.", zh:"理发师", ipa:"/ˈbɑːbə(r)/", freq:311 },
+      "barbershop": { pos:"n.", zh:"理发店（通常指男子理发店）", ipa:"/ˈbɑːbəʃɒp/", freq:290 },
+      "bare": { pos:"adj.", zh:"赤裸的；光秃秃的", ipa:"/beə(r)/", freq:295 },
+      "barely": { pos:"adv.", zh:"勉强才能；几乎不，几乎没有", ipa:"/ˈbeəli/", freq:295 },
+      "bargain": { pos:"n.", zh:"便宜货，减价品；协议，交易", ipa:"/ˈbɑːɡən/", freq:221 },
+      "bark": { pos:"v.", zh:"大声嚷，吼叫；（狗）吠，叫", ipa:"/bɑːk/", freq:249 },
+      "barrier": { pos:"n.", zh:"障碍，壁垒；障碍物，关卡", ipa:"/ˈbæriə(r)/", freq:284 },
+      "base": { pos:"n.", zh:"根基，底部；基础", ipa:"/beɪs/", freq:85 },
+      "baseball": { pos:"n.", zh:"棒球运动；棒球（比赛用的小硬球）", ipa:"/ˈbeɪsbɔːl/", freq:313 },
+      "basement": { pos:"n.", zh:"地下室，地库", ipa:"/ˈbeɪsmənt/", freq:285 },
+      "basic": { pos:"adj.", zh:"最重要的，基本的；最简单的，初级的", ipa:"/ˈbeɪsɪk/", freq:112 },
+      "basin": { pos:"n.", zh:"盆；洗涤槽", ipa:"/ˈbeɪs(ə)n/", freq:233 },
+      "basis": { pos:"n.", zh:"基础，要素；基准，方式", ipa:"/ˈbeɪsɪs/", freq:177 },
+      "basket": { pos:"n.", zh:"篮子；一篮的量", ipa:"/ˈbɑːskɪt/", freq:329 },
+      "basketball": { pos:"n.", zh:"篮球；篮球运动", ipa:"/ˈbɑːskɪtbɔːl/", freq:312 },
+      "bat": { pos:"n.", zh:"球棒，球拍；蝙蝠", ipa:"/bæt/", freq:328 }
+    }
+  },
+  {
+    id: 21,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["bath", "bathe", "bathroom", "bathtub", "battery", "battle", "bay", "BC/B.C.", "be", "beach", "bead", "beak", "beam", "bean", "bear", "beard", "beast", "beat", "beautiful", "beauty"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "bath": { pos:"n.", zh:"浴缸，浴盆；洗澡，沐浴", ipa:"/bɑːθ/", freq:309 },
+      "bathe": { pos:"v.", zh:"洗澡，给（某人）洗澡；游泳，嬉水", ipa:"/beɪð/", freq:205 },
+      "bathroom": { pos:"n.", zh:"浴室，盥洗室；<美>卫生间，厕所", ipa:"/ˈbɑːθruːm; ˈbɑːθrʊm/", freq:308 },
+      "bathtub": { pos:"n.", zh:"<美>澡盆，浴缸", ipa:"/ˈbɑːθtʌb/", freq:309 },
+      "battery": { pos:"n.", zh:"电池，蓄电池；一组，一系列", ipa:"/ˈbætri/", freq:276 },
+      "battle": { pos:"n.", zh:"战役，战争；争论，斗争", ipa:"/ˈbæt(ə)l/", freq:152 },
+      "bay": { pos:"n.", zh:"（海或湖的）湾；山脉的低凹处，山间平地", ipa:"/beɪ/", freq:189 },
+      "BC/B.C.": { pos:"abbr.", zh:"公元前（Before Christ）", ipa:"/ˌbiː ˈsiː/", freq:316 },
+      "be": { pos:"aux.", zh:"被（用于被动语态）；正，正在（用于进行时）", ipa:"/biː; bi/", freq:302 },
+      "beach": { pos:"n.", zh:"海滩，海滨", ipa:"/biːtʃ/", freq:307 },
+      "bead": { pos:"n.", zh:"（有孔的）珠子；（液体的）小滴", ipa:"/biːd/", freq:344 },
+      "beak": { pos:"n.", zh:"鸟嘴，喙；鹰鈎鼻，尖鼻", ipa:"/biːk/", freq:326 },
+      "beam": { pos:"n.", zh:"梁，横梁；<非正式>臀围", ipa:"/biːm/", freq:319 },
+      "bean": { pos:"n.", zh:"豆，菜豆，豆科植物；籽实，豆形种子", ipa:"/biːn/", freq:319 },
+      "bear": { pos:"v.", zh:"手持，携带；（车，船）运输，运送", ipa:"/beə(r)/", freq:317 },
+      "beard": { pos:"n.", zh:"胡须，络腮胡子；（动物的）颔毛，须", ipa:"/bɪəd/", freq:317 },
+      "beast": { pos:"n.", zh:"野兽，猛兽，牲畜；凶暴残忍的人，道德败坏的人", ipa:"/biːst/", freq:290 },
+      "beat": { pos:"v.", zh:"（反复地）敲，击，打；狠打，猛抽", ipa:"/biːt/", freq:77 },
+      "beautiful": { pos:"adj.", zh:"美丽的，漂亮的；令人愉悦的，美妙的", ipa:"/ˈbjuːtɪf(ə)l/", freq:327 },
+      "beauty": { pos:"n.", zh:"美丽，漂亮；美好的事物，上品", ipa:"/ˈbjuːti/", freq:327 }
+    }
+  },
+  {
+    id: 22,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["because", "become", "bed", "bedroom", "bee", "beef", "beer", "before", "beg", "begin", "behalf", "behave", "behavior(u)r", "behind", "being", "belief", "believe", "bell", "belly", "belong"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "because": { pos:"conj.", zh:"（说明原因）因为，由于；（作出解释）因为", ipa:"/bɪˈkəz; bɪˈkɒz/", freq:304 },
+      "become": { pos:"v.", zh:"变得，变成，成为；适合，使显得漂亮", ipa:"/bɪˈkʌm/", freq:302 },
+      "bed": { pos:"n.", zh:"床，床铺，床位；底部，基座", ipa:"/bed/", freq:308 },
+      "bedroom": { pos:"n.", zh:"卧室", ipa:"/ˈbedruːm/", freq:316 },
+      "bee": { pos:"n.", zh:"蜜蜂；<美>聚会，联谊赛", ipa:"/biː/", freq:328 },
+      "beef": { pos:"n.", zh:"牛肉；肌肉，力量，力气", ipa:"/biːf/", freq:329 },
+      "beer": { pos:"n.", zh:"啤酒；一杯（或一瓶，一罐）啤酒", ipa:"/bɪə(r)/", freq:318 },
+      "before": { pos:"prep.", zh:"（时间上）在……之前，早于；在（某个钟点）之前", ipa:"/bɪˈfɔː(r)/", freq:304 },
+      "beg": { pos:"v.", zh:"乞求，恳求；乞讨，行乞", ipa:"/beɡ/", freq:213 },
+      "begin": { pos:"v.", zh:"开始，着手；开始说", ipa:"/bɪˈɡɪn/", freq:27 },
+      "behalf": { pos:"n.", zh:"代表（on behalf of）", ipa:"/bɪˈhɑːf/", freq:275 },
+      "behave": { pos:"v.", zh:"行为，表现；起反应，起作用", ipa:"/bɪˈheɪv/", freq:333 },
+      "behavior(u)r": { pos:"n.", zh:"行为，举止，态度；活动方式，特点，特性", ipa:"/bɪˈheɪvjə(r)/", freq:154 },
+      "behind": { pos:"prep.", zh:"在（或向）……的后面；落后于", ipa:"/bɪˈhaɪnd/", freq:86 },
+      "being": { pos:"n.", zh:"生物；存在", ipa:"/ˈbiːɪŋ/", freq:311 },
+      "belief": { pos:"n.", zh:"相信，信心；看法，信念，观点", ipa:"/bɪˈliːf/", freq:126 },
+      "believe": { pos:"v.", zh:"相信；认为，猜想", ipa:"/bɪˈliːv/", freq:36 },
+      "bell": { pos:"n.", zh:"钟，铃；钟声，铃声（the bell）", ipa:"/bel/", freq:324 },
+      "belly": { pos:"n.", zh:"（人或动物的）腹部，肚子；胃，胃口", ipa:"/ˈbeli/", freq:291 },
+      "belong": { pos:"v.", zh:"应在……地方，应处于……状况；适应，合得来", ipa:"/bɪˈlɒŋ/", freq:165 }
+    }
+  },
+  {
+    id: 23,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["below", "belt", "bench", "bend", "beneath", "beneficial", "benefit", "bent", "beside", "besides", "best", "bet", "betray", "better", "between", "beware", "beyond", "bias", "bicycle", "bid"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "below": { pos:"prep.", zh:"（位置）在……下面", ipa:"/bɪˈləʊ/", freq:147 },
+      "belt": { pos:"n.", zh:"腰带，皮带；传送带", ipa:"/belt/", freq:330 },
+      "bench": { pos:"n.", zh:"长凳，长椅；长方形工作台", ipa:"/bentʃ/", freq:330 },
+      "bend": { pos:"v.", zh:"弯曲（身体关节）；（路）转弯", ipa:"/bend/", freq:280 },
+      "beneath": { pos:"prep.", zh:"在……下方；在……表面之下，隐藏在……之下", ipa:"/bɪˈniːθ/", freq:294 },
+      "beneficial": { pos:"adj.", zh:"有益的，有利的", ipa:"/ˌbenɪˈfɪʃ(ə)l/", freq:160 },
+      "benefit": { pos:"n.", zh:"好处，益处；救济金，补助金", ipa:"/ˈbenɪfɪt/", freq:44 },
+      "bent": { pos:"adj.", zh:"弯曲的，变形的；驼背的", ipa:"/bent/", freq:289 },
+      "beside": { pos:"prep.", zh:"在……旁边，在……附近；与……相比", ipa:"/bɪˈsaɪd/", freq:304 },
+      "besides": { pos:"prep.", zh:"除……之外（还）", ipa:"/bɪˈsaɪdz/", freq:158 },
+      "best": { pos:"adj.", zh:"最好的，最出色的；最愉快的，最幸福的", ipa:"/best/", freq:320 },
+      "bet": { pos:"v.", zh:"打赌，赌博；<非正式>敢肯定", ipa:"/bet/", freq:276 },
+      "betray": { pos:"v.", zh:"背叛，出卖；食言，辜负", ipa:"/bɪˈtreɪ/", freq:253 },
+      "better": { pos:"adj.", zh:"较好的，更好的；能力更强的，更熟练的", ipa:"/ˈbetə(r)/", freq:320 },
+      "between": { pos:"prep.", zh:"（空间上）在……中间；（时间上）在……之间", ipa:"/bɪˈtwiːn/", freq:305 },
+      "beware": { pos:"v.", zh:"当心，提防", ipa:"/bɪˈweə(r)/", freq:349 },
+      "beyond": { pos:"prep.", zh:"在（或向）……较远的一边；晚于，迟于", ipa:"/bɪˈjɒnd/", freq:102 },
+      "bias": { pos:"n.", zh:"偏见，成见；偏好，天赋", ipa:"/ˈbaɪəs/", freq:341 },
+      "bicycle": { pos:"n.", zh:"单车，自行车", ipa:"/ˈbaɪsɪk(ə)l/", freq:326 },
+      "bid": { pos:"v.", zh:"出价；投标，竞标", ipa:"/bɪd/", freq:291 }
+    }
+  },
+  {
+    id: 24,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["big", "bike", "bilingual", "bill", "billion", "bind", "biochemistry", "biography", "biology", "biomass", "biosphere", "bird", "birth", "birthday", "birthplace", "biscuit", "bishop", "bit", "bite", "bitter"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "big": { pos:"adj.", zh:"（尺寸、数量、规模或年龄）大的；重大的，严重的", ipa:"/bɪɡ/", freq:320 },
+      "bike": { pos:"n.", zh:"自行车，脚踏车，单车；摩托车", ipa:"/baɪk/", freq:326 },
+      "bilingual": { pos:"adj.", zh:"（人）熟悉两种语言的，能说两种语言的", ipa:"/ˌbaɪˈlɪŋɡwəl/", freq:350 },
+      "bill": { pos:"n.", zh:"（商品、服务或餐馆的）账单；议案，法案", ipa:"/bɪl/", freq:317 },
+      "billion": { pos:"num.", zh:"十亿；<旧>万亿", ipa:"/ˈbɪljən/", freq:301 },
+      "bind": { pos:"v.", zh:"捆绑，系；包扎", ipa:"/baɪnd/", freq:294 },
+      "biochemistry": { pos:"n.", zh:"生物化学；生物化学过程", ipa:"/ˌbaɪəʊˈkemɪstri/", freq:282 },
+      "biography": { pos:"n.", zh:"传记，传记文学；生平", ipa:"/baɪˈɒɡrəfi/", freq:291 },
+      "biology": { pos:"n.", zh:"生物学；生命机理，作用方式", ipa:"/baɪˈɒlədʒi/", freq:282 },
+      "biomass": { pos:"n.", zh:"生物量；生物质能燃料", ipa:"/ˈbaɪəʊmæs/", freq:334 },
+      "biosphere": { pos:"n.", zh:"生物圈（地球及其他星球表面和大气中生命存在并活动的区域）", ipa:"/ˈbaɪəʊsfɪə(r)/", freq:334 },
+      "bird": { pos:"n.", zh:"鸟；年轻女子，姑娘", ipa:"/bɜːd/", freq:328 },
+      "birth": { pos:"n.", zh:"出生，诞生；出身，血统", ipa:"/bɜːθ/", freq:316 },
+      "birthday": { pos:"n.", zh:"生日，诞辰；出生日期，诞生的日子", ipa:"/ˈbɜːθdeɪ/", freq:316 },
+      "birthplace": { pos:"n.", zh:"出生地；发源地", ipa:"/ˈbɜːθpleɪs/", freq:316 },
+      "biscuit": { pos:"n.", zh:"<英> 饼干，薄薄一片的甜饼", ipa:"/ˈbɪskɪt/", freq:319 },
+      "bishop": { pos:"n.", zh:"（基督教的）主教；（国际象棋中的）象", ipa:"/ˈbɪʃəp/", freq:292 },
+      "bit": { pos:"n.", zh:"小片，小块；小部分，片段", ipa:"/bɪt/", freq:174 },
+      "bite": { pos:"v.", zh:"咬，咬伤；叮，蜇", ipa:"/baɪt/", freq:133 },
+      "bitter": { pos:"adj.", zh:"味苦的；痛苦的，辛酸的", ipa:"/ˈbɪtə(r)/", freq:278 }
+    }
+  },
+  {
+    id: 25,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["black", "blackboard", "blade", "blame", "blank", "blanket", "bleed", "bless", "blind", "blink", "blizzard", "block", "blog", "blood", "blossom", "blouse", "blow", "blue", "blue-sky", "blur"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "black": { pos:"adj.", zh:"黑的，黑色的；黑色人种的", ipa:"/blæk/", freq:315 },
+      "blackboard": { pos:"n.", zh:"黑板", ipa:"/ˈblækbɔːd/", freq:315 },
+      "blade": { pos:"n.", zh:"刀片，刀刃；（草，小麦等的）叶片", ipa:"/bleɪd/", freq:180 },
+      "blame": { pos:"v.", zh:"责怪，归咎于；怨，怪", ipa:"/bleɪm/", freq:248 },
+      "blank": { pos:"adj.", zh:"空白的，空的；茫然的，毫无表情的", ipa:"/blæŋk/", freq:281 },
+      "blanket": { pos:"n.", zh:"毯子，毛毯；厚层，覆盖层", ipa:"/ˈblæŋkɪt/", freq:281 },
+      "bleed": { pos:"v.", zh:"流血，出血；给……放血", ipa:"/bliːd/", freq:280 },
+      "bless": { pos:"v.", zh:"求上帝保佑，祈神赐福，祝福；祝圣，使圣洁", ipa:"/bles/", freq:292 },
+      "blind": { pos:"adj.", zh:"失明的，盲的；未察觉的，视而不见的", ipa:"/blaɪnd/", freq:321 },
+      "blink": { pos:"v.", zh:"眨（眼）；（灯）闪烁", ipa:"/blɪŋk/", freq:346 },
+      "blizzard": { pos:"n.", zh:"暴风雪；大批侵扰性的事物，大量的负担", ipa:"/ˈblɪzəd/", freq:350 },
+      "block": { pos:"n.", zh:"大块，一块（木料、石头等）", ipa:"/blɒk/", freq:120 },
+      "blog": { pos:"n.", zh:"网络日志，博客", ipa:"/blɒɡ/", freq:284 },
+      "blood": { pos:"n.", zh:"血，血液；出身，血统", ipa:"/blʌd/", freq:319 },
+      "blossom": { pos:"n.", zh:"（树木的）花，花簇；开花，花期", ipa:"/ˈblɒsəm/", freq:340 },
+      "blouse": { pos:"n.", zh:"（女式）短上衣，衬衫；宽松上衣", ipa:"/blaʊz/", freq:312 },
+      "blow": { pos:"v.", zh:"（风）刮，吹；（用嘴）吹气", ipa:"/bləʊ/", freq:180 },
+      "blue": { pos:"adj.", zh:"蓝色的；忧郁的，沮丧的", ipa:"/bluː/", freq:315 },
+      "blue-sky": { pos:"adj.", zh:"无价值的；不保险的", ipa:"/ˌbluː ˈskaɪ/", freq:345 },
+      "blur": { pos:"n.", zh:"模糊不清的事物；模糊的记忆，记不清的事情", ipa:"/blɜː(r)/", freq:335 }
+    }
+  },
+  {
+    id: 26,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["board", "boast", "boat", "body", "boil", "bold", "bomb", "bond", "bone", "bonus", "book", "boom", "boost", "boot", "booth", "border", "bored", "boring", "born", "borrow"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "board": { pos:"n.", zh:"板，木板；黑板，告示牌", ipa:"/bɔːd/", freq:233 },
+      "boast": { pos:"v.", zh:"有（值得自豪的东西）；吹嘘，夸耀", ipa:"/bəʊst/", freq:350 },
+      "boat": { pos:"n.", zh:"小船；轮船", ipa:"/bəʊt/", freq:320 },
+      "body": { pos:"n.", zh:"身体，躯体；躯干", ipa:"/ˈbɒdi/", freq:201 },
+      "boil": { pos:"v.", zh:"（使）沸腾，煮沸，烧开；用开水煮", ipa:"/bɔɪl/", freq:320 },
+      "bold": { pos:"adj.", zh:"大胆自信的，敢于冒险的；冒失的，鲁莽的", ipa:"/bəʊld/", freq:338 },
+      "bomb": { pos:"n.", zh:"炸弹，爆炸装置；失败的东西", ipa:"/bɒm/", freq:280 },
+      "bond": { pos:"n.", zh:"纽带，联系；公债，债券", ipa:"/bɒnd/", freq:346 },
+      "bone": { pos:"n.", zh:"骨，骨头；骨质", ipa:"/bəʊn/", freq:111 },
+      "bonus": { pos:"n.", zh:"奖金，津贴，红利；意外收获，额外好处", ipa:"/ˈbəʊnəs/", freq:321 },
+      "book": { pos:"n.", zh:"书，书籍；本子，簿册", ipa:"/bʊk/", freq:325 },
+      "boom": { pos:"n.", zh:"繁荣；流行，风靡", ipa:"/buːm/", freq:227 },
+      "boost": { pos:"v.", zh:"使增长，推动；<美，非正式>偷窃", ipa:"/buːst/", freq:297 },
+      "boot": { pos:"n.", zh:"靴子；猛踢", ipa:"/buːt/", freq:312 },
+      "booth": { pos:"n.", zh:"电话亭，投票间；售货棚，摊位", ipa:"/buːð/", freq:289 },
+      "border": { pos:"n.", zh:"国境，边界；镶边，包边", ipa:"/ˈbɔːdə(r)/", freq:283 },
+      "bored": { pos:"adj.", zh:"无聊的，厌倦的；（枪）有特定口径的", ipa:"/bɔːd/", freq:331 },
+      "boring": { pos:"adj.", zh:"令人厌烦的；乏味的，无趣的，无聊的", ipa:"/ˈbɔːrɪŋ/", freq:331 },
+      "born": { pos:"adj.", zh:"天生的，生来就有的；出生的", ipa:"/bɔːn/", freq:316 },
+      "borrow": { pos:"v.", zh:"借，借入；（向……）借贷", ipa:"/ˈbɒrəʊ/", freq:302 }
+    }
+  },
+  {
+    id: 27,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["boss", "botany", "both", "bother", "bottle", "bottom", "bounce", "bound", "boundary", "bow", "bowl", "bowling", "box", "boxing", "boy", "boycott", "brain", "brake", "branch", "brand"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "boss": { pos:"n.", zh:"上司，领导，领班；圆形装饰物，浮雕装饰", ipa:"/bɒs/", freq:322 },
+      "botany": { pos:"n.", zh:"植物学；（特定地区的）植物（生态）", ipa:"/ˈbɒtəni/", freq:282 },
+      "both": { pos:"det.", zh:"双方，两者", ipa:"/bəʊθ/", freq:303 },
+      "bother": { pos:"v.", zh:"费心；（使）烦恼，（使）担心", ipa:"/ˈbɒðə(r)/", freq:235 },
+      "bottle": { pos:"n.", zh:"瓶子；一瓶（的量）", ipa:"/ˈbɒt(ə)l/", freq:330 },
+      "bottom": { pos:"n.", zh:"底，底部；尽头，远端", ipa:"/ˈbɒtəm/", freq:304 },
+      "bounce": { pos:"v.", zh:"弹起，反弹；跳动，蹦", ipa:"/baʊns/", freq:264 },
+      "bound": { pos:"adj.", zh:"必然的，肯定的；受约束的，有义务的", ipa:"/baʊnd/", freq:300 },
+      "boundary": { pos:"n.", zh:"分界线，边界；界限，范围", ipa:"/ˈbaʊndri/", freq:283 },
+      "bow": { pos:"v.", zh:"鞠躬，点头；低下（头）", ipa:"/baʊ; bəʊ/", freq:280 },
+      "bowl": { pos:"n.", zh:"碗，盆；一碗之量", ipa:"/bəʊl/", freq:330 },
+      "bowling": { pos:"n.", zh:"保龄球运动；（板球）投球", ipa:"/ˈbəʊlɪŋ/", freq:313 },
+      "box": { pos:"n.", zh:"盒，箱，匣；（戏院的）包厢，（法庭的）专席", ipa:"/bɒks/", freq:330 },
+      "boxing": { pos:"n.", zh:"拳击（运动）", ipa:"/ˈbɒksɪŋ/", freq:330 },
+      "boy": { pos:"n.", zh:"男孩；儿子", ipa:"/bɔɪ/", freq:311 },
+      "boycott": { pos:"v.", zh:"抵制，拒绝参加", ipa:"/ˈbɔɪkɒt/", freq:300 },
+      "brain": { pos:"n.", zh:"脑；<非正式>智力，智慧", ipa:"/breɪn/", freq:321 },
+      "brake": { pos:"n.", zh:"刹车，车闸；阻碍，抑制", ipa:"/breɪk/", freq:287 },
+      "branch": { pos:"n.", zh:"树枝，分枝；分支机构，分店", ipa:"/brɑːntʃ/", freq:158 },
+      "brand": { pos:"n.", zh:"品牌，商标；（独特的）一种，一类", ipa:"/brænd/", freq:202 }
+    }
+  },
+  {
+    id: 28,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["brave", "bravery", "bread", "break", "breakfast", "breakthrough", "breast", "breath", "breathe", "breathless", "breed", "breeze", "brewery", "brick", "bride", "bridegroom", "bridge", "brief", "bright", "brilliant"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "brave": { pos:"adj.", zh:"勇敢的，无畏的；非常好的", ipa:"/breɪv/", freq:312 },
+      "bravery": { pos:"n.", zh:"勇敢的行为（态度），勇气", ipa:"/ˈbreɪvəri/", freq:269 },
+      "bread": { pos:"n.", zh:"面包；（通过工作等挣得的）钱财", ipa:"/bred/", freq:319 },
+      "break": { pos:"v.", zh:"打破，折断；（使）破裂，撕开", ipa:"/breɪk/", freq:42 },
+      "breakfast": { pos:"n.", zh:"早餐；早餐的，早餐时用的", ipa:"/ˈbrekfəst/", freq:319 },
+      "breakthrough": { pos:"n.", zh:"突破，重大进展", ipa:"/ˈbreɪkθruː/", freq:285 },
+      "breast": { pos:"n.", zh:"乳房；胸部，胸脯", ipa:"/brest/", freq:290 },
+      "breath": { pos:"n.", zh:"呼吸，气息；一次吸入的空气", ipa:"/breθ/", freq:266 },
+      "breathe": { pos:"v.", zh:"呼吸；呼出，吐出", ipa:"/briːð/", freq:181 },
+      "breathless": { pos:"adj.", zh:"喘不过气来的，气喘吁吁的，上气不接下气的", ipa:"/ˈbreθləs/", freq:300 },
+      "breed": { pos:"v.", zh:"交配繁殖；饲养，培育", ipa:"/briːd/", freq:337 },
+      "breeze": { pos:"n.", zh:"微风，和风；轻而易举的事", ipa:"/briːz/", freq:341 },
+      "brewery": { pos:"n.", zh:"啤酒厂，啤酒公司", ipa:"/ˈbruːəri/", freq:289 },
+      "brick": { pos:"n.", zh:"砖，砖块；<旧>热心人，可靠的人", ipa:"/brɪk/", freq:285 },
+      "bride": { pos:"n.", zh:"新娘，即将（或刚）结婚的女子", ipa:"/braɪd/", freq:287 },
+      "bridegroom": { pos:"n.", zh:"新郎，即将（或刚）结婚的男子", ipa:"/ˈbraɪdɡruːm/", freq:287 },
+      "bridge": { pos:"n.", zh:"桥；桥梁，纽带", ipa:"/brɪdʒ/", freq:307 },
+      "brief": { pos:"adj.", zh:"短暂的；简短的", ipa:"/briːf/", freq:183 },
+      "bright": { pos:"adj.", zh:"明亮的；鲜艳的", ipa:"/braɪt/", freq:332 },
+      "brilliant": { pos:"adj.", zh:"巧妙的，使人印象深的；成功的，辉煌的", ipa:"/ˈbrɪliənt/", freq:221 }
+    }
+  },
+  {
+    id: 29,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["brine", "bring", "brink", "Britain", "British", "broad", "broadcast", "brochure", "broken", "broken-down", "broom", "brother", "brown", "brunch", "brush", "brutal", "bubble", "bucket", "budget", "buffalo"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "brine": { pos:"n.", zh:"卤水；盐水", ipa:"/braɪn/", freq:347 },
+      "bring": { pos:"v.", zh:"拿来，带来；使……转入（新的话题）", ipa:"/brɪŋ/", freq:21 },
+      "brink": { pos:"n.", zh:"边缘", ipa:"/brɪŋk/", freq:349 },
+      "Britain": { pos:"n.", zh:"英国，不列颠(包括英格兰、苏格兰及威尔士)", ipa:"/ˈbrɪt(ə)n/", freq:306 },
+      "British": { pos:"adj.", zh:"（大不列颠及北爱尔兰）联合王国的，英国的，英国人的", ipa:"/ˈbrɪtɪʃ/", freq:306 },
+      "broad": { pos:"adj.", zh:"宽广的，宽阔的；……宽", ipa:"/brɔːd/", freq:293 },
+      "broadcast": { pos:"v.", zh:"散布，传播（信息等）；播撒（种子等）", ipa:"/ˈbrɔːdkɑːst/", freq:196 },
+      "brochure": { pos:"n.", zh:"小册子，资料（或广告）手册", ipa:"/ˈbrəʊʃə(r)/", freq:282 },
+      "broken": { pos:"adj.", zh:"损坏的，破碎的；衰弱的，颓丧的", ipa:"/ˈbrəʊkən/", freq:296 },
+      "broken-down": { pos:"adj.", zh:"故障的；衰弱的", ipa:"/ˌbrəʊkən ˈdaʊn/", freq:344 },
+      "broom": { pos:"n.", zh:"扫帚；金雀花", ipa:"/bruːm/", freq:280 },
+      "brother": { pos:"n.", zh:"兄弟，哥哥，弟弟", ipa:"/ˈbrʌðə(r)/", freq:310 },
+      "brown": { pos:"adj.", zh:"褐色的，棕色的；肤色深的，晒黑的", ipa:"/braʊn/", freq:315 },
+      "brunch": { pos:"n.", zh:"早午餐", ipa:"/brʌntʃ/", freq:319 },
+      "brush": { pos:"n.", zh:"刷子，画笔；灌木丛", ipa:"/brʌʃ/", freq:321 },
+      "brutal": { pos:"adj.", zh:"野蛮的，凶残的；毫不掩饰的，直截了当的", ipa:"/ˈbruːt(ə)l/", freq:340 },
+      "bubble": { pos:"n.", zh:"气泡，泡沫；经济泡沫", ipa:"/ˈbʌb(ə)l/", freq:292 },
+      "bucket": { pos:"n.", zh:"桶；一桶之量", ipa:"/ˈbʌkɪt/", freq:265 },
+      "budget": { pos:"n.", zh:"预算；政府预算案", ipa:"/ˈbʌdʒɪt/", freq:265 },
+      "buffalo": { pos:"n.", zh:"野牛，犎牛；水牛", ipa:"/ˈbʌfələʊ/", freq:348 }
+    }
+  },
+  {
+    id: 30,
+    storyTitle: "",
+    storyDesc: "本组暂未生成短文，先看词表与悬停发音。",
+    words: ["buffet", "build", "building", "bum", "bunch", "bungalow", "bunny", "burden", "bureau", "bureaucratic", "burglar", "burn", "burst", "bury", "bus", "bush", "business", "businessman", "busy", "but"],
+    storyHTML: "",
+    storyZhHTML: "",
+    defs: {
+      "buffet": { pos:"n.", zh:"自助餐；快餐部，点心柜", ipa:"/ˈbʌfeɪ; ˈbʊfeɪ/", freq:289 },
+      "build": { pos:"v.", zh:"建造，修建；发展，建立", ipa:"/bɪld/", freq:48 },
+      "building": { pos:"n.", zh:"建筑物，房屋，楼房；建筑，建筑业", ipa:"/ˈbɪldɪŋ/", freq:308 },
+      "bum": { pos:"n.", zh:"<英，非正式>屁股", ipa:"/bʌm/", freq:335 },
+      "bunch": { pos:"n.", zh:"束，串，扎；一伙，一群", ipa:"/bʌntʃ/", freq:269 },
+      "bungalow": { pos:"n.", zh:"平房，小屋", ipa:"/ˈbʌŋɡələʊ/", freq:285 },
+      "bunny": { pos:"n.", zh:"（儿童用语）兔子；<非正式>兔女郎", ipa:"/ˈbʌni/", freq:337 },
+      "burden": { pos:"n.", zh:"负担，责任；负重，负荷", ipa:"/ˈbɜːd(ə)n/", freq:178 },
+      "bureau": { pos:"n.", zh:"局，处，科；办事处，办公室", ipa:"/ˈbjʊərəʊ/", freq:337 },
+      "bureaucratic": { pos:"adj.", zh:"官僚的，官僚政治的", ipa:"/ˌbjʊərəˈkrætɪk/", freq:283 },
+      "burglar": { pos:"n.", zh:"入室行窃者，窃贼", ipa:"/ˈbɜːɡlə(r)/", freq:279 },
+      "burn": { pos:"v.", zh:"燃烧，消耗；烧坏，烧毁，烧焦", ipa:"/bɜːn/", freq:94 },
+      "burst": { pos:"v.", zh:"爆炸，爆裂，胀开；冲，闯，突然出现", ipa:"/bɜːst/", freq:216 },
+      "bury": { pos:"v.", zh:"埋，埋葬；埋藏，隐藏", ipa:"/ˈberi/", freq:253 },
+      "bus": { pos:"n.", zh:"公共汽车；（计算机／电子技术）总线", ipa:"/bʌs/", freq:326 },
+      "bush": { pos:"n.", zh:"灌木，灌木丛；荒野，丛林地带", ipa:"/bʊʃ/", freq:284 },
+      "business": { pos:"n.", zh:"商业，买卖，生意；商务，公事", ipa:"/ˈbɪznəs/", freq:25 },
+      "businessman": { pos:"n.", zh:"（男性）商人，生意人", ipa:"/ˈbɪznəsmæn/", freq:322 },
+      "busy": { pos:"adj.", zh:"繁忙的，忙碌的；热闹的", ipa:"/ˈbɪzi/", freq:332 },
+      "but": { pos:"conj.", zh:"而，相反；（用于表示歉意）但是", ipa:"/bʌt; bət/", freq:334 }
+    }
   }
 ];
 
@@ -481,23 +1316,23 @@ const elChips = document.getElementById('chips');
 const elStory = document.getElementById('story');
 const elTrans = document.getElementById('trans');
 const elStoryTabs = document.getElementById('storyTabs');
+const elNoStory = document.getElementById('noStory');
+const elTransSection = document.getElementById('transSection');
 const elWordTableBody = document.querySelector('#wordTable tbody');
 let currentGroup = null;
 let currentStory = 0;   // 0 = 主故事, 1 = 第二篇故事
 
-// 左栏：3 组可点 + 后续占位
+// 左栏：全部已生成的组（当前 30 组）
 function renderSidebar() {
   let html = '';
   groups.forEach(g => {
+    const hasStory = !!g.storyHTML;
     html += `<button class="grp" data-id="${g.id}">
       <span class="no">第 ${g.id} 组</span>
       <span class="range">${g.words[0]} — ${g.words[g.words.length-1]}</span>
+      ${hasStory ? '<span class="badge">短文</span>' : ''}
     </button>`;
   });
-  // 后续占位（灰显）
-  for (let i = 4; i <= 8; i++) {
-    html += `<button class="grp disabled"><span class="no">第 ${i} 组</span><span class="range">待扩展</span></button>`;
-  }
   groupList.innerHTML = html;
 }
 
@@ -508,6 +1343,19 @@ function activeStory(g) {
 
 // 只切换故事正文/标题/翻译（chips 与词汇表两篇共用，不重绘）
 function applyStory(g) {
+  const hasStory = !!g.storyHTML;
+  elNoStory.style.display = hasStory ? 'none' : 'block';
+  elStoryTitle.style.display = hasStory ? '' : 'none';
+  elStoryDesc.style.display = hasStory ? '' : 'none';
+  elStory.style.display = hasStory ? '' : 'none';
+  elTransSection.style.display = hasStory ? '' : 'none';
+  if (!hasStory) {
+    elStoryTitle.textContent = '';
+    elStoryDesc.textContent = '';
+    elStory.innerHTML = '';
+    elTrans.innerHTML = '';
+    return;
+  }
   const s = activeStory(g);
   elStoryTitle.textContent = s.storyTitle;
   elStoryDesc.textContent = s.storyDesc;
@@ -520,7 +1368,7 @@ function applyStory(g) {
 
 // 渲染故事切换标签（仅当该组有第二篇故事时显示）
 function renderStoryTabs(g) {
-  if (!g.altStory) {
+  if (!g.altStory || !g.storyHTML) {
     elStoryTabs.style.display = 'none';
     elStoryTabs.innerHTML = '';
     return;
@@ -537,7 +1385,7 @@ function renderGroup(id) {
   if (!g) return;
   currentGroup = id;
   currentStory = 0;                 // 换组时默认回到故事一
-  elTitle.textContent = `第 ${g.id} 组 · 20 词`;
+  elTitle.textContent = `第 ${g.id} 组 · ${g.words.length} 词`;
 
   renderStoryTabs(g);
   applyStory(g);
@@ -547,8 +1395,8 @@ function renderGroup(id) {
   ).join('');
 
   // 词汇表
-  elWordTableBody.innerHTML = g.words.map(w => {
-    const d = g.defs[w];
+  elWordTableBody.innerHTML = g.words.map((w, i) => {
+    const d = g.defs[w] || { pos:'', zh:'', ipa:'—', freq:'' };
     return `<tr>
       <td class="en">${w}</td>
       <td>${d.pos}</td>
@@ -588,12 +1436,12 @@ function showTip(wordEl) {
       <span class="tip-word">${word}</span>
       <span class="tip-freq">词频 ${d.freq}</span>
     </div>
-    <div class="tip-ipa">${d.pos} · ${d.ipa}</div>
+    <div class="tip-ipa">${d.pos ? d.pos + ' · ' : ''}${d.ipa}</div>
     <div class="tip-zh">${d.zh}</div>
-    <div class="tip-label">英文释义</div>
-    <div class="tip-en">${d.en}</div>
-    <div class="tip-label">例句</div>
-    <div class="tip-ex">${d.ex}</div>
+    ${d.en ? `<div class="tip-label">英文释义</div>
+    <div class="tip-en">${d.en}</div>` : ''}
+    ${d.ex ? `<div class="tip-label">例句</div>
+    <div class="tip-ex">${d.ex}</div>` : ''}
     <div class="tip-btns">
       <button class="play" data-w="${word}" data-accent="uk">🔊 英音</button>
       <button class="play" data-w="${word}" data-accent="us">🔊 美音</button>
