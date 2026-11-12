@@ -510,7 +510,7 @@
         <div class="table-wrap">
         <table id="wordTable">
           <thead>
-            <tr><th>单词</th><th>词性</th><th>音标</th><th>中文释义</th><th>常见搭配</th><th>词频</th><th>经典例句</th></tr>
+            <tr><th>单词</th><th>词性</th><th>音标</th><th>中文释义</th><th>常见搭配</th><th>经典例句</th><th>词频</th></tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -1938,8 +1938,8 @@ function renderGroup(id) {
       <td class="ipa">${d.ipa}<button class="spk" data-w="${w}" title="美式发音" aria-label="听 ${w} 的美式发音">🔊</button></td>
       <td>${d.zh}</td>
       <td class="colloc">${collocHTML(w)}</td>
-      <td class="freq">${d.freq}</td>
       <td class="clip"><a class="yarn" href="${yarnUrl(w)}" target="_blank" rel="noopener" title="在 getyarn.io 看「${yarnQuery(w)}」的影视原声例句">🎬 看例句</a></td>
+      <td class="freq">${d.freq}</td>
     </tr>`;
   }).join('');
 
