@@ -402,6 +402,24 @@
 
   /* ===== 新闻语境（nw- 前缀，与 .word / .qz- 完全隔离） ===== */
   #newsSection[hidden] { display: none; }
+  /* 可折叠标题：整行可点，右侧提示当前内容条数 */
+  .nw-title {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 0; cursor: pointer; user-select: none;
+  }
+  .nw-title:hover { opacity: .78; }
+  .nw-title:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+  .nw-caret {
+    display: inline-block; font-size: 12px; line-height: 1;
+    color: var(--accent); transition: transform .18s ease;
+  }
+  .nw-title.open .nw-caret { transform: rotate(90deg); }
+  .nw-hint {
+    margin-left: auto; font-size: 12px; font-weight: 400;
+    letter-spacing: 0; text-transform: none; color: var(--muted);
+  }
+  #newsBody { margin-top: 18px; }
+  #newsBody[hidden] { display: none; }
   .nw-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: -4px 0 14px; }
   .nw-tab {
     font-size: 12.5px; padding: 6px 14px;
@@ -610,15 +628,22 @@
         </div>
       </div>
 
-      <!-- 新闻语境：默认显示编写的高中水平分级例句，可切回真实报刊原句 -->
+      <!-- 新闻语境：默认收起，点标题展开；区内可切换简易例句 / 真实报刊原句 -->
       <div class="section" id="newsSection" hidden>
-        <h3 class="section-title">新闻语境 · 这些词在真实报刊里怎么用</h3>
-        <div class="nw-tabs" id="newsTabs">
-          <button class="nw-tab" type="button" data-nact="tab" data-nmode="easy">简易例句 · 高中水平</button>
-          <button class="nw-tab" type="button" data-nact="tab" data-nmode="real">真实报刊原句</button>
+        <h3 class="section-title nw-title" id="newsToggle" role="button" tabindex="0"
+            aria-expanded="false" data-nact="toggle">
+          新闻语境 · 这些词在真实报刊里怎么用
+          <span class="nw-caret">▸</span>
+          <span class="nw-hint" id="newsHint">点击展开</span>
+        </h3>
+        <div id="newsBody" hidden>
+          <div class="nw-tabs" id="newsTabs">
+            <button class="nw-tab" type="button" data-nact="tab" data-nmode="easy">简易例句 · 高中水平</button>
+            <button class="nw-tab" type="button" data-nact="tab" data-nmode="real">真实报刊原句</button>
+          </div>
+          <p class="nw-intro" id="newsIntro"></p>
+          <div id="newsList"></div>
         </div>
-        <p class="nw-intro" id="newsIntro"></p>
-        <div id="newsList"></div>
       </div>
 
       <!-- 背诵自测 -->
@@ -2204,6 +2229,9 @@ const elTransSection = document.getElementById('transSection');
 const elTransTitle = document.getElementById('transTitle');
 const elWordTableBody = document.querySelector('#wordTable tbody');
 const newsSection = document.getElementById('newsSection');
+const newsToggle = document.getElementById('newsToggle');
+const newsBody = document.getElementById('newsBody');
+const newsHint = document.getElementById('newsHint');
 const newsTabs = document.getElementById('newsTabs');
 const newsList = document.getElementById('newsList');
 const newsIntro = document.getElementById('newsIntro');
@@ -2555,11 +2583,24 @@ document.addEventListener('click', e => {
    并泄露自测答案），也不复用 .qz- 系列或 .grp/.spk/.play/.story-tab。 */
 let newsMode = 'easy';        // 'easy' = 高中水平分级例句；'real' = 真实报刊原句
 let newsCurrentGroup = null;
+let newsExpanded = false;     // 新闻语境区默认收起，点标题展开
+let newsSummary = '';         // 收起时右侧显示的例句条数
 
 function newsEsc(s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// 折叠 / 展开新闻语境内容（标题整行可点）
+function setNewsExpanded(v) {
+  newsExpanded = !!v;
+  newsBody.hidden = !newsExpanded;
+  newsToggle.classList.toggle('open', newsExpanded);
+  newsToggle.setAttribute('aria-expanded', String(newsExpanded));
+  newsHint.textContent = newsExpanded
+    ? '点击收起'
+    : (newsSummary ? newsSummary + ' · 点击展开' : '点击展开');
 }
 
 // 在已转义的英文句子里高亮目标词（含常见屈折形），不产生 .word / data-w
@@ -2634,6 +2675,8 @@ function renderNews(g, forceMode) {
     newsSection.hidden = true;
     newsList.innerHTML = '';
     newsIntro.textContent = '';
+    newsSummary = '';
+    setNewsExpanded(false);
     return;
   }
   // 切组时重置为默认（有简易句就先看简易句）；点 tab 时由 forceMode 指定
@@ -2647,6 +2690,7 @@ function renderNews(g, forceMode) {
 
   if (newsMode === 'easy') {
     const n = g.words.filter(w => easy[w]).length;
+    newsSummary = `简易例句 ${n} 条`;
     newsIntro.textContent = `本组 ${g.words.length} 词 · 简易例句 ${n} 条（欧美高中生水平）。这些句子为帮助理解词义与基本搭配而编写，句式和用词刻意简化，不是报刊原句、也没有出处；想看真实新闻语境，请点上方「真实报刊原句」。`;
     newsList.innerHTML = newsEasyHTML(g);
   } else {
@@ -2654,14 +2698,19 @@ function renderNews(g, forceMode) {
     const us    = all.filter(x => x.type === 'news' && x.country === 'US').length;
     const other = all.filter(x => x.type === 'news' && x.country !== 'US').length;
     const dict  = all.filter(x => x.type === 'dict').length;
+    newsSummary = `真实报刊例句 ${all.length} 条`;
     newsIntro.textContent = `本组 ${g.words.length} 词 · 美国媒体 ${us} 条 · 其它英文主流报刊 ${other} 条 · 词典例句 ${dict} 条。例句与出处均照录原始语料，可点「查看出处」核对；功能词在新闻中极常见，此处以词典例句示意典型搭配。`;
     newsList.innerHTML = newsHTML(g);
   }
   newsSection.hidden = false;
+  // 切组（未指定 forceMode）时恢复收起；点 tab 切换模式时保持当前展开状态
+  if (!forceMode) setNewsExpanded(false);
 }
 
-// 独立事件委托：难度切换 + 中文译文折叠，不进全局 click 委托
+// 独立事件委托：展开收起 + 难度切换 + 中文译文折叠，不进全局 click 委托
 newsSection.addEventListener('click', e => {
+  const tg = e.target.closest('[data-nact="toggle"]');
+  if (tg) { setNewsExpanded(!newsExpanded); return; }
   const tab = e.target.closest('[data-nact="tab"]');
   if (tab) {
     const mode = tab.dataset.nmode;
@@ -2675,6 +2724,14 @@ newsSection.addEventListener('click', e => {
   if (!zh) return;
   zh.hidden = !zh.hidden;
   t.textContent = zh.hidden ? '中文译文 ▾' : '中文译文 ▴';
+});
+
+// 键盘可达：标题聚焦后按 Enter / 空格同样可展开
+newsToggle.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    setNewsExpanded(!newsExpanded);
+  }
 });
 
 /* ===================== 背诵自测 ===================== */
