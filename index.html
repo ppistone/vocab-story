@@ -223,6 +223,25 @@
   }
   .word:hover { background: var(--accent-soft); border-radius: 3px; }
 
+  /* 中文夹词短文：中文骨架 + 仅目标词为英文；对照版用 strong 标出词义 */
+  .story .cn-mix p, .trans .cn-mix p {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 17px; line-height: 2.15; text-align: justify;
+    letter-spacing: .2px;
+  }
+  .cn-mix .word {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: .95em; padding: 0 3px; border-radius: 3px;
+    background: var(--accent-soft);
+  }
+  .cn-mix strong {
+    color: var(--accent); background: var(--accent-soft);
+    padding: 0 3px; border-radius: 3px; font-weight: 700;
+  }
+  @media (max-width: 1240px) {
+    .story .cn-mix p, .trans .cn-mix p { font-size: 15.5px; line-height: 2; }
+  }
+
   /* 释义卡片 */
   #tooltip {
     position: fixed;
@@ -575,7 +594,7 @@
       <div class="no-story" id="noStory" style="display:none">本组暂未生成短文 —— 先看下面的词表，把鼠标悬停在单词上可以听发音、看释义。</div>
 
       <div class="section" id="transSection">
-        <h3 class="section-title">中文翻译</h3>
+        <h3 class="section-title" id="transTitle">中文翻译</h3>
         <div class="trans" id="trans"></div>
       </div>
 
@@ -613,7 +632,7 @@
         <div class="qz-panel" id="qzPanel" hidden></div>
       </div>
 
-      <p class="hint">提示：把鼠标悬停在任意单词上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。第 1 组有两篇故事，可点上方标签切换。</p>
+      <p class="hint">提示：把鼠标悬停在任意单词上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。第 1 组有三篇故事，可点上方标签切换；第三篇是中文夹词短文，读完可对照下方加粗处自查词义。</p>
     </div>
   </main>
 </div>
@@ -918,7 +937,8 @@ const groups = [
       "abstract":  { pos:"adj.", zh:"抽象的", ipa:"/ˈæbstrækt/", en:"existing as an idea, not as a physical object", ex:"Beauty is an abstract concept.", freq:252 },
       "absurd":    { pos:"adj.", zh:"荒谬的，可笑的", ipa:"/əbˈsɜːd/", en:"completely unreasonable or ridiculous", ex:"It is absurd to think money grows on trees.", freq:297 }
     },
-    altStory: {
+    altStories: [
+      {
       storyTitle: "Above the Rim",
       tag: "篮球",
       storyDesc: "篮球 · 一所快要砍掉球队的修道院学校里，一个瘦小后卫和一位从不缺席的老院长",
@@ -936,7 +956,32 @@ const groups = [
         <p>比赛前一晚，教练在战术板上画了一套抽象得让半个队只会盯着看的战术。马库斯笑出了声——他说，跑一个谁都想象不出来的东西，实在荒谬。于是他们干脆擦掉了它，登上那辆老旧的黄色大巴，决定只用他们唯一会的方式打球：快、响、一起。</p>
         <p>最后九十秒还落后九分，没人愿意放弃全场紧逼。马库斯两次抢断，又扣了最后一个篮，体育馆里——午餐桌被推到墙边——响起了三十年未有的声浪。他们输了两分。终场哨响时，所有球员都抬头望向球场上方那扇小窗：老人一直在那里看着，坐在他如今唯一能够到的位置上。</p>
       `
-    }
+      },
+      {
+      storyTitle: "山顶那间旧阅览室",
+      tag: "中文夹词",
+      transTitle: "中文对照 · 加粗处就是上方英文词的意思",
+      storyDesc: "中文夹词记忆法 · 全文只有二十个英文词，其余都是中文；读完看下方对照，自查有没有猜对",
+      storyHTML: `
+      <div class="cn-mix">
+        <p>林老师把课本合上，只在黑板上留下 <span class="word" data-w="a, an">a, an</span> 两个小词。她说，别小看这两个小家伙，二十个词里最难讲清楚的偏偏是它们。她从不 <span class="word" data-w="abandon">abandon</span> 这套老办法：先讲一个故事，再让学生自己把词填回去。故事里有位穿着长袍的 <span class="word" data-w="abbot">abbot</span>，守着山上一间存旧书的屋子。她有一种 <span class="word" data-w="ability">ability</span>，能把最枯燥的条目讲成有人味的事，所以全班都 <span class="word" data-w="able">able</span> 在放学前把这二十个词背下来。</p>
+        <p>那年冬天暖得 <span class="word" data-w="abnormal">abnormal</span>，院子里的玉兰一月里竟开了第二遍。去对岸送表那天，小满 <span class="word" data-w="aboard">aboard</span> 那趟慢渡轮，站在甲板上听广播，说校方要 <span class="word" data-w="abolish">abolish</span> 山顶那间旧阅览室——三十年的老规矩，一纸通知就作废了。可大家最担心的不是拆，而是这件事又一次 <span class="word" data-w="abortion">abortion</span>：过去三年，类似的提议每回都半途没了下文。<span class="word" data-w="about">about</span> 那笔捐款的消息还没贴出来，在黑板 <span class="word" data-w="above">above</span> 的那扇小窗倒先被封上了。</p>
+        <p>真正让人不安的是林老师的变化。她姐姐从 <span class="word" data-w="abroad">abroad</span> 寄来的信，她看了三遍就收进抽屉；接着是一纸 <span class="word" data-w="abrupt">abrupt</span> 的调令，说她下周起不再带这个班。她的 <span class="word" data-w="absence">absence</span> 从一天变成一周，办公室只说人 <span class="word" data-w="absent">absent</span>，别的不肯讲。教室里那几天是 <span class="word" data-w="absolute">absolute</span> 的安静，连最闹的男生都不出声。小满 <span class="word" data-w="absolutely">absolutely</span> 确定：这件事和那间阅览室有关。</p>
+        <p>周五傍晚，老周把阅览室的钥匙塞给小满。她推门进去，一口气 <span class="word" data-w="absorb">absorb</span> 了半架子旧笔记——林老师年轻时抄的，页边全是批注。有一页写着一段 <span class="word" data-w="abstract">abstract</span> 的话，大意是：屋子在不在，跟学问在不在，本来就是两回事。小满忽然觉得这有点 <span class="word" data-w="absurd">absurd</span>：为了省几张桌子的钱，把整座山的记忆腾空，怎么算都不合情理。</p>
+        <p>第二天，全班把这二十个词重新抄了一遍，谁也没 <span class="word" data-w="abandon">abandon</span> 林老师教的办法。黑板上 <span class="word" data-w="a, an">a, an</span> 还留着。小满在下面添了一行：屋子可以 <span class="word" data-w="abolish">abolish</span>，故事不行。</p>
+      </div>
+      `,
+      storyZhHTML: `
+      <div class="cn-mix">
+        <p>林老师把课本合上，只在黑板上留下两个小词，说的都是<strong>一（个）</strong>。她说，别小看这两个小家伙，二十个词里最难讲清楚的偏偏是它们。她从不<strong>放弃</strong>这套老办法：先讲一个故事，再让学生自己把词填回去。故事里有位穿着长袍的<strong>修道院长</strong>，守着山上一间存旧书的屋子。她有一种<strong>能力</strong>，能把最枯燥的条目讲成有人味的事，所以全班都<strong>能够</strong>在放学前把这二十个词背下来。</p>
+        <p>那年冬天暖得<strong>不正常</strong>，院子里的玉兰一月里竟开了第二遍。去对岸送表那天，小满<strong>登上</strong>那趟慢渡轮，站在甲板上听广播，说校方要<strong>废除</strong>山顶那间旧阅览室——三十年的老规矩，一纸通知就作废了。可大家最担心的不是拆，而是这件事又一次<strong>半途中止</strong>：过去三年，类似的提议每回都半途没了下文。<strong>关于</strong>那笔捐款的消息还没贴出来，在黑板<strong>上方</strong>的那扇小窗倒先被封上了。</p>
+        <p>真正让人不安的是林老师的变化。她姐姐从<strong>国外</strong>寄来的信，她看了三遍就收进抽屉；接着是一纸<strong>突然</strong>的调令，说她下周起不再带这个班。她的<strong>缺席</strong>从一天变成一周，办公室只说人<strong>不在</strong>，别的不肯讲。教室里那几天是<strong>完全</strong>的安静，连最闹的男生都不出声。小满<strong>绝对</strong>确定：这件事和那间阅览室有关。</p>
+        <p>周五傍晚，老周把阅览室的钥匙塞给小满。她推门进去，一口气<strong>读懂吸收</strong>了半架子旧笔记——林老师年轻时抄的，页边全是批注。有一页写着一段<strong>抽象</strong>的话，大意是：屋子在不在，跟学问在不在，本来就是两回事。小满忽然觉得这有点<strong>荒谬</strong>：为了省几张桌子的钱，把整座山的记忆腾空，怎么算都不合情理。</p>
+        <p>第二天，全班把这二十个词重新抄了一遍，谁也没<strong>放弃</strong>林老师教的办法。黑板上那两个小词还留着。小满在下面添了一行：屋子可以<strong>废除</strong>，故事不行。</p>
+      </div>
+      `
+      }
+    ]
   },
   {
     id: 2,
@@ -2156,13 +2201,14 @@ const elTrans = document.getElementById('trans');
 const elStoryTabs = document.getElementById('storyTabs');
 const elNoStory = document.getElementById('noStory');
 const elTransSection = document.getElementById('transSection');
+const elTransTitle = document.getElementById('transTitle');
 const elWordTableBody = document.querySelector('#wordTable tbody');
 const newsSection = document.getElementById('newsSection');
 const newsTabs = document.getElementById('newsTabs');
 const newsList = document.getElementById('newsList');
 const newsIntro = document.getElementById('newsIntro');
 let currentGroup = null;
-let currentStory = 0;   // 0 = 主故事, 1 = 第二篇故事
+let currentStory = 0;   // 0 = 主故事，1..n = altStories 里的第 n 篇
 
 // 左栏：全部已生成的组（当前 30 组）
 function renderSidebar() {
@@ -2180,7 +2226,8 @@ function renderSidebar() {
 
 // 取当前组正在显示的那篇故事
 function activeStory(g) {
-  return (currentStory === 1 && g.altStory) ? g.altStory : g;
+  if (currentStory === 0 || !g.altStories) return g;
+  return g.altStories[currentStory - 1] || g;
 }
 
 // 只切换故事正文/标题/翻译（chips 与词汇表两篇共用，不重绘）
@@ -2203,22 +2250,29 @@ function applyStory(g) {
   elStoryDesc.textContent = s.storyDesc;
   elStory.innerHTML = s.storyHTML;
   elTrans.innerHTML = s.storyZhHTML || '';
+  elTransTitle.textContent = s.transTitle || '中文翻译';
   document.querySelectorAll('.story-tab').forEach(b => {
     b.classList.toggle('active', Number(b.dataset.idx) === currentStory);
   });
 }
 
-// 渲染故事切换标签（仅当该组有第二篇故事时显示）
+// 渲染故事切换标签：主故事 + altStories 里的任意多篇
 function renderStoryTabs(g) {
-  if (!g.altStory || !g.storyHTML) {
+  const extras = g.altStories || [];
+  if (!extras.length || !g.storyHTML) {
     elStoryTabs.style.display = 'none';
     elStoryTabs.innerHTML = '';
     return;
   }
+  const CN = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+  let html = `<button class="story-tab" data-idx="0"><span class="tab-no">故事一</span>${g.storyTitle}</button>`;
+  extras.forEach((s, i) => {
+    const no = '故事' + (CN[i + 1] || (i + 2));
+    const label = s.tag ? `${no} · ${s.tag}` : no;
+    html += `\n    <button class="story-tab" data-idx="${i + 1}"><span class="tab-no">${label}</span>${s.storyTitle}</button>`;
+  });
   elStoryTabs.style.display = 'flex';
-  elStoryTabs.innerHTML = `
-    <button class="story-tab" data-idx="0"><span class="tab-no">故事一</span>${g.storyTitle}</button>
-    <button class="story-tab" data-idx="1"><span class="tab-no">故事二 · ${g.altStory.tag || '换境'}</span>${g.altStory.storyTitle}</button>`;
+  elStoryTabs.innerHTML = html;
 }
 
 // 把词条转成 getyarn.io 的搜索词：
