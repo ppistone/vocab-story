@@ -387,6 +387,93 @@
     margin-top: 30px;
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   }
+
+  /* ===== 背诵自测 ===== */
+  .qz-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .qz-btn {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 13px; padding: 7px 14px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel); color: var(--ink);
+    cursor: pointer; transition: all .15s ease;
+  }
+  .qz-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .qz-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .qz-btn.primary:hover { filter: brightness(1.08); color: #fff; }
+  .qz-btn.small { padding: 4px 10px; font-size: 12px; }
+  .qz-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .qz-meta {
+    font-size: 12.5px; color: var(--muted); margin-left: auto;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .qz-meta b { color: var(--accent); }
+  .qz-panel {
+    border: 1px solid var(--line); border-radius: 12px;
+    background: var(--panel); padding: 18px 20px 20px;
+  }
+  .qz-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .qz-prog { font-size: 13px; color: var(--muted); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .qz-prog b { color: var(--accent); font-size: 16px; }
+  .qz-notice { font-size: 13px; color: var(--muted); padding: 6px 0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .qz-stem { margin: 6px 0 18px; }
+  .qz-pos {
+    display: inline-block; font-size: 12px; color: var(--accent);
+    background: var(--accent-soft); padding: 2px 8px; border-radius: 5px;
+    margin-right: 10px; font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .qz-zh { font-size: 21px; font-weight: 700; color: var(--ink); }
+  .qz-opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .qz-opt {
+    text-align: left; font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px; padding: 12px 14px;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: #fff; color: var(--ink); cursor: pointer;
+    transition: all .15s ease;
+  }
+  .qz-opt:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .qz-opt .k { display: inline-block; width: 22px; color: var(--muted); font-size: 12px; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .qz-opt.sel { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+  .qz-opt.right { border-color: #2e7d5b; background: #e8f5ee; color: #1c6647; }
+  .qz-opt.wrong { border-color: #c2185b; background: #fde7ef; color: #8c1241; }
+  .qz-nav { display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .qz-dots { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+  .qz-dot {
+    width: 20px; height: 20px; font-size: 10px; line-height: 1; padding: 0;
+    border: 1px solid var(--line); border-radius: 5px;
+    background: #fff; color: var(--muted); cursor: pointer;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .qz-dot.done { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .qz-dot.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .qz-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--muted);
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .qz-score { font-size: 15px; margin-bottom: 14px; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .qz-score b { font-size: 30px; color: var(--accent); margin-right: 10px; }
+  .qz-score .tip { color: var(--muted); font-size: 13px; }
+  .qz-mastery { display: inline-block; background: #e8f5ee; color: #1c6647; border-radius: 6px; padding: 3px 9px; font-size: 12px; margin-left: 8px; }
+  .qz-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .qz-review { border-top: 1px solid var(--line); padding-top: 14px; }
+  .qz-ritem { padding: 9px 12px; border-radius: 8px; margin-bottom: 7px; font-size: 13px; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .qz-ritem.ok { background: #f2f8f4; }
+  .qz-ritem.no { background: #fdf1f5; }
+  .qz-ritem .a { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .qz-ritem .bad { color: #c2185b; text-decoration: line-through; }
+  .qz-ritem .good { color: #1c6647; font-weight: 700; }
+  .qz-say { border: 1px solid var(--line); background: #fff; border-radius: 5px; font-size: 11px; padding: 1px 6px; cursor: pointer; margin-left: 8px; color: var(--ink); }
+  .qz-say:hover { border-color: var(--accent); color: var(--accent); }
+  .qz-filter { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 13px; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; flex-wrap: wrap; }
+  .qz-filter select { padding: 6px 10px; border: 1px solid var(--line); border-radius: 7px; background: #fff; font-size: 13px; color: var(--ink); }
+  .qz-wlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+  .qz-witem { border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; font-size: 13px; }
+  .qz-witem .w { font-family: Georgia, serif; font-weight: 700; color: var(--accent); font-size: 15px; }
+  .qz-witem .g { float: right; font-size: 11px; color: var(--muted); }
+  .qz-witem .z { color: var(--muted); font-size: 12px; margin-top: 3px; }
+  .qz-empty { color: var(--muted); font-size: 13px; padding: 14px 0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  @media (max-width: 700px) { .qz-opts { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -428,6 +515,17 @@
           <tbody></tbody>
         </table>
         </div>
+      </div>
+
+      <!-- 背诵自测 -->
+      <div class="section" id="qzSection">
+        <h3 class="section-title">背诵自测</h3>
+        <div class="qz-bar">
+          <button class="qz-btn primary" data-qact="start">开始自测（本组 20 词）</button>
+          <button class="qz-btn" data-qact="wrongbook">错题本</button>
+          <span class="qz-meta">历史最高 <b class="qz-best">—</b> · 本组错题 <b class="qz-wrongcount">0</b></span>
+        </div>
+        <div class="qz-panel" id="qzPanel" hidden></div>
       </div>
 
       <p class="hint">提示：把鼠标悬停在任意单词上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。第 1 组有两篇故事，可点上方标签切换。</p>
@@ -1820,6 +1918,7 @@ function renderGroup(id) {
   const g = groups.find(x => x.id === id);
   if (!g) return;
   currentGroup = id;
+  qzOnGroupChange(id);   // 背诵自测：切组时重置/保留测试状态
   currentStory = 0;                 // 换组时默认回到故事一
   elTitle.textContent = `第 ${g.id} 组 · ${g.words.length} 词`;
 
@@ -2051,6 +2150,443 @@ document.addEventListener('click', e => {
     playAudio(b.dataset.w, b.dataset.accent);
   }
 });
+
+/* ===================== 背诵自测 ===================== */
+/* 命名约束：本模块所有元素一律 qz- 前缀、data-qact / data-qw / data-qi，
+   绝不使用 .word / data-w（会触发悬停释义泄露答案），
+   也不复用 .grp/.spk/.play/.story-tab（会被既有 click 委托抢占）。 */
+
+const QZ_KEY = 'vocabQuiz.v1';
+
+// 全库索引：用于挑形近/义近干扰项、跨组错题回顾
+const ALL_WORDS = groups.flatMap(g => g.words.map(w => ({
+  w: w,
+  gid: g.id,
+  zh: (g.defs[w] && g.defs[w].zh) || '',
+  pos: (g.defs[w] && g.defs[w].pos) || ''
+})));
+
+const WORD_INDEX = (() => {
+  const m = new Map();
+  ALL_WORDS.forEach(x => { if (!m.has(x.w)) m.set(x.w, x); });
+  return m;
+})();
+
+let QZ = { v: 1, best: {}, wrong: {}, attempts: 0 };
+const qzState = {
+  phase: 'idle',       // idle | answering | submitted | wrongbook
+  mode: 'normal',      // normal | redo
+  gid: 0, qs: [], i: 0, answers: [], result: null,
+  filter: '',          // '' = 当前组；'all' = 全部；其余为组号字符串
+  notice: ''
+};
+let qzAutoTimer = null;
+
+/* ---------- 词形与中文释义工具 ---------- */
+function normWord(w) {
+  let s = String(w == null ? '' : w).split(/[,/]/)[0];
+  // 可选字母词形：afterward(s)→afterward、behavior(u)r→behavior
+  const m = s.match(/^([A-Za-z]+)\(([A-Za-z]*)\)([A-Za-z]*)$/);
+  if (m) s = m[1];
+  return s.replace(/[.\s'\-]/g, '').toLowerCase();
+}
+function cleanZh(zh) {
+  return String(zh == null ? '' : zh)
+    .replace(/^\s*(abbr|adv|adj|n|v|vt|vi|prep|conj|pron|art|num|int|aux|det)\.\s*/i, '')
+    .trim();
+}
+function zhTokens(zh) {
+  return cleanZh(zh).split(/[，,；;、/（）()\s]+/).filter(t => t.length >= 2);
+}
+function escQ(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+function levDist(a, b) {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    }
+    prev = cur;
+  }
+  return prev[b.length];
+}
+function lcpLen(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return i;
+}
+// 相似度：编辑距离 .5 + 公共前缀 .3 + 中文释义分词重合 .2
+function simWord(a, b) {
+  const na = normWord(a.w), nb = normWord(b.w);
+  const maxLen = Math.max(na.length, nb.length, 1);
+  const ed = Math.max(0, 1 - levDist(na, nb) / maxLen);
+  const pre = lcpLen(na, nb) / maxLen;
+  const ta = new Set(zhTokens(a.zh)), tb = new Set(zhTokens(b.zh));
+  let inter = 0;
+  ta.forEach(t => { if (tb.has(t)) inter++; });
+  const uni = new Set([...ta, ...tb]).size || 1;
+  return .5 * ed + .3 * pre + .2 * (inter / uni);
+}
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ---------- 形近/义近干扰项 ---------- */
+function distractors(item) {
+  const na = normWord(item.w);
+  const za = cleanZh(item.zh);
+  const seenN = new Set([na]);
+  const seenZ = new Set([za]);
+  // 排除：归一化词形相同、中文释义完全相同（否则会出现两个正确答案）
+  const pool = ALL_WORDS.filter(x => {
+    const n = normWord(x.w);
+    return n && n !== na && cleanZh(x.zh) !== za;
+  });
+  const scored = pool.map(x => ({
+    x: x,
+    s: simWord(item, x) + (x.gid === item.gid ? .35 : 0)
+  })).sort((p, q) => q.s - p.s);
+
+  const picks = [];
+  const take = list => {
+    for (const x of list) {
+      if (picks.length >= 3) break;
+      const n = normWord(x.w), z = cleanZh(x.zh);
+      if (seenN.has(n) || seenZ.has(z)) continue;
+      seenN.add(n); seenZ.add(z); picks.push(x.w);
+    }
+  };
+  // Top8 里随机抽 3：既保证「像」，又避免重考时选项组合被背住
+  take(shuffle(scored.slice(0, 8).map(o => o.x)));
+  if (picks.length < 3) take(shuffle(scored.map(o => o.x)));
+  return picks;
+}
+
+function buildQuiz(items) {
+  return shuffle(items).map(it => {
+    const opts = shuffle([it.w, ...distractors(it)]);
+    return {
+      w: it.w, gid: it.gid,
+      zh: cleanZh(it.zh), pos: it.pos || '',
+      opts: opts, correct: opts.indexOf(it.w)
+    };
+  });
+}
+
+/* ---------- 本地存储 ---------- */
+function loadQZ() {
+  QZ = { v: 1, best: {}, wrong: {}, attempts: 0 };
+  try {
+    const raw = localStorage.getItem(QZ_KEY);
+    const o = raw ? JSON.parse(raw) : null;
+    if (o && o.v === 1) {
+      QZ.best = (o.best && typeof o.best === 'object') ? o.best : {};
+      QZ.wrong = (o.wrong && typeof o.wrong === 'object') ? o.wrong : {};
+      QZ.attempts = Number(o.attempts) || 0;
+    }
+  } catch (e) { /* 隐私模式 / 数据损坏：用空记录 */ }
+  const valid = new Set(ALL_WORDS.map(x => x.w));
+  Object.keys(QZ.wrong).forEach(gid => {
+    QZ.wrong[gid] = (Array.isArray(QZ.wrong[gid]) ? QZ.wrong[gid] : [])
+      .filter(w => valid.has(w));
+    if (!QZ.wrong[gid].length) delete QZ.wrong[gid];
+  });
+}
+function saveQZ() {
+  try { localStorage.setItem(QZ_KEY, JSON.stringify(QZ)); } catch (e) { /* 忽略写入失败 */ }
+}
+function qzWrongList(filter) {
+  const f = filter === '' ? String(currentGroup) : String(filter);
+  const out = [];
+  Object.keys(QZ.wrong).forEach(gid => {
+    if (f === 'all' || gid === f) {
+      (QZ.wrong[gid] || []).forEach(w => out.push({ w: w, gid: Number(gid) }));
+    }
+  });
+  return out;
+}
+function qzWrongTotal() {
+  return Object.keys(QZ.wrong).reduce((a, k) => a + (QZ.wrong[k] || []).length, 0);
+}
+
+/* ---------- 状态操作 ---------- */
+function qzMetaRefresh() {
+  const gid = currentGroup;
+  const best = QZ.best[gid];
+  const b = document.querySelector('.qz-best');
+  const w = document.querySelector('.qz-wrongcount');
+  if (b) b.textContent = (best == null ? '—' : best + ' / 20');
+  if (w) w.textContent = (QZ.wrong[gid] || []).length;
+}
+function qzOnGroupChange(id) {
+  const s = qzState;
+  if (s.phase === 'answering' && s.gid && s.gid !== id) {
+    s.notice = '上一组测试未完成，已放弃（成绩未记录）。';
+    s.phase = 'idle'; s.qs = []; s.answers = []; s.result = null;
+  } else if (s.phase === 'wrongbook') {
+    s.filter = '';   // 错题本保持打开，筛选自动跟随新组
+  } else {
+    s.phase = 'idle'; s.notice = ''; s.qs = []; s.answers = []; s.result = null;
+  }
+  s.gid = id;
+  qzMetaRefresh();
+  qzRender();
+}
+function qzStart(mode) {
+  const s = qzState;
+  let items;
+  if (mode === 'redo') {
+    const list = qzWrongList(s.filter).slice(0, 20);
+    if (!list.length) {
+      s.notice = '当前筛选下没有错题，先做一次自测吧。';
+      qzRender();
+      return;
+    }
+    items = list.map(x => {
+      const d = WORD_INDEX.get(x.w) || {};
+      return { w: x.w, gid: x.gid, zh: d.zh || '', pos: d.pos || '' };
+    });
+  } else {
+    const g = groups.find(x => x.id === currentGroup);
+    if (!g) return;
+    items = g.words.map(w => ({
+      w: w, gid: g.id,
+      zh: (g.defs[w] || {}).zh || '', pos: (g.defs[w] || {}).pos || ''
+    }));
+  }
+  s.phase = 'answering';
+  s.mode = (mode === 'redo') ? 'redo' : 'normal';
+  s.gid = currentGroup;
+  s.qs = buildQuiz(items);
+  s.i = 0;
+  s.answers = new Array(s.qs.length).fill(null);
+  s.result = null; s.notice = '';
+  qzRender();
+  const p = document.getElementById('qzPanel');
+  if (p && p.scrollIntoView) p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function qzAnswer(i) {
+  const s = qzState;
+  if (s.phase !== 'answering' || !s.qs[s.i]) return;
+  const first = (s.answers[s.i] == null);
+  s.answers[s.i] = i;
+  qzRender();
+  clearTimeout(qzAutoTimer);
+  // 首次作答才自动跳到下一道未答题；回退改答案时不打扰
+  if (first) {
+    const next = s.qs.findIndex((q, idx) => idx > s.i && s.answers[idx] == null);
+    if (next >= 0) {
+      qzAutoTimer = setTimeout(() => {
+        if (s.phase === 'answering') { s.i = next; qzRender(); }
+      }, 420);
+    }
+  }
+}
+function qzSubmit() {
+  const s = qzState;
+  if (s.phase !== 'answering') return;
+  clearTimeout(qzAutoTimer);
+  let score = 0;
+  const wrong = [], right = [];
+  s.qs.forEach((q, i) => {
+    if (s.answers[i] === q.correct) { score++; right.push(q); }
+    else wrong.push(q);
+  });
+  const prevBest = QZ.best[s.gid];
+  let newBest = false;
+  if (s.mode === 'normal') {
+    if (prevBest == null || score > prevBest) { QZ.best[s.gid] = score; newBest = true; }
+    wrong.forEach(q => {
+      const k = String(q.gid);
+      if (!QZ.wrong[k]) QZ.wrong[k] = [];
+      if (!QZ.wrong[k].includes(q.w)) QZ.wrong[k].push(q.w);
+    });
+  } else {
+    // 错题重练：答对的词从错题本移除，不改写最高分
+    right.forEach(q => {
+      const k = String(q.gid);
+      if (QZ.wrong[k]) QZ.wrong[k] = QZ.wrong[k].filter(w => w !== q.w);
+      if (QZ.wrong[k] && !QZ.wrong[k].length) delete QZ.wrong[k];
+    });
+  }
+  QZ.attempts++;
+  saveQZ();
+  s.result = { score: score, total: s.qs.length, prevBest: prevBest, newBest: newBest };
+  s.phase = 'submitted';
+  qzMetaRefresh();
+  qzRender();
+}
+
+/* ---------- 各状态视图 ---------- */
+function qzAnswerHTML() {
+  const s = qzState, q = s.qs[s.i], n = s.qs.length;
+  if (!q) return '';
+  const answered = s.answers.filter(a => a != null).length;
+  const opts = q.opts.map((o, i) => {
+    const cls = 'qz-opt' + (s.answers[s.i] === i ? ' sel' : '');
+    return `<button class="${cls}" data-qact="answer" data-qi="${i}"><span class="k">${i + 1}</span>${escQ(o)}</button>`;
+  }).join('');
+  const dots = s.qs.map((_, i) => {
+    let c = 'qz-dot';
+    if (s.answers[i] != null) c += ' done';
+    if (i === s.i) c += ' cur';
+    return `<button class="${c}" data-qact="jump" data-qi="${i}" title="第 ${i + 1} 题">${i + 1}</button>`;
+  }).join('');
+  return `
+    <div class="qz-head">
+      <div class="qz-prog">第 <b>${s.i + 1}</b> / ${n} 题 · ${s.mode === 'redo' ? '错题重练' : '第 ' + s.gid + ' 组'}</div>
+      <button class="qz-btn small" data-qact="collapse">收起</button>
+    </div>
+    <div class="qz-stem"><span class="qz-pos">${escQ(q.pos || '—')}</span><span class="qz-zh">${escQ(q.zh || '（暂无释义）')}</span></div>
+    <div class="qz-opts">${opts}</div>
+    <div class="qz-nav">
+      <button class="qz-btn small" data-qact="prev" ${s.i === 0 ? 'disabled' : ''}>← 上一题</button>
+      <div class="qz-dots">${dots}</div>
+      <button class="qz-btn small" data-qact="next" ${s.i === n - 1 ? 'disabled' : ''}>下一题 →</button>
+    </div>
+    <div class="qz-foot">
+      <span>已答 ${answered} / ${n} · 可回退改答案 · 键盘 1–4 选项、← → 切题</span>
+      <button class="qz-btn primary" data-qact="submit">交卷</button>
+    </div>`;
+}
+function qzResultHTML() {
+  const s = qzState, r = s.result;
+  if (!r) return '';
+  const best = QZ.best[s.gid];
+  const tip = (s.mode === 'redo')
+    ? '错题重练不计入最高分'
+    : (r.newBest
+        ? `刷新历史最高（原 ${r.prevBest == null ? '—' : r.prevBest}）`
+        : `历史最高 ${best == null ? '—' : best} / ${r.total}`);
+  const mastery = (r.score === r.total) ? '<span class="qz-mastery">本组已完全掌握</span>' : '';
+  const items = s.qs.map((q, i) => {
+    const pick = s.answers[i];
+    const ok = (pick === q.correct);
+    const your = (pick == null) ? '未作答' : q.opts[pick];
+    const line = ok
+      ? `<span class="good">${escQ(q.w)}</span> ✅`
+      : `你的答案 <span class="bad">${escQ(your)}</span> → <span class="good">${escQ(q.w)}</span>`;
+    return `<div class="qz-ritem ${ok ? 'ok' : 'no'}">
+      <div class="q">${i + 1}. [${escQ(q.pos || '—')}] ${escQ(q.zh)}</div>
+      <div class="a">${line}<button class="qz-say" data-qact="say" data-qw="${escQ(q.w)}" title="听美式发音">🔊</button></div>
+    </div>`;
+  }).join('');
+  const localWrong = qzWrongList('').length;
+  return `
+    <div class="qz-head">
+      <div class="qz-score"><b>${r.score} / ${r.total}</b><span class="tip">${tip}</span>${mastery}</div>
+      <button class="qz-btn small" data-qact="collapse">收起</button>
+    </div>
+    <div class="qz-actions">
+      <button class="qz-btn primary" data-qact="again">再做一次</button>
+      <button class="qz-btn" data-qact="redo" data-qscope="local" ${localWrong ? '' : 'disabled'}>重练本组错题（${localWrong}）</button>
+      <button class="qz-btn" data-qact="wrongbook">打开错题本</button>
+    </div>
+    <div class="qz-review">${items}</div>`;
+}
+function qzWrongbookHTML() {
+  const s = qzState;
+  const list = qzWrongList(s.filter);
+  const total = qzWrongTotal();
+  const gids = Object.keys(QZ.wrong).sort((a, b) => Number(a) - Number(b));
+  const options = [`<option value="all" ${s.filter === 'all' ? 'selected' : ''}>全部错题（${total}）</option>`]
+    .concat(gids.map(g => `<option value="${g}" ${String(s.filter) === g ? 'selected' : ''}>第 ${g} 组（${QZ.wrong[g].length}）</option>`))
+    .join('');
+  const cards = list.length
+    ? list.map(x => {
+        const d = WORD_INDEX.get(x.w) || { zh: '', pos: '' };
+        return `<div class="qz-witem">
+          <span class="g">第 ${x.gid} 组</span>
+          <div class="w">${escQ(x.w)}</div>
+          <div class="z">${escQ(d.pos)} ${escQ(cleanZh(d.zh))}<button class="qz-say" data-qact="say" data-qw="${escQ(x.w)}" title="听美式发音">🔊</button></div>
+        </div>`;
+      }).join('')
+    : '<div class="qz-empty">这里还是空的 —— 交卷后答错的词会自动收进来。</div>';
+  return `
+    <div class="qz-head">
+      <div class="qz-prog">错题本 · 共 ${total} 词</div>
+      <button class="qz-btn small" data-qact="collapse">收起</button>
+    </div>
+    <div class="qz-filter">
+      <span>查看范围：</span>
+      <select id="qzFilter">${options}</select>
+      <button class="qz-btn small" data-qact="redo" ${list.length ? '' : 'disabled'}>重练这些错题（最多 20 题）</button>
+      <span style="color:var(--muted);font-size:12px">共 ${list.length} 词 · 共测 ${QZ.attempts} 次</span>
+    </div>
+    <div class="qz-wlist">${cards}</div>`;
+}
+function qzRender() {
+  const panel = document.getElementById('qzPanel');
+  if (!panel) return;
+  const s = qzState;
+  if (s.phase === 'idle') {
+    if (!s.notice) { panel.hidden = true; panel.innerHTML = ''; return; }
+    panel.hidden = false;
+    panel.innerHTML = `<div class="qz-notice">${escQ(s.notice)}</div>`;
+    return;
+  }
+  panel.hidden = false;
+  if (s.phase === 'answering') panel.innerHTML = qzAnswerHTML();
+  else if (s.phase === 'submitted') panel.innerHTML = qzResultHTML();
+  else if (s.phase === 'wrongbook') panel.innerHTML = qzWrongbookHTML();
+}
+
+/* ---------- 事件（独立委托，不改动既有 document click 监听） ---------- */
+const qzSection = document.getElementById('qzSection');
+if (qzSection) qzSection.addEventListener('click', e => {
+  const el = e.target.closest('[data-qact]');
+  if (!el || !qzSection.contains(el)) return;
+  const act = el.dataset.qact, s = qzState;
+  switch (act) {
+    case 'start':     qzStart('normal'); break;
+    case 'again':     qzStart('normal'); break;
+    case 'redo':      if (el.dataset.qscope === 'local') s.filter = ''; qzStart('redo'); break;
+    case 'wrongbook': s.phase = 'wrongbook'; s.filter = ''; s.notice = ''; qzRender(); break;
+    case 'collapse':  s.phase = 'idle'; s.notice = ''; s.result = null; qzRender(); qzMetaRefresh(); break;
+    case 'answer':    qzAnswer(Number(el.dataset.qi)); break;
+    case 'prev':      if (s.i > 0) { s.i--; qzRender(); } break;
+    case 'next':      if (s.i < s.qs.length - 1) { s.i++; qzRender(); } break;
+    case 'jump':      s.i = Number(el.dataset.qi); qzRender(); break;
+    case 'submit':    qzSubmit(); break;
+    case 'say':       if (el.dataset.qw) playAudio(yarnQuery(el.dataset.qw), 'us'); break;
+  }
+});
+if (qzSection) qzSection.addEventListener('change', e => {
+  if (e.target && e.target.id === 'qzFilter') {
+    qzState.filter = e.target.value;
+    qzRender();
+  }
+});
+// 键盘：1–4 选答案、← → 切题、全部答完时 Enter 交卷
+document.addEventListener('keydown', e => {
+  const s = qzState;
+  if (s.phase !== 'answering') return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+  if (/^[1-4]$/.test(e.key) && s.qs[s.i] && Number(e.key) <= s.qs[s.i].opts.length) {
+    qzAnswer(Number(e.key) - 1); e.preventDefault();
+  } else if (e.key === 'ArrowLeft' && s.i > 0) {
+    s.i--; qzRender(); e.preventDefault();
+  } else if (e.key === 'ArrowRight' && s.i < s.qs.length - 1) {
+    s.i++; qzRender(); e.preventDefault();
+  } else if (e.key === 'Enter' && s.answers.every(a => a != null)) {
+    qzSubmit(); e.preventDefault();
+  }
+});
+
+loadQZ();
 
 /* ===================== 初始化 ===================== */
 renderSidebar();
