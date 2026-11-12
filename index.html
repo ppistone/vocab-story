@@ -585,6 +585,15 @@
   .qz-witem .z { color: var(--muted); font-size: 12px; margin-top: 3px; }
   .qz-empty { color: var(--muted); font-size: 13px; padding: 14px 0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
   @media (max-width: 700px) { .qz-opts { grid-template-columns: 1fr; } }
+
+  /* ===== 资源下载 ===== */
+  .dl-name { font-size:15px; font-weight:700; color:var(--ink); margin:0 0 4px;
+             font-family:"PingFang SC","Microsoft YaHei",sans-serif; }
+  .dl-meta { font-size:12.5px; color:var(--muted); margin:0 0 10px;
+             font-family:"PingFang SC","Microsoft YaHei",sans-serif; }
+  .dl-desc { font-size:13px; line-height:1.8; color:var(--ink); max-width:880px; margin:0 0 14px;
+             font-family:"PingFang SC","Microsoft YaHei",sans-serif; }
+  a.dl-btn { display:inline-block; text-decoration:none; line-height:1.8; }
 </style>
 </head>
 <body>
@@ -658,6 +667,18 @@
       </div>
 
       <p class="hint">提示：把鼠标悬停在任意单词上查看释义，点「英音 / 美音」按钮播放读音（浏览器内置发音，无需联网）。每组都有中文夹词短文（第 1 组是第三篇，其余组是第二篇），点上方标签切换；全文除目标词外都是中文，读完可对照下方加粗处自查词义。</p>
+
+      <!-- 资源下载 -->
+      <div class="section" id="downloadSection">
+        <h3 class="section-title">资源下载</h3>
+        <p class="dl-name">艾宾浩斯30天单词滚动复习表.xlsx</p>
+        <p class="dl-meta">约 22 KB · XLSX 表格</p>
+        <p class="dl-desc">按艾宾浩斯记忆法安排的 30 天单词滚动复习计划表。下载后可用 Excel / WPS 打开、打印或按自己的节奏填写复习记录，配合本页 30 组词汇使用。</p>
+        <a class="qz-btn primary dl-btn"
+           href="%E8%89%BE%E5%AE%BE%E6%B5%A9%E6%96%AF30%E5%A4%A9%E5%8D%95%E8%AF%8D%E6%BB%9A%E5%8A%A8%E5%A4%8D%E4%B9%A0%E8%A1%A8.xlsx"
+           download="艾宾浩斯30天单词滚动复习表.xlsx"
+           type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">下载复习表（.xlsx）</a>
+      </div>
     </div>
   </main>
 </div>
