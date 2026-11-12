@@ -28,7 +28,7 @@
   /* 左右框架 */
   .frame {
     display: grid;
-    grid-template-columns: 248px 1fr;
+    grid-template-columns: 312px 1fr;
     height: 100vh;
   }
 
@@ -51,13 +51,14 @@
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   }
   .grp {
+    position: relative;
     display: block;
     width: 100%;
     text-align: left;
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 10px;
-    padding: 11px 14px;
+    padding: 11px 54px 11px 14px;
     margin-bottom: 10px;
     cursor: pointer;
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -67,7 +68,16 @@
   }
   .grp:hover { border-color: var(--accent); transform: translateX(2px); }
   .grp .no { color: var(--muted); font-size: 12px; margin-right: 6px; }
-  .grp .range { color: var(--muted); font-size: 12px; }
+  .grp .range {
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: calc(100% - 62px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+  }
   .grp.active {
     background: var(--accent);
     color: #fff;
@@ -79,15 +89,21 @@
     cursor: not-allowed;
   }
   .grp.disabled:hover { transform: none; border-color: var(--line); }
-  /* 左栏「短文」小标 */
+  /* 左栏「短文」小标：绝对定位固定在右侧垂直居中，永不换行 */
   .grp .badge {
-    float: right;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
     font-size: 11px;
+    line-height: 1.5;
     padding: 1px 6px;
     border-radius: 4px;
     background: rgba(200, 40, 80, .10);
     color: var(--accent);
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    white-space: nowrap;
+    pointer-events: none;
   }
   .grp.active .badge { background: rgba(255,255,255,.25); color: #fff; }
   /* 无故事组的提示条 */
@@ -346,8 +362,8 @@
   #wordTable td.en  { white-space: nowrap; }
   #wordTable td.pos { white-space: nowrap; font-size: 12.5px; color: #6b7280; }
   #wordTable td.freq { white-space: nowrap; }
-  /* 极窄屏（<1180px）兜底：恢复横向滚动，避免挤压变形 */
-  @media (max-width: 1180px) {
+  /* 极窄屏（<1240px）兜底：恢复横向滚动，避免挤压变形 */
+  @media (max-width: 1240px) {
     .table-wrap { overflow-x: auto; }
     #wordTable { min-width: 820px; }
   }
