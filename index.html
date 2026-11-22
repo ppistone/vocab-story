@@ -47,9 +47,41 @@
   .sidebar .sub {
     font-size: 12px;
     color: var(--muted);
-    margin: 0 0 20px;
+    margin: 0 0 14px;
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   }
+  /* 学习进度卡片 */
+  .progress-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 13px 12px;
+    margin: 0 0 12px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .pc-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .pc-title { font-size: 12.5px; font-weight: 700; color: var(--ink); }
+  .pc-title .pc-emoji { font-size: 13px; margin-right: 3px; }
+  .pc-stat { font-size: 11.5px; color: var(--muted); }
+  .pc-stat b { color: var(--accent); font-size: 13px; }
+  .pc-bar { height: 6px; background: var(--side-bg); border-radius: 4px; overflow: hidden; }
+  .pc-bar-fill { height: 100%; width: 0; background: var(--accent); border-radius: 4px; transition: width .3s ease; }
+  .pc-last { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+  .pc-last b { color: var(--accent); }
+  .pc-actions { display: flex; gap: 7px; margin-top: 9px; }
+  .pc-btn {
+    flex: 1; padding: 6px 8px; font-size: 12px; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink);
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif; transition: all .15s ease;
+  }
+  .pc-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .pc-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .pc-btn.primary:hover { opacity: .88; color: #fff; }
+  .grp .done-mark { color: var(--accent); font-size: 12px; margin-right: 4px; font-weight: 700; }
+  .grp.done { background: #f4faf6; border-color: #cfe8d8; }
+  .grp.done.active { background: var(--accent); border-color: var(--accent); }
+  .grp.done .done-mark { color: #2e9d63; }
+  .grp.done.active .done-mark { color: #d8f5e4; }
   .grp {
     position: relative;
     display: block;
@@ -653,6 +685,18 @@
   <aside class="sidebar">
     <h1>英语词汇记忆</h1>
     <p class="sub">每 10 词一组 · 点击查看词表与发音</p>
+    <div class="progress-card">
+      <div class="pc-head">
+        <span class="pc-title"><span class="pc-emoji">📖</span>学习进度</span>
+        <span class="pc-stat">已学 <b id="pcDone">0</b> / 455 组</span>
+      </div>
+      <div class="pc-bar"><div class="pc-bar-fill" id="pcBar"></div></div>
+      <div class="pc-last" id="pcLast">还没有学习记录，从 <b>第 1 组</b> 开始吧</div>
+      <div class="pc-actions">
+        <button class="pc-btn primary" id="pcContinue">➡️ 学下一组</button>
+        <button class="pc-btn" id="pcReset">重置</button>
+      </div>
+    </div>
     <div class="search-box">
       <input type="text" id="wordSearch" placeholder="🔍 搜索单词 / 中文释义…" autocomplete="off" spellcheck="false" aria-label="搜索单词">
       <button class="clear-btn" id="searchClear" type="button" title="清空搜索" aria-label="清空搜索">×</button>
@@ -776,12 +820,63 @@ const newsIntro = document.getElementById('newsIntro');
 let currentGroup = null;
 let currentStory = 0;   // 0 = 主故事，1..n = altStories 里的第 n 篇
 
+/* ===================== 学习进度（localStorage） ===================== */
+const PROG_KEY = 'vocabProgress.v1';
+const PROG = (() => {
+  const def = { last: 1, done: [] };
+  try {
+    const raw = localStorage.getItem(PROG_KEY);
+    if (!raw) return def;
+    const o = JSON.parse(raw);
+    return {
+      last: Number.isInteger(o.last) && o.last >= 1 && o.last <= groups.length ? o.last : 1,
+      done: Array.isArray(o.done) ? o.done.filter(n => Number.isInteger(n) && n >= 1 && n <= groups.length) : []
+    };
+  } catch (e) { return def; }
+})();
+function saveProg() {
+  try { localStorage.setItem(PROG_KEY, JSON.stringify(PROG)); } catch (e) { /* 忽略 */ }
+}
+const doneSet = new Set(PROG.done);
+
+function updateProgressCard() {
+  const n = doneSet.size;
+  document.getElementById('pcDone').textContent = n;
+  document.getElementById('pcBar').style.width = (n / groups.length * 100).toFixed(1) + '%';
+  const last = document.getElementById('pcLast');
+  const btn = document.getElementById('pcContinue');
+  if (n === 0) {
+    last.innerHTML = '还没有学习记录，从 <b>第 1 组</b> 开始吧';
+  } else {
+    last.innerHTML = `上次学到 <b>第 ${PROG.last} 组</b> · ${PROG.last === groups.length ? '已全部完成 🎉' : '下次从这里继续'}`;
+  }
+  btn.textContent = PROG.last >= groups.length ? '🎉 已学完' : `➡️ 学下一组（第 ${PROG.last + 1} 组）`;
+}
+
+// 标记某组为"已学"并记录为上次组
+function markStudied(id) {
+  PROG.last = id;
+  doneSet.add(id);
+  PROG.done = Array.from(doneSet).sort((a, b) => a - b);
+  saveProg();
+  updateProgressCard();
+  const b = document.querySelector(`.grp[data-id="${id}"]`);
+  if (b) {
+    b.classList.add('done');
+    let mk = b.querySelector('.done-mark');
+    if (!mk) { mk = document.createElement('span'); mk.className = 'done-mark'; b.insertBefore(mk, b.firstChild); }
+    mk.textContent = '✓ ';
+  }
+}
+
 // 左栏：全部已生成的组（当前 455 组）
 function renderSidebar() {
   let html = '';
   groups.forEach(g => {
     const hasStory = !!g.storyHTML;
-    html += `<button class="grp" data-id="${g.id}">
+    const done = doneSet.has(g.id);
+    html += `<button class="grp${done ? ' done' : ''}" data-id="${g.id}">
+      ${done ? '<span class="done-mark">✓ </span>' : ''}
       <span class="no">第 ${g.id} 组</span>
       <span class="range">${g.words[0]} — ${g.words[g.words.length-1]}</span>
       ${hasStory ? '<span class="badge">短文</span>' : ''}
@@ -877,10 +972,11 @@ function boldHead(phrase, w) {
 }
 
 // 右栏渲染某组
-function renderGroup(id) {
+function renderGroup(id, skipMark) {
   const g = groups.find(x => x.id === id);
   if (!g) return;
   currentGroup = id;
+  if (!skipMark) markStudied(id);   // 学习进度：记录上次组 + 标记已学（重置时为 false）
   qzOnGroupChange(id);   // 背诵自测：切组时重置/保留测试状态
   currentStory = 0;                 // 换组时默认回到故事一
   elTitle.textContent = `第 ${g.id} 组 · ${g.words.length} 词`;
@@ -1797,9 +1893,30 @@ elSearchResults.addEventListener('click', e => {
   clearHide(); tooltip.style.display = 'none';
 });
 
+/* ===================== 学习进度：按钮绑定 ===================== */
+document.getElementById('pcContinue').addEventListener('click', () => {
+  if (PROG.last < groups.length) renderGroup(PROG.last + 1);   // 学下一组
+  document.querySelector('.sidebar').scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.getElementById('pcReset').addEventListener('click', () => {
+  if (!window.confirm('确定要清空学习进度吗？此操作不可撤销。')) return;
+  PROG.last = 1;
+  PROG.done = [];
+  doneSet.clear();
+  saveProg();
+  document.querySelectorAll('.grp').forEach(b => {
+    b.classList.remove('done');
+    const mk = b.querySelector('.done-mark');
+    if (mk) mk.remove();
+  });
+  updateProgressCard();
+  renderGroup(1, true);   // 重置后展示第1组，但不计入已学
+});
+
 /* ===================== 初始化 ===================== */
 renderSidebar();
-renderGroup(1);
+updateProgressCard();
+renderGroup(PROG.last);   // 恢复到上次学习的组（首次为第1组）
 </script>
 </body>
 </html>
