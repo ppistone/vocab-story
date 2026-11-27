@@ -1263,9 +1263,8 @@ function newsEasyHTML(g) {
       <div class="nw-item">
         <div class="nw-en">${newsMark(it.en, w)}</div>
         <div class="nw-meta"><span class="nw-badge easy">分级例句</span>
-          <span class="nw-src">高中水平 · 编写例句，非报刊原句</span>
-          <button class="nw-toggle" data-nact="zh" type="button">中文译文 ▾</button></div>
-        <div class="nw-zh" hidden>${newsEsc(it.zh)}</div>
+          <span class="nw-src">高中水平 · 编写例句，非报刊原句</span></div>
+        <div class="nw-zh">${newsEsc(it.zh)}</div>
       </div>
     </div>`;
   }).join('');
@@ -1290,9 +1289,8 @@ function newsHTML(g) {
       const date = it.date ? `<span class="nw-src">${newsEsc(it.date)}</span>` : '';
       return `<div class="nw-item">
         <div class="nw-en">${newsMark(it.en, w)}</div>
-        <div class="nw-meta">${badge}<span class="nw-src">${newsEsc(it.src)}</span>${date}${link}
-          <button class="nw-toggle" data-nact="zh" type="button">中文译文 ▾</button></div>
-        <div class="nw-zh" hidden>${newsEsc(it.zh)}</div>
+        <div class="nw-meta">${badge}<span class="nw-src">${newsEsc(it.src)}</span>${date}${link}</div>
+        <div class="nw-zh">${newsEsc(it.zh)}</div>
       </div>`;
     }).join('');
     return `<div class="nw-card">
@@ -1336,7 +1334,7 @@ function renderNews(g, forceMode) {
     const corpus = all.filter(x => x.src && x.src.indexOf('News Commentary') >= 0).length;
     const dict  = all.filter(x => x.type === 'dict').length;
     newsSummary = `新闻语境例句 ${all.length} 条`;
-    newsIntro.textContent = `本组 ${g.words.length} 词 · 真实新闻语料 ${corpus} 条 · 报刊原句 ${paper} 条 · 编写/词典例句 ${dict} 条。新闻语料来自 News Commentary 英中平行语料（真实新闻语域，整句英中对照）；带出处链接的例句可点「查看出处」核对。译文点每条下方「中文译文」展开。`;
+    newsIntro.textContent = `本组 ${g.words.length} 词 · 真实新闻语料 ${corpus} 条 · 报刊原句 ${paper} 条 · 编写/词典例句 ${dict} 条。新闻语料来自 News Commentary 英中平行语料（真实新闻语域，整句英中对照）；带出处链接的例句可点「查看出处」核对。中文译文直接显示在英文句子下方。`;
     newsList.innerHTML = newsHTML(g);
   }
   newsSection.hidden = false;
@@ -1344,7 +1342,7 @@ function renderNews(g, forceMode) {
   if (!forceMode) setNewsExpanded(false);
 }
 
-// 独立事件委托：展开收起 + 难度切换 + 中文译文折叠，不进全局 click 委托
+// 独立事件委托：展开收起 + 难度切换，不进全局 click 委托（译文已默认显示）
 newsSection.addEventListener('click', e => {
   const tg = e.target.closest('[data-nact="toggle"]');
   if (tg) { setNewsExpanded(!newsExpanded); return; }
@@ -1354,13 +1352,6 @@ newsSection.addEventListener('click', e => {
     if (mode !== newsMode && newsCurrentGroup) renderNews(newsCurrentGroup, mode);
     return;
   }
-  const t = e.target.closest('[data-nact="zh"]');
-  if (!t) return;
-  const item = t.closest('.nw-item');
-  const zh = item && item.querySelector('.nw-zh');
-  if (!zh) return;
-  zh.hidden = !zh.hidden;
-  t.textContent = zh.hidden ? '中文译文 ▾' : '中文译文 ▴';
 });
 
 // 键盘可达：标题聚焦后按 Enter / 空格同样可展开
