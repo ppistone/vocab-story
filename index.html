@@ -685,7 +685,7 @@
   <aside class="sidebar">
     <h1>英语词汇记忆</h1>
     <p class="sub">每 10 词一组 · 点击查看词表与发音</p>
-    <div style="font-size:11px;color:#8b93a1;margin:-2px 0 10px;letter-spacing:.3px;">译文已默认显示 · v2026-11-27b</div>
+    <div style="font-size:11px;color:#8b93a1;margin:-2px 0 10px;letter-spacing:.3px;">译文已默认显示 · v2026-11-27c</div>
     <div class="progress-card">
       <div class="pc-head">
         <span class="pc-title"><span class="pc-emoji">📖</span>学习进度</span>
@@ -1261,12 +1261,10 @@ function newsEasyHTML(g) {
     const d = (g.defs && g.defs[w]) || {};
     return `<div class="nw-card">
       <div class="nw-head"><span class="nw-word">${newsEsc(w)}</span><span class="nw-pos">${newsEsc(d.pos || '')} ${newsEsc(d.zh || '')}</span></div>
-      <div class="nw-item">
-        <div class="nw-en">${newsMark(it.en, w)}</div>
-        <div class="nw-meta"><span class="nw-badge easy">分级例句</span>
-          <span class="nw-src">高中水平 · 编写例句，非报刊原句</span></div>
-        <div class="nw-zh">${newsEsc(it.zh)}</div>
-      </div>
+        <div class="nw-item">
+          <div class="nw-en">${newsMark(it.en, w)}</div>
+          <div class="nw-zh">${newsEsc(it.zh)}</div>
+        </div>
     </div>`;
   }).join('');
 }
